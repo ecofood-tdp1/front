@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import Image from 'next/image'
 import img from '../public/food2.jpg'
+import React from 'react';
 
 
 export default function Header({ scrollHandler }) {

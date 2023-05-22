@@ -1,9 +1,10 @@
 import { useRef } from 'react'
 import Header from '../components/Header'
 import ProductCard from '../components/ProductCard'
+import React from 'react'
 
-export default function Gallery({ data }) {
-  let shopsRef = useRef<HTMLParagraphElement>()
+export default function Gallery() {
+  let shopsRef = useRef<HTMLParagraphElement | null>(null);
 
   const scrollHandler = () => {
     // @ts-ignore

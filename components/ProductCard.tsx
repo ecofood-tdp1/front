@@ -1,7 +1,8 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { useState } from 'react'
-import img from '../public/food.jpg'
+import img from '../public/negocio.jpg'
+import React from 'react'
 
 function cn(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -11,7 +12,7 @@ export default function ProductCard() {
   const [isLoading, setLoading] = useState(true)
 
   return (
-    <Link href={`/products/1`} className="group">
+    <NextLink href="/products/1" className="group">
       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
         <Image
           alt="product image"
@@ -33,6 +34,6 @@ export default function ProductCard() {
       <p className="mt-1 text-sm italic text-gray-500">
         descripcion
       </p>
-    </Link>
+    </NextLink>
   )
 }
