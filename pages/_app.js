@@ -5,7 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import '../styles/globals.css';
 
 export default function MyApp({ Component, pageProps }) {
-    const [userMode, setUserMode] = useState('Owner');
+    const [userMode, setUserMode] = useState('Buyer');
 
     const handleModeChange = (mode) => {
         setUserMode(mode);
@@ -18,7 +18,7 @@ export default function MyApp({ Component, pageProps }) {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const storedMode = localStorage.getItem('userMode');
-            setUserMode(storedMode ? storedMode : 'Owner');
+            setUserMode(storedMode ? storedMode : 'Buyer');
         }
     }, []);
 
