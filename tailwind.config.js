@@ -11,7 +11,11 @@ module.exports = {
   theme: {
     extend: {},
   },
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio')
   ],
 };
