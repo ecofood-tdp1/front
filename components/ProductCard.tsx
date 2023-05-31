@@ -12,9 +12,11 @@ interface ProductCardProps {
   name: string,
   address: string,
   description: string,
+  openTime: number,
+  closeTime: number,
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({name, address, description}) => {
+export const ProductCard: React.FC<ProductCardProps> = ({name, address, description, openTime, closeTime}) => {
   const [isLoading, setLoading] = useState(true)
 
   return (
@@ -33,9 +35,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({name, address, descript
           onLoadingComplete={() => setLoading(false)}
         />
       </div>
-      <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-        <h3>{name}</h3>
-        <p>{address} y horarios</p>
+      <div className="mt-4 flex items-center justify-between text-base font-bold text-gray-900">
+        <div>
+          <h3>{name}</h3>
+        </div>
+        <div className="text-base font-medium text-gray-900">
+          <p>{address}</p>
+          <p> De {openTime}hs A {closeTime}hs </p>
+        </div>
       </div>
       <p className="mt-1 text-sm italic text-gray-500">
         {description}

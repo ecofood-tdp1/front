@@ -37,7 +37,13 @@ export default function Gallery() {
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {
             shops.map(shop => 
-              <ProductCard name={shop.name} address={shop.address} description={shop.description}/>
+              <ProductCard 
+                name={shop.name} 
+                address={shop.address} 
+                description={shop.description}
+                openTime={shop.pick_up_from}
+                closeTime={shop.pick_up_to}
+              />
             )
           }
         </div>
