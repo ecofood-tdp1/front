@@ -8,7 +8,13 @@ function cn(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductCard() {
+interface ProductCardProps {
+  name: string,
+  address: string,
+  description: string,
+}
+
+export const ProductCard: React.FC<ProductCardProps> = ({name, address, description}) => {
   const [isLoading, setLoading] = useState(true)
 
   return (
@@ -28,11 +34,11 @@ export default function ProductCard() {
         />
       </div>
       <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-        <h3>Nombre negocio</h3>
-        <p>Direccion y horarios</p>
+        <h3>{name}</h3>
+        <p>{address} y horarios</p>
       </div>
       <p className="mt-1 text-sm italic text-gray-500">
-        descripcion
+        {description}
       </p>
     </NextLink>
   )

@@ -1,18 +1,23 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Header from '../components/Header'
-import ProductCard from '../components/ProductCard'
+import { ProductCard } from '../components/ProductCard'
 import React from 'react'
+import { GetShops } from '../repository/ShopRepository';
 
 export default function Gallery() {
   let shopsRef = useRef<HTMLParagraphElement | null>(null);
+  const [shops, setShops] = useState<Shop[]>([])
 
-  const scrollHandler = () => {
+  const scrollHandler = async () => {
     // @ts-ignore
     shopsRef.current.scrollIntoView({
       behavior: "smooth",
       block: "start",
       inline: "start"
     });
+
+    const shopResults = await GetShops()
+    setShops(shopResults)
   }
 
   return (
@@ -30,12 +35,11 @@ export default function Gallery() {
           </div>
         </div>
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {
+            shops.map(shop => 
+              <ProductCard name={shop.name} address={shop.address} description={shop.description}/>
+            )
+          }
         </div>
       </div>
     </>
