@@ -14,11 +14,8 @@ import {
     List,
     ListItem,
     ListIcon,
-    OrderedList,
-    UnorderedList,
 } from '@chakra-ui/react'
 import { Rating } from './Rating'
-import { FavouriteButton } from './FavoutireButton'
 import { PriceTag } from './PriceTag'
 import seedrandom from 'seedrandom';
 import { MdCheckCircle } from 'react-icons/md';

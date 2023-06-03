@@ -7,9 +7,11 @@ import {
     Text,
     useBreakpointValue,
     Icon,
-    Box
+    Box,
+    Badge,
 } from '@chakra-ui/react';
 import { MdOutlineLocationOn, MdPhone, MdOutlineAccessTime } from 'react-icons/md';
+import ShopTypeBadge from './ShopTypeBadge';
 
 interface ShopProp {
     shop: Shop
@@ -36,6 +38,7 @@ const ShopHero: React.FC<ShopProp> = ({ shop }) => {
                             {shop.name}
                         </Text>
                     </Heading>
+                    <ShopTypeBadge shopType={shop.type}/>
                     <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
                         {shop.description}
                     </Text>
