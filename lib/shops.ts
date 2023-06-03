@@ -3,6 +3,7 @@ import axios from "axios"
 
 const allShopsURL = "http://localhost:2000/shops"
 const getShopURL = (id) => `http://localhost:2000/shops/${id}`
+const getShopPacksURL = (id) => `http://localhost:2000/packs?shop_id=${id}`
 
 export async function getAllShopIDs() {
     let shops = []
@@ -41,14 +42,15 @@ export async function getAllShopIDs() {
     return toreturn
 }
 
-// TODO: que tambien busque los productos de este local, y agregárselos al JSON
 export async function getShopData(id) {
     try {
-        const response = await axios.get(getShopURL(id));
+        const responseShop = await axios.get(getShopURL(id));
 
-        return response.data
+        const responsePacks = await axios.get(getShopPacksURL(id));
+
+        return Object.assign({}, responseShop.data, { packs: responsePacks.data })
     } catch (error) {
-        console.error('Error fetching offers data:', error);
+        console.error('Error fetching shop data:', error);
         return
     }
 }
