@@ -44,7 +44,7 @@ export const PackCard = (props: Props) => {
     const { pack, rootProps } = props
     return (
 
-        <Stack spacing={{ base: '4', md: '5' }} {...rootProps}>
+        <Stack spacing={{ base: '2', md: '3' }} {...rootProps}>
             <Box position="relative">
                 <AspectRatio ratio={4 / 3}>
                     <Image
@@ -94,6 +94,9 @@ export const PackCard = (props: Props) => {
                     )
                     )}
                 </List>
+            </Text>
+            <Text fontSize="sm" fontWeight="medium" color={useColorModeValue('gray.600', 'gray.400')}>
+                Cantidad disponible: {pack.stock}
             </Text>
             <Text fontWeight="medium" color={useColorModeValue('gray.400', 'gray.400')}>
                 Para consumir antes del {pack.best_before}

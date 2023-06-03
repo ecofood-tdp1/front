@@ -13,11 +13,11 @@ interface PriceTagProps {
 export type FormatPriceOptions = { locale?: string; currency?: string }
 
 export function formatPrice(value: number, opts: { locale?: string; currency?: string } = {}) {
-  const { locale = 'en-US', currency = 'USD' } = opts
+  const { locale = 'en-AR', currency = 'ARS' } = opts
   const formatter = new Intl.NumberFormat(locale, {
     currency,
     style: 'currency',
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 0,
   })
   return formatter.format(value)
 }
@@ -53,6 +53,7 @@ const Price = (props: PriceProps) => {
       fontWeight="medium"
       color={color}
       textDecoration={isOnSale ? 'line-through' : 'none'}
+      fontSize="20px" // Adjust the font size here
       {...textProps}
     >
       {children}
@@ -61,5 +62,5 @@ const Price = (props: PriceProps) => {
 }
 
 const SalePrice = (props: TextProps) => (
-  <Text as="span" fontWeight="semibold" color={mode('gray.800', 'gray.100')} {...props} />
+  <Text as="span" fontWeight="semibold" color={mode('gray.800', 'gray.100') } fontSize="25px" {...props} />
 )
