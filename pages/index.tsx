@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Header from '../components/Header'
-import { ProductCard } from '../components/ProductCard'
+import { ShopCard } from '../components/ShopCard'
 import React from 'react'
 import { GetShops } from '../repository/ShopRepository';
 import { Flex, Select, Text, Textarea } from '@chakra-ui/react';
@@ -36,20 +36,20 @@ export default function Gallery() {
   }
 
   const handleSearch = (event) => {
-    const {name, value} = event.target
-    setSearchData(prev => ({...prev, [name]: value}))
+    const { name, value } = event.target
+    setSearchData(prev => ({ ...prev, [name]: value }))
     let result = shops
 
     console.log(value)
 
     if (name === "address") { // se acaba de actualizar este filtro -> usar filtro nuevo
       result = result.filter(s => s.address.toLowerCase().includes(value.toLowerCase()))
-    } 
+    }
 
     if (name === "type" && value !== "Any") {
-        result = result.filter(p => p.type.toLowerCase().includes(value.toLowerCase()))
+      result = result.filter(p => p.type.toLowerCase().includes(value.toLowerCase()))
     } else if (searchData.type && searchData.type !== "Any" && value !== "Any") {
-        result = result.filter(p => p.type.toLowerCase().includes(searchData.type.toLowerCase()))
+      result = result.filter(p => p.type.toLowerCase().includes(searchData.type.toLowerCase()))
     }
 
 
@@ -61,7 +61,7 @@ export default function Gallery() {
     setShops(allNewShop)
     setFilteredShops(allNewShop);
     setSearchData(defaultShopData);
-}
+  }
 
   useEffect(() => {
     refreshShops();
@@ -85,39 +85,41 @@ export default function Gallery() {
           </div>
         </div>
         <Flex mb="32px">
-         <Flex direction="column" mr="16px">
-           <Text mb="10px">Barrio:</Text>
-           <Textarea
-             value={searchData.address}
-             name="address"
-             onChange={handleSearch}
-             placeholder="Ingresa un barrio"
-             size="sm"
-             resize="none"
-           />
-         </Flex>
-         <Flex direction="column" ml="32px"> {/* Added ml (margin-left) */}
-           <Text mb="8px">Elegir por categoria:</Text>
-           <Select mb="8px" placeholder="Elegir una opción" name="type" onChange={handleSearch} >
-             <option value="restaurant" onChange={handleSearch}>🍴 Restaurant</option>
-             <option value="supermarket" onChange={handleSearch}>🛒 Supermercados</option>
-             <option value="coffee" onChange={handleSearch}>☕ Cafés</option>
-             <option value="grocery" onChange={handleSearch}>🥫 Tienda de comestibles</option>
-             <option value="delicatessen" onChange={handleSearch}>🍲 Delicatessen</option>
-             <option value="bakery" onChange={handleSearch}>🥐 Panaderías</option>
-             <option value="others" onChange={handleSearch}>Otros</option>
-           </Select>
-         </Flex>
-       </Flex>
+          <Flex direction="column" mr="16px">
+            <Text mb="10px">Barrio:</Text>
+            <Textarea
+              value={searchData.address}
+              name="address"
+              onChange={handleSearch}
+              placeholder="Ingresa un barrio"
+              size="sm"
+              resize="none"
+            />
+          </Flex>
+          <Flex direction="column" ml="32px"> {/* Added ml (margin-left) */}
+            <Text mb="8px">Elegir por categoria:</Text>
+            <Select mb="8px" placeholder="Elegir una opción" name="type" onChange={handleSearch} >
+              <option value="restaurant" onChange={handleSearch}>🍴 Restaurant</option>
+              <option value="supermarket" onChange={handleSearch}>🛒 Supermercados</option>
+              <option value="coffee" onChange={handleSearch}>☕ Cafés</option>
+              <option value="grocery" onChange={handleSearch}>🥫 Tienda de comestibles</option>
+              <option value="delicatessen" onChange={handleSearch}>🍲 Delicatessen</option>
+              <option value="bakery" onChange={handleSearch}>🥐 Panaderías</option>
+              <option value="others" onChange={handleSearch}>Otros</option>
+            </Select>
+          </Flex>
+        </Flex>
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {
-            filteredShops.map(shop => 
-              <ProductCard 
-                name={shop.name} 
-                address={shop.address} 
+            filteredShops.map(shop =>
+              <ShopCard
+                _id={shop._id}
+                name={shop.name}
+                address={shop.address}
                 description={shop.description}
                 openTime={shop.pick_up_from}
                 closeTime={shop.pick_up_to}
+                imageURL={shop.imageURL}
               />
             )
           }
@@ -126,13 +128,3 @@ export default function Gallery() {
     </>
   )
 }
-
-// export async function getStaticProps() {
-//   const searchResults = await getProducts('coffee')
-
-//   return {
-//     props: {
-//       data: searchResults,
-//     },
-//   }
-// }
