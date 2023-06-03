@@ -6,5 +6,6 @@ type Shop = {
     readonly pick_up_to: number,
     readonly description: string,
     readonly phone: string,
-    readonly address: string
+    readonly address: string,
+    readonly imageURL: string
 }

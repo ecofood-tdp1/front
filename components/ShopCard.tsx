@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import NextLink from 'next/link'
 import { useState } from 'react'
-import img from '../public/negocio.jpg'
 import React from 'react'
 
 function cn(...classes) {
@@ -15,9 +14,10 @@ interface ShopCardProps {
   description: string,
   openTime: number,
   closeTime: number,
+  imageURL: string,
 }
 
-export const ShopCard: React.FC<ShopCardProps> = ({ _id, name, address, description, openTime, closeTime }) => {
+export const ShopCard: React.FC<ShopCardProps> = ({ _id, name, address, description, openTime, closeTime, imageURL }) => {
   const [isLoading, setLoading] = useState(true)
 
   return (
@@ -25,7 +25,7 @@ export const ShopCard: React.FC<ShopCardProps> = ({ _id, name, address, descript
       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
         <Image
           alt="Shop image"
-          src={img}
+          src={imageURL}
           fill
           className={cn(
             'object-cover duration-700 ease-in-out group-hover:opacity-75	',

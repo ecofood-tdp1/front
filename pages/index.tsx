@@ -119,6 +119,7 @@ export default function Gallery() {
                 description={shop.description}
                 openTime={shop.pick_up_from}
                 closeTime={shop.pick_up_to}
+                imageURL={shop.imageURL}
               />
             )
           }

@@ -38,7 +38,7 @@ const ShopHero: React.FC<ShopProp> = ({ shop }) => {
                             {shop.name}
                         </Text>
                     </Heading>
-                    <ShopTypeBadge shopType={shop.type}/>
+                    <ShopTypeBadge shopType={shop.type} />
                     <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
                         {shop.description}
                     </Text>
@@ -65,11 +65,11 @@ const ShopHero: React.FC<ShopProp> = ({ shop }) => {
             </Flex>
             <Flex flex={1}>
                 <Image
-                    alt={'Login Image'}
+                    alt={'Shop Image'}
                     objectFit={'cover'}
-                    src={
-                        'https://media-cdn.tripadvisor.com/media/photo-s/12/0d/5f/80/entrada-de-la-continental.jpg'
-                    }
+                    src={shop.imageURL}
+                    maxWidth="500px"  // Set the maximum width of the image to 100% of its container
+                    maxHeight="500px"
                 />
             </Flex>
         </Stack>
