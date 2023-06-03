@@ -103,7 +103,7 @@ export const PackCard = (props: Props) => {
             </Text>
             <Stack align="center">
                 <Button colorScheme="blue" width="full">
-                    Add to cart
+                    Agregar al carrito
                 </Button>
             </Stack>
         </Stack >

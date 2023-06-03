@@ -48,7 +48,7 @@ export async function getShopData(id) {
 
         const responsePacks = await axios.get(getShopPacksURL(id));
 
-        return Object.assign({}, responseShop.data, { packs: responsePacks.data })
+        return Object.assign({}, { shop: responseShop.data }, { packs: responsePacks.data })
     } catch (error) {
         console.error('Error fetching shop data:', error);
         return
