@@ -57,28 +57,30 @@ const MyOrdersList = () => {
                 </Thead>
                 <Tbody>
                     {
-                        orders.map((order: OrderWithShop) => {
-                            return (
-                                <Tr>
-                                    <Td>
-                                        <Flex align='center'>
+                        orders
+                            .sort((a: OrderWithShop, b: OrderWithShop) => new Date(b.order.created_at).getTime() - new Date(a.order.created_at).getTime())
+                            .map((order: OrderWithShop) => {
+                                return (
+                                    <Tr>
+                                        <Td>
+                                            <Flex align='center'>
 
-                                            <span>{order.shop.name}</span>
-                                        </Flex>
-                                    </Td>
-                                    <Td>{new Date(order.order.created_at).toLocaleDateString()}</Td>
-                                    <Td>{order.shop.pick_up_from} a {order.shop.pick_up_to} hrs</Td>
-                                    <Td>{order.shop.address} - {order.shop.neighborhood}</Td>
-                                    <Td>
-                                        <OrderStatusBadge orderStatus={order.order.status} />
-                                    </Td>
-                                    <Td isNumeric>
-                                        <MyOrdersListActions orderid={order.order._id} />
-                                    </Td>
-                                </Tr>
+                                                <span>{order.shop.name}</span>
+                                            </Flex>
+                                        </Td>
+                                        <Td>{new Date(order.order.created_at).toLocaleDateString()}</Td>
+                                        <Td>{order.shop.pick_up_from} a {order.shop.pick_up_to} hrs</Td>
+                                        <Td>{order.shop.address} - {order.shop.neighborhood}</Td>
+                                        <Td>
+                                            <OrderStatusBadge orderStatus={order.order.status} />
+                                        </Td>
+                                        <Td isNumeric>
+                                            <MyOrdersListActions order={order.order} />
+                                        </Td>
+                                    </Tr>
 
-                            );
-                        })
+                                );
+                            })
                     }
                 </Tbody>
             </Table>

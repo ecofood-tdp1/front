@@ -1,22 +1,24 @@
 import {
     Box,
-    IconButton
+    Button,
 } from '@chakra-ui/react'
-import { ViewIcon, DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { ViewIcon, CheckCircleIcon } from "@chakra-ui/icons";
 import Link from 'next/link';
 
-const MyOrdersListActions = ({ orderid }) => {
-    console.log(orderid)
+const MyOrdersListActions = ({ order }) => {
     return (
         <Box>
-            <Link href={"/orders/" + orderid} passHref>
-                <IconButton icon={<DeleteIcon />} ml={2} aria-label={''} />
-            </Link>
-            <Link href={"/orders/" + orderid} passHref>
-                <IconButton icon={<EditIcon />} ml={2} aria-label={''} />
-            </Link>
-            <Link href={"/orders/" + orderid} passHref>
-                <IconButton icon={<ViewIcon />} ml={2} aria-label={''} />
+            {order.status == "paid" ?
+                <Link href={"/orders/" + order._id} passHref>
+                    <Button leftIcon={<CheckCircleIcon />} colorScheme='green' variant='solid' mr={4}>
+                        Marcar como retirado
+                    </Button>
+                </Link>
+                : ""}
+            <Link href={"/orders/" + order._id} passHref>
+                <Button leftIcon={<ViewIcon />} colorScheme='blue' variant='solid'>
+                    Ver detalle
+                </Button>
             </Link>
         </Box>
     );
