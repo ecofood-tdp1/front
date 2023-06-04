@@ -4,7 +4,7 @@ import { CartProductMeta } from './CartProductMeta'
 
 type CartItemProps = {
   pack: Pack
-  onClickDelete?: () => void
+  onClickDelete: (pack: Pack) => void
 }
 
 export const CartItem = (props: CartItemProps) => {
@@ -26,7 +26,7 @@ export const CartItem = (props: CartItemProps) => {
         <Box  />
         <Box  />
         <PriceTag price={pack.price.amount} currency={"USD"} />
-        <CloseButton aria-label={`Delete ${pack.name} from cart`} onClick={onClickDelete} />
+        <CloseButton aria-label={`Delete ${pack.name} from cart`} onClick={() => onClickDelete(pack)} />
       </Flex>
 
       {/* Mobile */}

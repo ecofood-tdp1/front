@@ -10,6 +10,7 @@ import {
 import { useState } from 'react'
 import { CartItem } from './CartItem'
 import { CartOrderSummary } from './CartOrderSummary'
+import { GetPacksFromShoppingCart, RemovePackFromShoppingCart } from '../../repository/UserRepository'
 
 interface Props {
   packs: Pack[]
@@ -17,6 +18,11 @@ interface Props {
 
 export const ShopCart = (props: Props) => {
   const [packs, setPacks] = useState<Pack[]>(props.packs)
+
+  async function onClickDeleteCartItem(pack : Pack) {
+    await RemovePackFromShoppingCart(pack._id)
+    setPacks(await GetPacksFromShoppingCart())
+  }
 
 
   return <Box
@@ -37,7 +43,7 @@ export const ShopCart = (props: Props) => {
 
         <Stack spacing="6">
           {packs.map((pack) => (
-            <CartItem pack={pack} />
+            <CartItem pack={pack} onClickDelete={onClickDeleteCartItem} />
           ))}
         </Stack>
       </Stack>
@@ -46,7 +52,7 @@ export const ShopCart = (props: Props) => {
         <CartOrderSummary total={packs.map(p => p.price.amount).reduce((x, y) => x + y)} />
         <HStack mt="6" fontWeight="semibold">
           <p>o</p>
-          <Link color={mode('blue.500', 'blue.200')}>Seguir buscando</Link>
+          <Link color={mode('blue.500', 'blue.200')} href={"/"} >Seguir buscando</Link>
         </HStack>
       </Flex>
     </Stack>
