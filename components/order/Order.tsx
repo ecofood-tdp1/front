@@ -1,11 +1,13 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Divider } from '@chakra-ui/react'
 import { OrderedPackCard } from './OrderedPackCard'
 import { PackGrid } from '../shop/PackGrid'
+import OrderHero from './OrderHero'
 
 export const Order = ({ orderData }) => {
     return (
         <>
-            {/* <ShopHero shop={shopData.shop} /> */}
+            <OrderHero order={orderData} />
+            <Divider mt={7} />
             <Box
                 maxW="7xl"
                 mx="auto"

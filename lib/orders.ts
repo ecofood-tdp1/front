@@ -26,3 +26,20 @@ export async function getAllOrderIDs() {
 
     return toreturn
 }
+
+export function getSavedMoney(order: Order) {
+    let amountSaved = 0;
+    order.packs.forEach((pack: Pack) => {
+        amountSaved += pack.original_price.amount - pack.price.amount
+    })
+    return amountSaved
+}
+
+export function getEarliestExpiryDate(order: Order) {
+    return order.packs.reduce((minDatePack: Pack | null, pack: Pack) => {
+      if (!minDatePack || pack.best_before < minDatePack.best_before) {
+        return pack;
+      }
+      return minDatePack;
+    }, null)?.best_before;
+  }
