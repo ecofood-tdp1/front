@@ -44,7 +44,7 @@ const ShopHero: React.FC<ShopProp> = ({ shop }) => {
                     </Text>
                     <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
                         <Icon mr={3} as={MdOutlineLocationOn} color='green.500' boxSize={8} />
-                        {shop.address}
+                        {shop.address} - {shop.neighborhood}
                     </Text>
                     <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
                         <Icon mr={3} as={MdPhone} color='blue.500' boxSize={8} />

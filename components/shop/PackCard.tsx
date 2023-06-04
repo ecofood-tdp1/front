@@ -15,31 +15,16 @@ import {
     ListItem,
     ListIcon,
 } from '@chakra-ui/react'
-import { Rating } from './Rating'
+import { Rating } from '../Rating'
 import { PriceTag } from './PriceTag'
-import seedrandom from 'seedrandom';
+import { getReviewCountFor, getReviewStarsFor } from '../../lib/helpers';
 import { MdCheckCircle } from 'react-icons/md';
 import { useState } from 'react'
 import { AddPackToShoppingCart } from '../../repository/UserRepository';
 
-
 interface Props {
     pack: Pack
     rootProps?: StackProps
-}
-
-const getReviewStarsFor = (packID: string) => {
-    const seed = packID;
-    const rng = new seedrandom(seed);
-    const randomNum = rng() * (5.3 - 3.4) + 3.4;
-    return Math.round(randomNum)
-}
-
-const getReviewCountFor = (packID: string) => {
-    const seed = packID;
-    const rng = new seedrandom(seed);
-    const randomNum = rng() * (20 - 2) + 2;
-    return Math.round(randomNum)
 }
 
 export const PackCard = (props: Props) => {
@@ -51,9 +36,6 @@ export const PackCard = (props: Props) => {
         await AddPackToShoppingCart(packId)
         setLoading(false)
     }
-
-    
-    
 
     return (
 
