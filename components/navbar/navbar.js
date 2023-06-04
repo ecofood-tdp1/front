@@ -6,7 +6,8 @@ import Image from 'next/image'
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
-  { name: 'Mis Pedidos', href: '/pedidos', current: false },
+  { name: 'Mis Pedidos', href: '/orders', current: false },
+  { name: 'Carrito', href: '/shopcart', current: false },
 ]
 
 function classNames(...classes) {

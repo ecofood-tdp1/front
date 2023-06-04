@@ -19,6 +19,8 @@ import { Rating } from './Rating'
 import { PriceTag } from './PriceTag'
 import seedrandom from 'seedrandom';
 import { MdCheckCircle } from 'react-icons/md';
+import { useState } from 'react'
+import { AddPackToShoppingCart } from '../../repository/UserRepository';
 
 
 interface Props {
@@ -42,6 +44,14 @@ const getReviewCountFor = (packName: string) => {
 
 export const PackCard = (props: Props) => {
     const { pack, rootProps } = props
+    const [isLoading, setLoading] = useState(false)
+
+    async function AddToCart(packId: string) {
+        setLoading(true)
+        await AddPackToShoppingCart(packId)
+        setLoading(false)
+    }
+
     return (
 
         <Stack spacing={{ base: '2', md: '3' }} {...rootProps}>
@@ -102,7 +112,10 @@ export const PackCard = (props: Props) => {
                 Para consumir antes del {pack.best_before}
             </Text>
             <Stack align="center">
-                <Button colorScheme="blue" width="full">
+                <Button onClick={() => AddToCart(pack._id)} 
+                    isLoading={isLoading}
+                    colorScheme="blue" 
+                    width="full">
                     Agregar al carrito
                 </Button>
             </Stack>
