@@ -13,26 +13,32 @@ import {
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import MyOrdersListActions from '../../components/MyOrdersListActions';
+import { GetOrdersOfUser } from '../../repository/OrderRepository';
+import { GetShop } from '../../repository/ShopRepository';
 
 const MyOrdersList = () => {
-    const userOrdersURL = "http://localhost:2000/orders?user_id=4016cb54-ff0e-46a6-ace5-69304d9720c7" // TODO: user hardcodeado
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        fetchOwnersOffers();
+        fetchMyOrders();
     }, []);
 
-    const fetchOwnersOffers = async () => {
+    const fetchMyOrders = async () => {
         try {
-            const response = await axios.get(userOrdersURL);
-
-            console.log(response.data)
-            setOrders(response.data);
+            const orders = await GetOrdersOfUser("4016cb54-ff0e-46a6-ace5-69304d9720c7"); // TODO: user hardcoded
+    
+            const ordersWithShops = await Promise.all(
+                orders.map(async (vanilla_order) => {
+                    const shop_from_order = await GetShop(vanilla_order.shop_id);
+                    return { order: vanilla_order, shop: shop_from_order };
+                })
+            );
+    
+            setOrders(ordersWithShops);
         } catch (error) {
             console.error('Error fetching orders:', error);
         }
     };
-
 
     return (
         <TableContainer>
@@ -42,25 +48,29 @@ const MyOrdersList = () => {
                     <Tr>
                         <Th>Negocio</Th>
                         <Th>Fecha</Th>
+                        <Th>Horario de retiro</Th>
+                        <Th>Ubicación</Th>
                         <Th>Status</Th>
                         <Th isNumeric>Acciones</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
                     {
-                        orders.map((order: Order) => {
+                        orders.map((order: OrderWithShop) => {
                             return (
                                 <Tr>
                                     <Td>
                                         <Flex align='center'>
 
-                                            <span>{order.shop_id}</span>
+                                            <span>{order.shop.name}</span>
                                         </Flex>
                                     </Td>
-                                    <Td>{order.created_at}</Td>
-                                    <Td>{order.status}</Td>
+                                    <Td>{new Date(order.order.created_at).toLocaleDateString()}</Td>
+                                    <Td>{order.shop.pick_up_from} a {order.shop.pick_up_to} hrs</Td>
+                                    <Td>{order.shop.address} - {order.shop.neighborhood}</Td>
+                                    <Td>{order.order.status}</Td>
                                     <Td isNumeric>
-                                        <MyOrdersListActions orderid={order._id} />
+                                        <MyOrdersListActions orderid={order.order._id} />
                                     </Td>
                                 </Tr>
 

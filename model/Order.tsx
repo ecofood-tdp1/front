@@ -13,3 +13,8 @@ type Order = {
     readonly packs_ids: string[];
     readonly created_at: string | Date;
 }
+
+type OrderWithShop = {
+    readonly order: Order;
+    readonly shop: Shop;
+}
