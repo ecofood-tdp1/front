@@ -11,11 +11,10 @@ import {
     Flex,
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import MyOrdersListActions from '../../components/MyOrdersListActions';
+import MyOrdersListActions from '../../components/order/MyOrdersListActions';
 import { GetOrdersOfUser } from '../../repository/OrderRepository';
 import { GetShop } from '../../repository/ShopRepository';
-import OrderStatusBadge from '../../components/OrderStatusBadge';
+import OrderStatusBadge from '../../components/order/OrderStatusBadge';
 
 const MyOrdersList = () => {
     const [orders, setOrders] = useState([]);
@@ -42,7 +41,7 @@ const MyOrdersList = () => {
     };
 
     return (
-        <TableContainer mt={5}>
+        <TableContainer mt={5} fontSize={"17px"}>
             <Table variant='simple' colorScheme={"blackAlpha"}>
                 <TableCaption>Mis pedidos</TableCaption>
                 <Thead>
@@ -61,7 +60,7 @@ const MyOrdersList = () => {
                             .sort((a: OrderWithShop, b: OrderWithShop) => new Date(b.order.created_at).getTime() - new Date(a.order.created_at).getTime())
                             .map((order: OrderWithShop) => {
                                 return (
-                                    <Tr>
+                                    <Tr key={order.order._id}>
                                         <Td>
                                             <Flex align='center'>
 

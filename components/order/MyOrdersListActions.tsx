@@ -9,7 +9,7 @@ const MyOrdersListActions = ({ order }) => {
     return (
         <Box>
             {order.status == "paid" ?
-                <Link href={"/orders/" + order._id} passHref>
+                <Link href={"#" + order._id} passHref>
                     <Button leftIcon={<CheckCircleIcon />} colorScheme='green' variant='solid' mr={4}>
                         Marcar como retirado
                     </Button>

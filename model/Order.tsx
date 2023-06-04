@@ -10,7 +10,7 @@ type Order = {
     readonly user_id: string;
     readonly shop_id: string;
     readonly transaction_id: string;
-    readonly packs_ids: string[];
+    readonly packs: Pack[];
     readonly created_at: string | Date;
 }
 
