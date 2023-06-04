@@ -28,15 +28,15 @@ interface Props {
     rootProps?: StackProps
 }
 
-const getReviewStarsFor = (packName: string) => {
-    const seed = packName;
+const getReviewStarsFor = (packID: string) => {
+    const seed = packID;
     const rng = new seedrandom(seed);
-    const randomNum = rng() * (5 - 3) + 3;
+    const randomNum = rng() * (5.3 - 3.4) + 3.4;
     return Math.round(randomNum)
 }
 
-const getReviewCountFor = (packName: string) => {
-    const seed = packName;
+const getReviewCountFor = (packID: string) => {
+    const seed = packID;
     const rng = new seedrandom(seed);
     const randomNum = rng() * (20 - 2) + 2;
     return Math.round(randomNum)
@@ -52,13 +52,16 @@ export const PackCard = (props: Props) => {
         setLoading(false)
     }
 
+    
+    
+
     return (
 
         <Stack spacing={{ base: '2', md: '3' }} {...rootProps}>
             <Box position="relative">
                 <AspectRatio ratio={4 / 3}>
                     <Image
-                        src={"https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Veg_Chow_mein.jpg/640px-Veg_Chow_mein.jpg"}
+                        src={pack.imageURL}
                         alt={"image"}
                         draggable="false"
                         fallback={<Skeleton />}
@@ -80,9 +83,9 @@ export const PackCard = (props: Props) => {
                     <PriceTag price={pack.original_price.amount} salePrice={pack.price.amount} currency="ARS" />
                 </Stack>
                 <HStack>
-                    <Rating defaultValue={getReviewStarsFor(pack.name)} size="sm" />
+                    <Rating defaultValue={getReviewStarsFor(pack._id)} size="sm" />
                     <Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.400')}>
-                        {getReviewCountFor(pack.name)} Reviews
+                        {getReviewCountFor(pack._id)} Reviews
                     </Text>
                 </HStack>
             </Stack>
