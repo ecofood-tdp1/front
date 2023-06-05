@@ -115,7 +115,7 @@ export default function OrderHero(order: OrderProps) {
                             heading={getEarliestExpiryDate(orderWithShop.order).toString()}
                             icon={<Icon as={FcOvertime} w={10} h={10} />}
                             description={
-                                'Es la fecha del producto del pack que más pronto a vencerse. Asegurate de buscar el pedido antes de que esto ocurra!'
+                                'Es la fecha del producto del pack más pronto a vencerse. Asegurate de buscar el pedido antes de que esto ocurra!'
                             }
                             href={'#'}
                         />

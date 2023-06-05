@@ -99,7 +99,7 @@ export default function ShopOrderHero(order: OrderProps) {
                             heading={getEarliestExpiryDate(orderWithUser.order).toString()}
                             icon={<Icon as={FcOvertime} w={10} h={10} />}
                             description={
-                                'Es la fecha del producto del pack que más pronto a vencerse. Si el usuario no retira el pedido a tiempo, la orden se cancelará.'
+                                'Es la fecha del producto del pack más pronto a vencerse. Si el usuario no retira el pedido a tiempo, la orden se cancelará.'
                             }
                             href={'#'}
                         />
