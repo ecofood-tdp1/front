@@ -18,8 +18,8 @@ import {
     FcShop
 } from 'react-icons/fc';
 import { useState, useEffect } from 'react';
-import { GetShop } from '../../repository/ShopRepository';
-import { getEarliestExpiryDate, getSavedMoney } from '../../lib/orders';
+import { GetUser } from '../../repository/UserRepository';
+import { getEarliestExpiryDate, getEarnedMoney } from '../../lib/orders';
 
 interface CardProps {
     heading: string;
@@ -63,59 +63,43 @@ interface OrderProps {
     order: Order
 }
 
-export default function OrderHero(order: OrderProps) {
-    const [orderWithShop, setOrderWithShop] = useState<OrderWithShop>();
+export default function ShopOrderHero(order: OrderProps) {
+    const [orderWithUser, setOrderWithUser] = useState<OrderWithUser>();
 
     useEffect(() => {
         fetchOrderWithShop();
     }, []);
 
     const fetchOrderWithShop = async () => {
-        const shop_from_order = await GetShop(order.order.shop_id);
-        setOrderWithShop({ order: order.order, shop: shop_from_order });
+        const user_from_order = await GetUser(order.order.user_id);
+        setOrderWithUser({ order: order.order, user: user_from_order });
     };
 
 
     return (
-        orderWithShop ?
+        orderWithUser ?
             <Box p={4}>
                 <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
                     <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
-                        Mi pedido a {orderWithShop.shop.name} el {new Date(orderWithShop.order.created_at).toLocaleDateString()}
+                        Órden hecha por {orderWithUser.user.display_name} el {new Date(orderWithUser.order.created_at).toLocaleDateString()}
                     </Heading>
                 </Stack>
 
                 <Container maxW={'5xl'} mt={12}>
                     <Flex flexWrap="wrap" gridGap={6} justify="center">
                         <Card
-                            heading={"Ahorraste $" + getSavedMoney(order.order).toString()}
+                            heading={"Ganaste $" + getEarnedMoney(order.order).toString()}
                             icon={<Icon as={FcBullish} w={10} h={10} />}
                             description={
-                                'Seguí ahorrando, comiendo rico y salvando al planeta así!'
+                                'Seguí convirtiendo pérdidas en ganancias y contribuyendo a un mejor mundo!'
                             }
                             href={'#'}
                         />
                         <Card
-                            heading={orderWithShop.shop.pick_up_from + " a " + orderWithShop.shop.pick_up_to + " hrs."}
-                            icon={<Icon as={FcClock} w={10} h={10} />}
-                            description={
-                                'Es tu horario para retirar el producto en el local'
-                            }
-                            href={'#'}
-                        />
-                        <Card
-                            heading={orderWithShop.shop.address + ' - ' + orderWithShop.shop.neighborhood}
-                            icon={<Icon as={FcShop} w={10} h={10} />}
-                            description={
-                                'Es la ubicación del local donde debés retirar tu pedido'
-                            }
-                            href={'#'}
-                        />
-                        <Card
-                            heading={getEarliestExpiryDate(orderWithShop.order).toString()}
+                            heading={getEarliestExpiryDate(orderWithUser.order).toString()}
                             icon={<Icon as={FcOvertime} w={10} h={10} />}
                             description={
-                                'Es la fecha del producto del pack que más pronto a vencerse. Asegurate de buscar el pedido antes de que esto ocurra!'
+                                'Es la fecha del producto del pack que más pronto a vencerse. Si el usuario no retira el pedido a tiempo, la orden se cancelará.'
                             }
                             href={'#'}
                         />

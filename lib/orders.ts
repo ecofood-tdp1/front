@@ -27,6 +27,7 @@ export async function getAllOrderIDs() {
     return toreturn
 }
 
+// Para usuarios compradores
 export function getSavedMoney(order: Order) {
     let amountSaved = 0;
     order.packs.forEach((pack: Pack) => {
@@ -35,11 +36,20 @@ export function getSavedMoney(order: Order) {
     return amountSaved
 }
 
+// Para negocios
+export function getEarnedMoney(order: Order) {
+    let amountEarned = 0;
+    order.packs.forEach((pack: Pack) => {
+        amountEarned += pack.price.amount
+    })
+    return amountEarned
+}
+
 export function getEarliestExpiryDate(order: Order) {
     return order.packs.reduce((minDatePack: Pack | null, pack: Pack) => {
-      if (!minDatePack || pack.best_before < minDatePack.best_before) {
-        return pack;
-      }
-      return minDatePack;
+        if (!minDatePack || pack.best_before < minDatePack.best_before) {
+            return pack;
+        }
+        return minDatePack;
     }, null)?.best_before;
-  }
+}

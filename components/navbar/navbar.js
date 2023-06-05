@@ -16,9 +16,11 @@ export default function NavBar() {
   const router = useRouter();
 
   const navigation = [
-    { name: 'Home', href: '/', current: router.pathname == '/' },
-    { name: 'Mis Pedidos', href: '/orders/my', current: router.pathname == '/orders/my' },
-    { name: 'Carrito', href: '/shopcart', current: router.pathname == '/shopcart' },
+    { name: 'Home', href: '/', current: router.pathname == '/', visible_to: 'all' },
+    { name: 'Mis Pedidos', href: '/orders/my', current: router.pathname == '/orders/my', visible_to: 'buyer' },
+    { name: 'Carrito', href: '/shopcart', current: router.pathname == '/shopcart', visible_to: 'buyer' },
+    { name: 'Mi menú', href: '/packs/my', current: router.pathname == '/packs/myshop', visible_to: 'shop' },
+    { name: 'Mis órdenes', href: '/shoporders/my', current: router.pathname == '/shoporders/my', visible_to: 'shop' },
   ]
 
   return (
@@ -54,6 +56,7 @@ export default function NavBar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
+                      (user.type == item.visible_to || item.visible_to == "all") &&
                       <a
                         key={item.name}
                         href={item.href}

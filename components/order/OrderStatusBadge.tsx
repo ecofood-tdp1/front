@@ -16,7 +16,7 @@ const OrderStatusBadge = ({ orderStatus }) => {
             color = 'orange'
             break;
         case 'marked_as_delivered':
-            statusToShow = 'Marcado como entregado';
+            statusToShow = 'Marcado como retirado';
             color = 'yellow'
             break;
         case 'delivered':

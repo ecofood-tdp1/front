@@ -18,3 +18,8 @@ type OrderWithShop = {
     readonly order: Order;
     readonly shop: Shop;
 }
+
+type OrderWithUser = {
+    readonly order: Order;
+    readonly user: User;
+}
