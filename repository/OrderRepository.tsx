@@ -41,3 +41,22 @@ export async function GetOrder(id: string): Promise<Order> {
     const result = (await response.json()) as Order;
     return result
 }
+
+export async function UpdateOrderStatus(id: string, target_status: string): Promise<Order> {
+    const response = await fetch('http://localhost:2000/orders/' + id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            status: target_status
+        })
+    })
+
+    if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`);
+    }
+
+    const result = (await response.json()) as Order;
+    return result
+}

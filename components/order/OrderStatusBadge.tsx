@@ -16,11 +16,11 @@ const OrderStatusBadge = ({ orderStatus }) => {
             color = 'orange'
             break;
         case 'marked_as_delivered':
-            statusToShow = 'Marcado como retirado';
+            statusToShow = 'Marcado como entregado';
             color = 'yellow'
             break;
         case 'delivered':
-            statusToShow = 'Confirmado entregado';
+            statusToShow = 'Confirmado retirado';
             color = 'green'
             break;
     }
