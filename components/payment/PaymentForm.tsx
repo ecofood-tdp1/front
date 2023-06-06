@@ -9,10 +9,14 @@ import {
     Input,
     Link,
     useColorModeValue as mode,
+    InputRightElement,
+    InputGroup,
+    IconButton,
   } from '@chakra-ui/react';
   import { useState } from 'react';
 import { PaymentOrderSummary } from './PaymentOrderSummary';
-  
+import { HiEye, HiEyeOff } from 'react-icons/hi'
+
   interface Props {
     packs: Pack[]
   }
@@ -30,6 +34,10 @@ import { PaymentOrderSummary } from './PaymentOrderSummary';
       if (isNaN(+event.target.value)) {
         event.target.value = event.target.value.slice(0, event.target.value.length-1)
       }
+    }
+
+    const onClickReveal = () => {
+      setShowPassword(!showPassword)
     }
 
     return <Box
@@ -97,13 +105,23 @@ import { PaymentOrderSummary } from './PaymentOrderSummary';
                     <Box>
                         <FormControl id="cardHolder" isRequired>
                             <FormLabel>CVV/CVC</FormLabel>
-                            <Input type="text" 
-                                placeholder="XXX"
-                                htmlSize={4} width='auto'
-                                onInput={(e) => {
-                                  maxLengthCheck(e, 3)
-                                  allowOnlyNumber(e)}}
-                            />
+                              <InputGroup>
+                                <InputRightElement>
+                                  <IconButton
+                                    variant="link"
+                                    aria-label={showPassword ? 'Mask password' : 'Reveal password'}
+                                    icon={showPassword ? <HiEyeOff /> : <HiEye />}
+                                    onClick={onClickReveal}
+                                  />
+                                </InputRightElement>
+                              <Input type={showPassword ? 'text' : 'password'}
+                                  placeholder="XXX"
+                                  htmlSize={4} width='auto'
+                                  onInput={(e) => {
+                                    maxLengthCheck(e, 3)
+                                    allowOnlyNumber(e)}}
+                              />
+                              </InputGroup>
                         </FormControl>
                     </Box>
                 </HStack>
