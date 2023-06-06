@@ -26,9 +26,26 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
     const [processingPayment, setProcessingPayment] = useState(false);
     const [finished, setFinished] = useState(false);
     const [creditCard, setCreditCard] = useState("")
-    const [expirationDate, setExpirationDate] = useState("")
-    const [issuer, setIssuer] = useState("")
+    const [expirationMonth, setExpirationMonth] = useState("")
+    const [expirationYear, setExpirationYear] = useState("")
 
+    const inputCreditCard = (event) => {
+      maxLengthCheck(event, 16)
+      allowOnlyNumber(event)
+      setCreditCard(event.target.value)
+    }
+
+    const inputExpirationMonth = (event) => {
+      maxLengthCheck(event, 16)
+      allowOnlyNumber(event)
+      setExpirationMonth(event.target.value)
+    }
+
+    const inputExpirationYear = (event) => {
+      maxLengthCheck(event, 16)
+      allowOnlyNumber(event)
+      setCreditCard(event.target.value)
+    }
   
     const maxLengthCheck = (event, maxLength) => {
       if (event.target.value.length > maxLength) {
@@ -80,9 +97,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                             <FormLabel>Número de tarjeta</FormLabel>
                             <Input type="text" 
                                 placeholder="XXXX XXXX XXXX XXXX"
-                                onInput={(e) => {
-                                  maxLengthCheck(e, 16)
-                                  allowOnlyNumber(e)}}
+                                onInput={(e) => inputCreditCard(e)}
                                 _placeholder={{ color: 'gray.500' }}
                             />
                         </FormControl>
@@ -105,16 +120,12 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                                 <Input type="text"
                                     placeholder="MM"
                                     htmlSize={4} width='auto'
-                                    onInput={(e) => {
-                                      maxLengthCheck(e, 2)
-                                      allowOnlyNumber(e)}}
+                                    onInput={(e) => inputExpirationMonth(e)}
                                 />
                                 <Input type="text"
                                     placeholder="AA" 
                                     htmlSize={4} width='auto'
-                                    onInput={(e) => {
-                                      maxLengthCheck(e, 2)
-                                      allowOnlyNumber(e)}}
+                                    onInput={(e) => inputExpirationYear(e)}
                                 />
                             </HStack>
                         </FormControl>
