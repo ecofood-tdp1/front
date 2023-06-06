@@ -23,6 +23,12 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
 
   export const PaymentForm = (props: Props) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [processingPayment, setProcessingPayment] = useState(false);
+    const [finished, setFinished] = useState(false);
+    const [creditCard, setCreditCard] = useState("")
+    const [expirationDate, setExpirationDate] = useState("")
+    const [issuer, setIssuer] = useState("")
+
   
     const maxLengthCheck = (event, maxLength) => {
       if (event.target.value.length > maxLength) {
@@ -38,6 +44,17 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
 
     const onClickReveal = () => {
       setShowPassword(!showPassword)
+    }
+
+    const delay = ms => new Promise(
+      resolve => setTimeout(resolve, ms)
+    )
+
+    const postPayment = async () => {
+      setProcessingPayment(true)
+      await delay(3000)
+      setProcessingPayment(false)
+      setFinished(true)
     }
 
     return <Box
@@ -129,7 +146,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
           </Stack>
     
           <Flex direction="column" align="center" flex="1.5">
-            <PaymentOrderSummary packs={props.packs} total={props.packs.map(p => p.price.amount).reduce((x, y) => x + y)} />
+            <PaymentOrderSummary isLoading={processingPayment} finished={finished} submit={postPayment} packs={props.packs} total={props.packs.map(p => p.price.amount).reduce((x, y) => x + y)} />
             <HStack mt="6" fontWeight="semibold">
               <p>o</p>
               <Link color={mode('blue.500', 'blue.200')} href={"/shopcart"} >Volver a mi carrito</Link>

@@ -2,6 +2,7 @@ import {
   Button,
   Flex,
   Heading,
+  IconButton,
   Link,
   Stack,
   Text,
@@ -11,6 +12,7 @@ import { FaArrowRight } from 'react-icons/fa'
 import { formatPrice } from './PriceTag'
 import { useRouter } from 'next/router'
 import { PaymentOrderPackItem } from './PaymentOrderItem'
+import { CheckCircleIcon } from '@chakra-ui/icons'
 
 type PaymentOrderSummaryItemProps = {
   label: string
@@ -30,14 +32,30 @@ const PaymentOrderSummaryItem = (props: PaymentOrderSummaryItemProps) => {
   )
 }
 
+const submitButton = (finished: boolean, isLoading: boolean, submit: () => void) => {
+  if (finished) {
+    return  <IconButton aria-label='Send email' colorScheme="green" size="lg" fontSize="md" icon={<CheckCircleIcon boxSize={8}/>} />
+  } else {
+    return  <Button colorScheme="blue" size="lg" fontSize="md" isLoading={isLoading} onClick={submit} loadingText='Procesando pago...'>
+              Confirmar
+            </Button>
+  }
+}
+
 interface Props {
   total: number
+  isLoading: boolean
   packs: Pack[]
+  finished: boolean
+  submit: () => void
 }
 
 export const PaymentOrderSummary = (props: Props) => {
   const {
     packs,
+    isLoading,
+    finished,
+    submit
   } = props
 
   return (
@@ -65,9 +83,7 @@ export const PaymentOrderSummary = (props: Props) => {
           </Text>
         </Flex>
       </Stack>
-      <Button colorScheme="blue" size="lg" fontSize="md" >
-        Confirmar
-      </Button>
+        {submitButton(finished, isLoading, submit)}
     </Stack>
   )
 }
