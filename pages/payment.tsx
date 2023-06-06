@@ -11,11 +11,11 @@ export async function getStaticProps({ params }) {
     };
 }
 
-const ShopCartView = ({ shopCartData }) => {
+const PaymentView = ({ shopCartData }) => {
 
     return (
         <PaymentForm packs={shopCartData} />
     );
 }
 
-export default ShopCartView;
+export default PaymentView;

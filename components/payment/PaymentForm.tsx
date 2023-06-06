@@ -16,6 +16,10 @@ import {
   import { useState } from 'react';
 import { PaymentOrderSummary } from './PaymentOrderSummary';
 import { HiEye, HiEyeOff } from 'react-icons/hi'
+import { PostPayment } from '../../repository/PaymentRepository';
+import { PostOrder } from '../../repository/OrderRepository';
+import { useRouter } from 'next/router'
+import { RemovePackFromShoppingCart } from '../../repository/UserRepository';
 
   interface Props {
     packs: Pack[]
@@ -26,8 +30,11 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
     const [processingPayment, setProcessingPayment] = useState(false);
     const [finished, setFinished] = useState(false);
     const [creditCard, setCreditCard] = useState("")
+    const [cardHolder, setCardHolder] = useState("")
     const [expirationMonth, setExpirationMonth] = useState("")
     const [expirationYear, setExpirationYear] = useState("")
+    const total = props.packs.length == 0 ? 0 : props.packs.map(p => p.price.amount).reduce((x, y) => x + y)
+    const router = useRouter();
 
     const inputCreditCard = (event) => {
       maxLengthCheck(event, 16)
@@ -35,16 +42,20 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
       setCreditCard(event.target.value)
     }
 
+    const inputCardHodler = (event) => {
+      setCardHolder(event.target.value)
+    }
+
     const inputExpirationMonth = (event) => {
-      maxLengthCheck(event, 16)
+      maxLengthCheck(event, 2)
       allowOnlyNumber(event)
       setExpirationMonth(event.target.value)
     }
 
     const inputExpirationYear = (event) => {
-      maxLengthCheck(event, 16)
+      maxLengthCheck(event, 2)
       allowOnlyNumber(event)
-      setCreditCard(event.target.value)
+      setExpirationYear(event.target.value)
     }
   
     const maxLengthCheck = (event, maxLength) => {
@@ -69,9 +80,17 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
 
     const postPayment = async () => {
       setProcessingPayment(true)
+      await PostPayment(creditCard, cardHolder, expirationMonth, expirationYear, "visa", total)
+      // DANGER!!!!!!!!!!!
+      await PostOrder(props.packs[0].shop_id, props.packs, total)
       await delay(3000)
       setProcessingPayment(false)
       setFinished(true)
+      await delay(2000)
+      for (var pack of props.packs) {
+        await RemovePackFromShoppingCart(pack._id)
+      }
+      router.push("/orders/my")
     }
 
     return <Box
@@ -106,7 +125,8 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                         <FormControl id="cardHolder" isRequired>
                             <FormLabel>Nombre del titular</FormLabel>
                             <Input type="text" 
-                                placeholder="TITULAR"   
+                                placeholder="TITULAR"
+                                onInput={(e) => inputCardHodler(e)}   
                                 _placeholder={{ color: 'gray.500' }}
                             />
                         </FormControl>
@@ -157,7 +177,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
           </Stack>
     
           <Flex direction="column" align="center" flex="1.5">
-            <PaymentOrderSummary isLoading={processingPayment} finished={finished} submit={postPayment} packs={props.packs} total={props.packs.map(p => p.price.amount).reduce((x, y) => x + y)} />
+            <PaymentOrderSummary isLoading={processingPayment} finished={finished} submit={postPayment} packs={props.packs} total={total} />
             <HStack mt="6" fontWeight="semibold">
               <p>o</p>
               <Link color={mode('blue.500', 'blue.200')} href={"/shopcart"} >Volver a mi carrito</Link>

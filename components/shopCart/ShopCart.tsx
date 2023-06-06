@@ -49,7 +49,7 @@ export const ShopCart = (props: Props) => {
       </Stack>
 
       <Flex direction="column" align="center" flex="1">
-        <CartOrderSummary total={packs.map(p => p.price.amount).reduce((x, y) => x + y)} />
+        <CartOrderSummary total={packs.length == 0 ? 0 : packs.map(p => p.price.amount).reduce((x, y) => x + y)} />
         <HStack mt="6" fontWeight="semibold">
           <p>o</p>
           <Link color={mode('blue.500', 'blue.200')} href={"/"} >Seguir buscando</Link>
