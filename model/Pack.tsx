@@ -9,6 +9,7 @@ type Pack = {
     readonly best_before: string,
     readonly price: Price,
     readonly original_price: Price
+    readonly imageURL: string
 }
 
 type Product = {

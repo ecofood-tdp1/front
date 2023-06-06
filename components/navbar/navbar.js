@@ -3,18 +3,26 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logoEcofood from '../../public/ecofood_sin_fondo.png'
 import Image from 'next/image'
-
-const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'Mis Pedidos', href: '/orders', current: false },
-  { name: 'Carrito', href: '/shopcart', current: false },
-]
+import { UserDataContext } from "../../context/Context";
+import { useContext } from "react";
+import { useRouter } from 'next/router'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function NavBar({ userMode, onModeChange }) {
+export default function NavBar() {
+  const { user, switchUser } = useContext(UserDataContext);
+  const router = useRouter();
+
+  const navigation = [
+    { name: 'Home', href: '/', current: router.pathname == '/', visible_to: 'all' },
+    { name: 'Mis Pedidos', href: '/orders/my', current: router.pathname == '/orders/my', visible_to: 'buyer' },
+    { name: 'Carrito', href: '/shopcart', current: router.pathname == '/shopcart', visible_to: 'buyer' },
+    { name: 'Mi menú', href: '/packs/my', current: router.pathname == '/packs/myshop', visible_to: 'shop' },
+    { name: 'Mis órdenes', href: '/shoporders/my', current: router.pathname == '/shoporders/my', visible_to: 'shop' },
+  ]
+
   return (
     <Disclosure as="nav" className="bg-gray-100">
       {({ open }) => (
@@ -48,6 +56,7 @@ export default function NavBar({ userMode, onModeChange }) {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
+                      (user.type == item.visible_to || item.visible_to == "all") &&
                       <a
                         key={item.name}
                         href={item.href}
@@ -64,13 +73,9 @@ export default function NavBar({ userMode, onModeChange }) {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                {/* Profile name */}
+                <span className="mr-2 text-gray-600 text-sm font-medium">{user.display_name}</span>
+
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
@@ -78,8 +83,8 @@ export default function NavBar({ userMode, onModeChange }) {
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-8 rounded-full"
-                        src={userMode == 'Buyer' ? "/messi.jpg" : "/julian.jpg"} // TODO: imagenes hardcodeadas
+                        className="h-14 w-14 rounded-full"
+                        src={user.type == 'buyer' ? "/messi.jpg" : "/la-continental.png"} // TODO: imagenes hardcodeadas
                         alt=""
                       />
                     </Menu.Button>
@@ -108,16 +113,23 @@ export default function NavBar({ userMode, onModeChange }) {
                         {({ active }) => (
                           <a
                             href="/"
-                            onClick={() => onModeChange(userMode == 'Buyer' ? 'Shop' : 'Buyer')}
+                            onClick={switchUser}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            [dev] Cambiar a modo {userMode == 'Buyer' ? 'Shop' : 'Buyer'}
+                            [dev] Cambiar a modo {user.type == 'buyer' ? 'Negocio' : 'Comprador'}
                           </a>
                         )}
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
+                {/* <button 
+                  type="button"
+                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                </button> */}
               </div>
             </div>
           </div>

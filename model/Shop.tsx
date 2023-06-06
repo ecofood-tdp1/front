@@ -7,5 +7,6 @@ type Shop = {
     readonly description: string,
     readonly phone: string,
     readonly address: string,
-    readonly imageURL: string
+    readonly imageURL: string,
+    readonly neighborhood: string
 }

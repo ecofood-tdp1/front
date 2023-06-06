@@ -113,13 +113,7 @@ export default function Gallery() {
           {
             filteredShops.map(shop =>
               <ShopCard
-                _id={shop._id}
-                name={shop.name}
-                address={shop.address}
-                description={shop.description}
-                openTime={shop.pick_up_from}
-                closeTime={shop.pick_up_to}
-                imageURL={shop.imageURL}
+                shop={shop}
               />
             )
           }

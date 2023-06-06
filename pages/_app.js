@@ -1,31 +1,15 @@
 import NavBar from "../components/navbar/navbar";
-import { useState, useEffect } from 'react';
 import { ChakraProvider } from '@chakra-ui/react'
-
 import '../styles/globals.css';
+import Context from "../context/Context";
 
 export default function MyApp({ Component, pageProps }) {
-    const [userMode, setUserMode] = useState('Buyer');
-
-    const handleModeChange = (mode) => {
-        setUserMode(mode);
-        if (typeof window !== 'undefined') {
-            console.log(`Changing to ${mode} mode`)
-            localStorage.setItem('userMode', mode);
-        }
-    };
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const storedMode = localStorage.getItem('userMode');
-            setUserMode(storedMode ? storedMode : 'Buyer');
-        }
-    }, []);
-
     return (
         <ChakraProvider>
-            <NavBar userMode={userMode} onModeChange={handleModeChange} />
-            <Component {...pageProps} userMode={userMode} />
+            <Context>
+                <NavBar />
+                <Component {...pageProps} />
+            </Context>
         </ChakraProvider>
     )
 }
