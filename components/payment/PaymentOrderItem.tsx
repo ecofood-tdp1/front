@@ -18,7 +18,7 @@ export const PaymentOrderPackItem = (props: PaymentOrderPackItemProps) => {
             <CartProductMeta
                 name={pack.name}
                 description={pack.description}
-                image={"https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Veg_Chow_mein.jpg/640px-Veg_Chow_mein.jpg"}
+                image={pack.imageURL}
             />
 
             {/* Desktop */}
