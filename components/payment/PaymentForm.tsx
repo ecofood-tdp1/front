@@ -4,6 +4,9 @@ import {
     HStack,
     Stack,
     Heading,
+    FormControl,
+    FormLabel,
+    Input,
     Link,
     useColorModeValue as mode,
   } from '@chakra-ui/react';
@@ -17,6 +20,18 @@ import { PaymentOrderSummary } from './PaymentOrderSummary';
   export const PaymentForm = (props: Props) => {
     const [showPassword, setShowPassword] = useState(false);
   
+    const maxLengthCheck = (event, maxLength) => {
+      if (event.target.value.length > maxLength) {
+          event.target.value = event.target.value.slice(0, maxLength)
+      }
+    }
+
+    const allowOnlyNumber = (event) => {
+      if (isNaN(+event.target.value)) {
+        event.target.value = event.target.value.slice(0, event.target.value.length-1)
+      }
+    }
+
     return <Box
         maxW={{ base: '3xl', lg: '7xl' }}
         mx="auto"
@@ -33,7 +48,65 @@ import { PaymentOrderSummary } from './PaymentOrderSummary';
               Agregar medio de pago
             </Heading>
     
-            <Stack spacing="6">
+            <Stack spacing="10">
+                <HStack spacing="8">
+                    <Box>
+                        <FormControl id="creditCard" isRequired>
+                            <FormLabel>Número de tarjeta</FormLabel>
+                            <Input type="text" 
+                                placeholder="XXXX XXXX XXXX XXXX"
+                                onInput={(e) => {
+                                  maxLengthCheck(e, 16)
+                                  allowOnlyNumber(e)}}
+                                _placeholder={{ color: 'gray.500' }}
+                            />
+                        </FormControl>
+                    </Box>
+                    <Box>
+                        <FormControl id="cardHolder" isRequired>
+                            <FormLabel>Nombre del titular</FormLabel>
+                            <Input type="text" 
+                                placeholder="TITULAR"   
+                                _placeholder={{ color: 'gray.500' }}
+                            />
+                        </FormControl>
+                    </Box>
+                </HStack>
+                <HStack spacing="8">
+                    <Box>
+                        <FormControl id="date" isRequired>
+                            <FormLabel>Fecha de expiración</FormLabel>
+                            <HStack spacing="3">
+                                <Input type="text"
+                                    placeholder="MM"
+                                    htmlSize={4} width='auto'
+                                    onInput={(e) => {
+                                      maxLengthCheck(e, 2)
+                                      allowOnlyNumber(e)}}
+                                />
+                                <Input type="text"
+                                    placeholder="AA" 
+                                    htmlSize={4} width='auto'
+                                    onInput={(e) => {
+                                      maxLengthCheck(e, 2)
+                                      allowOnlyNumber(e)}}
+                                />
+                            </HStack>
+                        </FormControl>
+                    </Box>
+                    <Box>
+                        <FormControl id="cardHolder" isRequired>
+                            <FormLabel>CVV/CVC</FormLabel>
+                            <Input type="text" 
+                                placeholder="XXX"
+                                htmlSize={4} width='auto'
+                                onInput={(e) => {
+                                  maxLengthCheck(e, 3)
+                                  allowOnlyNumber(e)}}
+                            />
+                        </FormControl>
+                    </Box>
+                </HStack>
             </Stack>
           </Stack>
     
