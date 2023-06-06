@@ -18,8 +18,8 @@ export const CartProductMeta = (props: CartProductMetaProps) => {
     <Stack direction="row" spacing="5" width="full">
       <Image
         rounded="lg"
-        width="120px"
-        height="120px"
+        width="80px"
+        height="80px"
         fit="cover"
         src={image}
         alt={name}
@@ -29,9 +29,6 @@ export const CartProductMeta = (props: CartProductMetaProps) => {
       <Box pt="4">
         <Stack spacing="0.5">
           <Text fontWeight="medium">{name}</Text>
-          <Text color={mode('gray.600', 'gray.400')} fontSize="sm">
-            {description}
-          </Text>
         </Stack>
       </Box>
     </Stack>

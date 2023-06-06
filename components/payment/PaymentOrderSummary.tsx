@@ -10,14 +10,15 @@ import {
 import { FaArrowRight } from 'react-icons/fa'
 import { formatPrice } from './PriceTag'
 import { useRouter } from 'next/router'
+import { PaymentOrderPackItem } from './PaymentOrderItem'
 
-type OrderSummaryItemProps = {
+type PaymentOrderSummaryItemProps = {
   label: string
   value?: string
   children?: React.ReactNode
 }
 
-const OrderSummaryItem = (props: OrderSummaryItemProps) => {
+const PaymentOrderSummaryItem = (props: PaymentOrderSummaryItemProps) => {
   const { label, value, children } = props
   return (
     <Flex justify="space-between" fontSize="sm">
@@ -31,22 +32,30 @@ const OrderSummaryItem = (props: OrderSummaryItemProps) => {
 
 interface Props {
   total: number
+  packs: Pack[]
 }
 
-export const CartOrderSummary = (props: Props) => {
-  const router = useRouter()
+export const PaymentOrderSummary = (props: Props) => {
+  const {
+    packs,
+  } = props
 
   return (
     <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
       <Heading size="md">Resumen</Heading>
 
       <Stack spacing="6">
-        <OrderSummaryItem label="Subtotal" value={formatPrice(props.total)} />
-        <OrderSummaryItem label="Descuento">
+        <Stack spacing="3">
+          {packs.map((pack) => (
+            <PaymentOrderPackItem pack={pack} />
+          ))}
+        </Stack>
+        <PaymentOrderSummaryItem label="Subtotal" value={formatPrice(props.total)} />
+        <PaymentOrderSummaryItem label="Descuento">
           <Link href="#" >
            $0 (0.0%)
           </Link>
-        </OrderSummaryItem>
+        </PaymentOrderSummaryItem>
         <Flex justify="space-between">
           <Text fontSize="lg" fontWeight="semibold">
             Total
@@ -56,8 +65,8 @@ export const CartOrderSummary = (props: Props) => {
           </Text>
         </Flex>
       </Stack>
-      <Button onClick={() => router.push('/payment')} colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
-        Ir a pagar
+      <Button colorScheme="blue" size="lg" fontSize="md" >
+        Confirmar
       </Button>
     </Stack>
   )
