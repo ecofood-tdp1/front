@@ -8,8 +8,8 @@ export const PaymentMethodRadio = () => {
 
     return (
         <RadioGroup onChange={setValue} value={value}>
-          <Stack direction='row'>
-            <Radio value='1'>
+          <Stack direction='row' spacing="5">
+            <Radio value='1' spacing="2">
                 <Stack>
                     <Heading fontSize="md" fontWeight="semibold">
                         Tarjeta de Crédito
@@ -17,10 +17,9 @@ export const PaymentMethodRadio = () => {
                     <Text fontSize="sm" color={useColorModeValue('gray.500', 'gray.400')}>
                         Pago online con tarjeta de crédito
                     </Text>
-                    <HStack spacing="5">
-                        <Box boxSize='1px'/>
+                    <HStack spacing="3">
                         <Image src={'/visa_logo.png'} boxSize='30px' />
-                        <Image src={'/master_logo.png'} boxSize='30px' />
+                        <Image src={'/master_logo.png'} boxSize='40px' />
                     </HStack>
                 </Stack>
             </Radio>
