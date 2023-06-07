@@ -20,6 +20,7 @@ import { PostPayment } from '../../repository/PaymentRepository';
 import { PostOrder } from '../../repository/OrderRepository';
 import { useRouter } from 'next/router'
 import { RemovePackFromShoppingCart } from '../../repository/UserRepository';
+import { PaymentMethodRadio } from './PaymentMethodRadio';
 
   interface Props {
     packs: Pack[]
@@ -109,7 +110,8 @@ import { RemovePackFromShoppingCart } from '../../repository/UserRepository';
               Agregar medio de pago
             </Heading>
     
-            <Stack spacing="10">
+            <Stack spacing="12">
+                {PaymentMethodRadio()}
                 <HStack spacing="8">
                     <Box>
                         <FormControl id="creditCard" isRequired>
