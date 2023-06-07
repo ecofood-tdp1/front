@@ -1,4 +1,4 @@
-import { HStack, Heading, Radio, RadioGroup, Stack, Text, useColorModeValue, Image, AspectRatio} from "@chakra-ui/react"
+import { HStack, Heading, Radio, RadioGroup, Stack, Text, useColorModeValue, Image, AspectRatio, Box} from "@chakra-ui/react"
 import { useState } from "react"
 // import logoVisa from '../../public/visa_logo.png'
 // import logoMaster from '../../public/master_logo.png'
@@ -18,6 +18,7 @@ export const PaymentMethodRadio = () => {
                         Pago online con tarjeta de crédito
                     </Text>
                     <HStack spacing="5">
+                        <Box boxSize='1px'/>
                         <Image src={'/visa_logo.png'} boxSize='30px' />
                         <Image src={'/master_logo.png'} boxSize='30px' />
                     </HStack>
