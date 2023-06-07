@@ -43,7 +43,7 @@ export const ShopCart = (props: Props) => {
 
         <Stack spacing="6">
           {packs.map((pack) => (
-            <CartItem pack={pack} onClickDelete={onClickDeleteCartItem} />
+            <CartItem key={pack._id + pack.best_before} pack={pack} onClickDelete={onClickDeleteCartItem} />
           ))}
         </Stack>
       </Stack>

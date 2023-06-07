@@ -2,7 +2,7 @@ import NextLink from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import React from 'react'
-import { getReviewCountFor, getReviewStarsFor } from '../lib/helpers'
+import { getReviewCountFor, getReviewStarsFor } from '../../lib/helpers'
 import {
   AspectRatio,
   Box,
@@ -19,8 +19,8 @@ import {
   ListItem,
   ListIcon,
 } from '@chakra-ui/react'
-import { Rating } from './Rating'
-import ShopTypeBadge from './shop/ShopTypeBadge'
+import { Rating } from '../Rating'
+import ShopTypeBadge from '../shop/ShopTypeBadge'
 
 function cn(...classes) {
   return classes.filter(Boolean).join(' ')

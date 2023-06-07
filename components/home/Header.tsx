@@ -1,9 +1,8 @@
 import Image from 'next/image'
-import img from '../public/food2.jpg'
 import React from 'react';
 
 
-export default function Header({ scrollHandler }) {
+export default function Header({ scrollHandler, description, description2, buttonTitle, image }) {
 
   return (
     <header className="relative">
@@ -15,7 +14,7 @@ export default function Header({ scrollHandler }) {
               priority
               fill
               className="h-full w-full object-cover"
-              src={img}
+              src={image}
               placeholder="blur"
               alt="Coffee grinder"
             />
@@ -25,16 +24,17 @@ export default function Header({ scrollHandler }) {
             <p className="relative left-0 right-0 mx-auto mt-5 max-w-xl text-center text-xl  font-bold uppercase tracking-wide text-green-600 lg:text-8xl">
               Ecofood
             </p>
-            <h1 className="mt-1 text-center font-bold uppercase text-gray-900 sm:text-5xl sm:tracking-tight lg:text-3xl">
-              <span className="block text-white">Comé rico, salvando el planeta</span>
+            <h1 className="mt-6 text-center font-bold uppercase text-gray-900 sm:text-5xl sm:tracking-tight lg:text-3xl">
+              <span className="block text-white"> {description} </span>
+              <span className="mt-2 block text-white"> {description2} </span>
             </h1>
 
             <div className="mx-auto mt-10 max-w-xs sm:flex sm:max-w-none sm:justify-center">
               <button
-                className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-orange-600 shadow-sm hover:bg-orange-100 sm:px-8"
+                className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-extrabold text-orange-600 shadow-sm hover:bg-orange-100 sm:px-8"
                 onClick={scrollHandler}
               >
-                Comprá
+                {buttonTitle}
               </button>
             </div>
           </div>
