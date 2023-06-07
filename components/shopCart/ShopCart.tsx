@@ -19,7 +19,7 @@ interface Props {
 export const ShopCart = (props: Props) => {
   const [packs, setPacks] = useState<Pack[]>(props.packs)
 
-  async function onClickDeleteCartItem(pack : Pack) {
+  async function onClickDeleteCartItem(pack: Pack) {
     await RemovePackFromShoppingCart(pack._id)
     setPacks(await GetPacksFromShoppingCart())
   }
@@ -49,7 +49,9 @@ export const ShopCart = (props: Props) => {
       </Stack>
 
       <Flex direction="column" align="center" flex="1">
-        <CartOrderSummary total={packs.length == 0 ? 0 : packs.map(p => p.price.amount).reduce((x, y) => x + y)} />
+        <CartOrderSummary
+          subtotal={packs.length == 0 ? 0 : packs.map(p => p.original_price.amount).reduce((x, y) => x + y)}
+          total={packs.length == 0 ? 0 : packs.map(p => p.price.amount).reduce((x, y) => x + y)} />
         <HStack mt="6" fontWeight="semibold">
           <p>o</p>
           <Link color={mode('blue.500', 'blue.200')} href={"/"} >Seguir buscando</Link>

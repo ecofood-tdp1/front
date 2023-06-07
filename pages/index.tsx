@@ -73,7 +73,7 @@ export default function Gallery() {
   return (
     <>
       <Header scrollHandler={scrollHandler} />
-      <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-32">
         <div className="sm:py-15 mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p
@@ -99,10 +99,10 @@ export default function Gallery() {
           <Flex direction="column" ml="32px"> {/* Added ml (margin-left) */}
             <Text mb="8px">Elegir por categoria:</Text>
             <Select mb="8px" placeholder="Elegir una opción" name="type" onChange={handleSearch} >
-              <option value="restaurant" onChange={handleSearch}>🍴 Restaurant</option>
+              <option value="restaurant" onChange={handleSearch}>🍴 Restaurantes</option>
               <option value="supermarket" onChange={handleSearch}>🛒 Supermercados</option>
               <option value="coffee" onChange={handleSearch}>☕ Cafés</option>
-              <option value="grocery" onChange={handleSearch}>🥫 Tienda de comestibles</option>
+              <option value="grocery" onChange={handleSearch}>🥫 Verdulerías</option>
               <option value="delicatessen" onChange={handleSearch}>🍲 Delicatessen</option>
               <option value="bakery" onChange={handleSearch}>🥐 Panaderías</option>
               <option value="others" onChange={handleSearch}>Otros</option>

@@ -20,17 +20,22 @@ type OrderSummaryItemProps = {
 const OrderSummaryItem = (props: OrderSummaryItemProps) => {
   const { label, value, children } = props
   return (
-    <Flex justify="space-between" fontSize="sm">
+    <Flex justify="space-between" fontSize="md">
       <Text fontWeight="medium" color={mode('gray.600', 'gray.400')}>
         {label}
       </Text>
-      {value ? <Text fontWeight="medium">{value}</Text> : children}
+      {value ?
+        <Text
+          color={mode('gray.600', 'gray.400')}
+          fontWeight="medium">{value}
+        </Text> : children}
     </Flex>
   )
 }
 
 interface Props {
   total: number
+  subtotal: number
 }
 
 export const CartOrderSummary = (props: Props) => {
@@ -41,10 +46,10 @@ export const CartOrderSummary = (props: Props) => {
       <Heading size="md">Resumen</Heading>
 
       <Stack spacing="6">
-        <OrderSummaryItem label="Subtotal" value={formatPrice(props.total)} />
-        <OrderSummaryItem label="Descuento">
-          <Link href="#" >
-           $0 (0.0%)
+        <OrderSummaryItem label="Subtotal" value={formatPrice(props.subtotal)} />
+        <OrderSummaryItem label="Te ahorrás" >
+          <Link fontSize={"17px"} fontWeight={"bold"} color={mode('green.600', 'green.500')} href="#" >
+            {formatPrice(props.subtotal - props.total)} { props.subtotal == 0 ? "" : "("+Math.round(100 * (props.subtotal - props.total) / props.subtotal) + "%)"}
           </Link>
         </OrderSummaryItem>
         <Flex justify="space-between">
