@@ -44,6 +44,7 @@ const submitButton = (finished: boolean, isLoading: boolean, submit: () => void)
 
 interface Props {
   total: number
+  subtotal: number
   isLoading: boolean
   packs: Pack[]
   finished: boolean
@@ -68,10 +69,10 @@ export const PaymentOrderSummary = (props: Props) => {
             <PaymentOrderPackItem pack={pack} />
           ))}
         </Stack>
-        <PaymentOrderSummaryItem label="Subtotal" value={formatPrice(props.total)} />
+        <PaymentOrderSummaryItem label="Subtotal" value={formatPrice(props.subtotal)} />
         <PaymentOrderSummaryItem label="Descuento">
-          <Link href="#" >
-           $0 (0.0%)
+          <Link fontSize={"17px"} fontWeight={"bold"} color={mode('green.600', 'green.500')} href="#" >
+            {formatPrice(props.subtotal - props.total)} { props.subtotal == 0 ? "" : "("+Math.round(100 * (props.subtotal - props.total) / props.subtotal) + "%)"}
           </Link>
         </PaymentOrderSummaryItem>
         <Flex justify="space-between">

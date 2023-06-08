@@ -35,6 +35,7 @@ import { PaymentMethodRadio } from './PaymentMethodRadio';
     const [expirationMonth, setExpirationMonth] = useState("")
     const [expirationYear, setExpirationYear] = useState("")
     const total = props.packs.length == 0 ? 0 : props.packs.map(p => p.price.amount).reduce((x, y) => x + y)
+    const subtotal = props.packs.length == 0 ? 0 : props.packs.map(p => p.original_price.amount).reduce((x, y) => x + y)
     const router = useRouter();
 
     const inputCreditCard = (event) => {
@@ -179,7 +180,7 @@ import { PaymentMethodRadio } from './PaymentMethodRadio';
           </Stack>
     
           <Flex direction="column" align="center" flex="1.5">
-            <PaymentOrderSummary isLoading={processingPayment} finished={finished} submit={postPayment} packs={props.packs} total={total} />
+            <PaymentOrderSummary isLoading={processingPayment} finished={finished} submit={postPayment} packs={props.packs} total={total} subtotal={subtotal}/>
             <HStack mt="6" fontWeight="semibold">
               <p>o</p>
               <Link color={mode('blue.500', 'blue.200')} href={"/shopcart"} >Volver a mi carrito</Link>
