@@ -20,7 +20,7 @@ const BuyerHome = () => {
         "pick_up_to": {},
         "description": "",
         "phone": "",
-        "address": ""
+        "neighborhood": ""
     }
 
     const [searchData, setSearchData] = useState(defaultShopData);
@@ -44,8 +44,8 @@ const BuyerHome = () => {
 
         console.log(value)
 
-        if (name === "address") { // se acaba de actualizar este filtro -> usar filtro nuevo
-            result = result.filter(s => s.address.toLowerCase().includes(value.toLowerCase()))
+        if (name === "neighborhood") { 
+            result = result.filter(s => s.neighborhood.toLowerCase().includes(value.toLowerCase()))
         }
 
         if (name === "type" && value !== "Any") {
@@ -90,8 +90,8 @@ const BuyerHome = () => {
                     <Flex direction="column" mr="16px">
                         <Text mb="10px">Barrio:</Text>
                         <Textarea
-                            value={searchData.address}
-                            name="address"
+                            value={searchData.neighborhood}
+                            name="neighborhood"
                             onChange={handleSearch}
                             placeholder="Ingresa un barrio"
                             size="sm"

@@ -22,6 +22,7 @@ export default function NavBar() {
     { name: 'Carrito', href: '/shopcart', current: router.pathname == '/shopcart', visible_to: 'buyer' },
     { name: 'Mi menú', href: '/shops/' + user._id, current: router.pathname == '/shops/[id]', visible_to: 'shop' },
     { name: 'Mis órdenes', href: '/shoporders/my', current: router.pathname == '/shoporders/my', visible_to: 'shop' },
+    { name: 'Mis ganancias', href: '/profits/my', current: router.pathname == '/profits/my', visible_to: 'shop' },
   ]
   return (
     <Disclosure as="nav" className="bg-gray-100">
