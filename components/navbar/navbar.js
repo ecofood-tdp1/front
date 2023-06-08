@@ -21,6 +21,7 @@ export default function NavBar() {
     { name: 'Carrito', href: '/shopcart', current: router.pathname == '/shopcart', visible_to: 'buyer' },
     { name: 'Mi menú', href: '/packs/my', current: router.pathname == '/packs/myshop', visible_to: 'shop' },
     { name: 'Mis órdenes', href: '/shoporders/my', current: router.pathname == '/shoporders/my', visible_to: 'shop' },
+    { name: 'Subastas', href: '/auctions/my', current: router.pathname == '/auctions/my', visible_to: 'shop' }
   ]
 
   return (
