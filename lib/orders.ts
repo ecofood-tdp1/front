@@ -42,7 +42,7 @@ export function getEarnedMoney(order: Order) {
     order.packs.forEach((pack: Pack) => {
         amountEarned += pack.price.amount
     })
-    return amountEarned
+    return Math.round(amountEarned * 0.7)
 }
 
 export function getEarliestExpiryDate(order: Order) {
