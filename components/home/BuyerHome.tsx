@@ -105,7 +105,7 @@ const BuyerHome = () => {
                             <option value="supermarket" onChange={handleSearch}>🛒 Supermercados</option>
                             <option value="coffee" onChange={handleSearch}>☕ Cafés</option>
                             <option value="grocery" onChange={handleSearch}>🥑 Verdulerías</option>
-                            <option value="delicatessen" onChange={handleSearch}>🍲 Delicatessen</option>
+                            <option value="delicatessen" onChange={handleSearch}>🍲 Rotiserías</option>
                             <option value="bakery" onChange={handleSearch}>🥐 Panaderías</option>
                             <option value="others" onChange={handleSearch}>Otros</option>
                         </Select>

@@ -24,7 +24,7 @@ const ShopTypeBadge = ({ shopType }) => {
             color = 'yellow'
             break;
         case 'delicatessen':
-            typeToShow = 'Delicatessen';
+            typeToShow = 'Rotisería';
             color = 'orange'
             break;
         case 'coffee':
