@@ -14,15 +14,16 @@ export async function getStaticProps({ params }) {
     const shopData = await getShopData(params.id);
     return {
         props: {
-            shopData
+            shopData,
+            shopId: params.id
         },
     };
 }
 
 
-const ShopView = ({ shopData }) => {
+const ShopView = ({ shopData, shopId }) => {
     return (
-        <Shop shopData={shopData} />
+        <Shop shopData={shopData} shopId={shopId} />
     );
 }
 

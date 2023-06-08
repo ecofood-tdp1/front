@@ -12,12 +12,14 @@ import {
 } from '@chakra-ui/react';
 import { MdOutlineLocationOn, MdPhone, MdOutlineAccessTime } from 'react-icons/md';
 import ShopTypeBadge from './ShopTypeBadge';
+import { MdEdit, MdLibraryAdd } from 'react-icons/md';
 
 interface ShopProp {
     shop: Shop
+    isTheOwner: boolean
 }
 
-const ShopHero: React.FC<ShopProp> = ({ shop }) => {
+const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
     return (
         <Stack minH={'50vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
@@ -61,8 +63,18 @@ const ShopHero: React.FC<ShopProp> = ({ shop }) => {
                             {shop.pick_up_to}
                         </Box>
                     </Text>
+                    {isTheOwner &&
+                        <Stack  direction={{ base: 'column', md: 'row' }}>
+                            <Button leftIcon={<MdEdit />} width={36} colorScheme='green' size='md'>
+                                Editar Perfil
+                            </Button>
+                            <Button leftIcon={<MdLibraryAdd />} width={36} colorScheme='green' size='md'>
+                                Agregar Pack
+                            </Button>
+                        </Stack>
+                    }
                 </Stack>
-            </Flex>
+            </Flex >
             <Flex flex={1}>
                 <Image
                     alt={'Shop Image'}
@@ -72,7 +84,7 @@ const ShopHero: React.FC<ShopProp> = ({ shop }) => {
                     maxHeight="500px"
                 />
             </Flex>
-        </Stack>
+        </Stack >
     );
 }
 

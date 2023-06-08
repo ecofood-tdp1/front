@@ -18,18 +18,19 @@ import {
 import { Rating } from '../Rating'
 import { PriceTag } from './PriceTag'
 import { getReviewCountFor, getReviewStarsFor } from '../../lib/helpers';
-import { MdCheckCircle } from 'react-icons/md';
+import { MdCheckCircle, MdDelete, MdEdit } from 'react-icons/md';
 import { useState } from 'react'
 import { AddPackToShoppingCart } from '../../repository/UserRepository';
 import { useToast } from '@chakra-ui/react'
 
 interface Props {
     pack: Pack
-    rootProps?: StackProps
+    rootProps?: StackProps,
+    isTheOwner?: boolean
 }
 
 export const PackCard = (props: Props) => {
-    const { pack, rootProps } = props
+    const { pack, rootProps, isTheOwner } = props
     const [isLoading, setLoading] = useState(false)
     const toast = useToast()
 
@@ -42,18 +43,18 @@ export const PackCard = (props: Props) => {
                 status: 'success',
                 isClosable: true,
                 duration: 3000,
-              })
-        } catch (error){
+            })
+        } catch (error) {
             toast({
                 title: `Ocurrió un error al agregar el pack al carrito`,
                 status: 'error',
                 isClosable: true,
                 duration: 3000,
-              })
+            })
         } finally {
             setLoading(false)
         }
-        
+
     }
 
     return (
@@ -116,12 +117,24 @@ export const PackCard = (props: Props) => {
                 Para consumir antes del {pack.best_before}
             </Text>
             <Stack align="center">
-                <Button onClick={() => AddToCart(pack._id)} 
-                    isLoading={isLoading}
-                    colorScheme="blue" 
-                    width="full">
-                    Agregar al carrito
-                </Button>
+                {isTheOwner ?
+                    <Stack direction={{ base: 'column', md: 'row' }}>
+                        <Button leftIcon={<MdEdit />} width={24} colorScheme='gray' size='md'>
+                            Editar
+                        </Button>
+                        <Button leftIcon={<MdDelete />} width={24} colorScheme='gray' size='md'>
+                            Eliminar
+                        </Button>
+                    </Stack>
+
+                    :
+                    <Button onClick={() => AddToCart(pack._id)}
+                        isLoading={isLoading}
+                        colorScheme="blue"
+                        width="full">
+                        Agregar al carrito
+                    </Button>
+                }
             </Stack>
         </Stack >
     )
