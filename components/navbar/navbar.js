@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { UserDataContext } from "../../context/Context";
 import { useContext } from "react";
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -19,10 +20,9 @@ export default function NavBar() {
     { name: 'Home', href: '/', current: router.pathname == '/', visible_to: 'all' },
     { name: 'Mis Pedidos', href: '/orders/my', current: router.pathname == '/orders/my', visible_to: 'buyer' },
     { name: 'Carrito', href: '/shopcart', current: router.pathname == '/shopcart', visible_to: 'buyer' },
-    { name: 'Mi menú', href: '/packs/my', current: router.pathname == '/packs/myshop', visible_to: 'shop' },
+    { name: 'Mi menú', href: '/shops/' + user._id, current: router.pathname == '/shops/[id]', visible_to: 'shop' },
     { name: 'Mis órdenes', href: '/shoporders/my', current: router.pathname == '/shoporders/my', visible_to: 'shop' },
   ]
-
   return (
     <Disclosure as="nav" className="bg-gray-100">
       {({ open }) => (
@@ -57,9 +57,8 @@ export default function NavBar() {
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       (user.type == item.visible_to || item.visible_to == "all") &&
-                      <a
+                      <Link href={item.href}
                         key={item.name}
-                        href={item.href}
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
@@ -67,7 +66,7 @@ export default function NavBar() {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>

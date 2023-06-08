@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { CartItem } from './CartItem'
 import { CartOrderSummary } from './CartOrderSummary'
 import { GetPacksFromShoppingCart, RemovePackFromShoppingCart } from '../../repository/UserRepository'
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
   packs: Pack[]
@@ -43,7 +44,7 @@ export const ShopCart = (props: Props) => {
 
         <Stack spacing="6">
           {packs.map((pack) => (
-            <CartItem key={pack._id + pack.best_before} pack={pack} onClickDelete={onClickDeleteCartItem} />
+            <CartItem key={uuidv4()} pack={pack} onClickDelete={onClickDeleteCartItem} />
           ))}
         </Stack>
       </Stack>
