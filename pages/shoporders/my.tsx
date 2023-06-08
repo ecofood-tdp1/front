@@ -15,6 +15,7 @@ import MyShopOrdersListActions from '../../components/shopOrder/MyShopOrdersList
 import { GetOrdersOfShop } from '../../repository/OrderRepository';
 import { GetUser } from '../../repository/UserRepository';
 import OrderStatusBadge from '../../components/order/OrderStatusBadge';
+import { formatPrice } from '../../components/shop/PriceTag';
 
 const MyShopOrdersList = () => {
     const [orders, setOrders] = useState([]);
@@ -48,6 +49,7 @@ const MyShopOrdersList = () => {
                     <Tr>
                         <Th>Usuario</Th>
                         <Th>Fecha</Th>
+                        <Th>Precio</Th>
                         <Th>Estado</Th>
                         <Th isNumeric>Acciones</Th>
                     </Tr>
@@ -66,6 +68,11 @@ const MyShopOrdersList = () => {
                                             </Flex>
                                         </Td>
                                         <Td>{new Date(order.order.created_at).toLocaleDateString()}</Td>
+                                        <Td>
+                                            <Flex align='left'>
+                                                {formatPrice(order.order.total.amount)}
+                                            </Flex>
+                                        </Td>
                                         <Td>
                                             <OrderStatusBadge orderStatus={order.order.status} />
                                         </Td>
