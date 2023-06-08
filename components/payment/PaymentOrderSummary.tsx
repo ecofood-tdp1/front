@@ -65,8 +65,8 @@ export const PaymentOrderSummary = (props: Props) => {
 
       <Stack spacing="6">
         <Stack spacing="3">
-          {packs.map((pack) => (
-            <PaymentOrderPackItem pack={pack} />
+          {packs.map((pack, index) => (
+            <PaymentOrderPackItem key={`${pack._id}-${index}`} pack={pack} />
           ))}
         </Stack>
         <PaymentOrderSummaryItem label="Subtotal" value={formatPrice(props.subtotal)} />

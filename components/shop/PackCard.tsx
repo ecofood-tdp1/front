@@ -91,25 +91,26 @@ export const PackCard = (props: Props) => {
                     </Text>
                 </HStack>
             </Stack>
-            <Text fontSize="sm" fontWeight="medium" color={useColorModeValue('gray.600', 'gray.400')}>
+            <Text mb="10px" fontSize="sm" fontWeight="medium" color={useColorModeValue('gray.600', 'gray.400')}>
                 {pack.type == "specific" ?
                     "Contiene:"
                     : "Puede contener:"
                 }
-                <List spacing={1}>
-                    {pack.products.map((prod: Product) => (
-                        <ListItem>
-                            <ListIcon as={MdCheckCircle} color='green.500' fontSize="sm" />
-                            {prod.name + " "}
-                            {pack.type == "specific" ?
-                                "(x" + prod.quantity + ")"
-                                : ""
-                            }
-                        </ListItem>
-                    )
-                    )}
-                </List>
             </Text>
+            <List spacing={1} fontSize="sm" fontWeight="medium" color={useColorModeValue('gray.600', 'gray.400')}>
+                {pack.products.map((prod: Product, index: number) => (
+                    <ListItem key={index}>
+                        <ListIcon as={MdCheckCircle} color='green.500' fontSize="sm" />
+                        {prod.name + " "}
+                        {pack.type == "specific" ?
+                            "(x" + prod.quantity + ")"
+                            : ""
+                        }
+                    </ListItem>
+                )
+                )}
+            </List>
+            
             <Text fontSize="sm" fontWeight="medium" color={useColorModeValue('gray.600', 'gray.400')}>
                 Cantidad disponible: {pack.stock}
             </Text>

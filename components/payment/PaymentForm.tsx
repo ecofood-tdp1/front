@@ -140,12 +140,14 @@ import { PaymentMethodRadio } from './PaymentMethodRadio';
                         <FormControl id="date" isRequired>
                             <FormLabel>Fecha de expiración</FormLabel>
                             <HStack spacing="3">
-                                <Input type="text"
+                                <Input id='month'
+                                    type="text"
                                     placeholder="MM"
                                     htmlSize={4} width='auto'
                                     onInput={(e) => inputExpirationMonth(e)}
                                 />
-                                <Input type="text"
+                                <Input id='year'
+                                    type="text"
                                     placeholder="AA" 
                                     htmlSize={4} width='auto'
                                     onInput={(e) => inputExpirationYear(e)}
@@ -154,7 +156,7 @@ import { PaymentMethodRadio } from './PaymentMethodRadio';
                         </FormControl>
                     </Box>
                     <Box>
-                        <FormControl id="cardHolder" isRequired>
+                        <FormControl id="cvv" isRequired>
                             <FormLabel>CVV/CVC</FormLabel>
                               <InputGroup>
                                 <InputRightElement>
