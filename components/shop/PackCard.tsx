@@ -21,6 +21,7 @@ import { getReviewCountFor, getReviewStarsFor } from '../../lib/helpers';
 import { MdCheckCircle } from 'react-icons/md';
 import { useState } from 'react'
 import { AddPackToShoppingCart } from '../../repository/UserRepository';
+import { useToast } from '@chakra-ui/react'
 
 interface Props {
     pack: Pack
@@ -30,11 +31,29 @@ interface Props {
 export const PackCard = (props: Props) => {
     const { pack, rootProps } = props
     const [isLoading, setLoading] = useState(false)
+    const toast = useToast()
 
     async function AddToCart(packId: string) {
         setLoading(true)
-        await AddPackToShoppingCart(packId)
-        setLoading(false)
+        try {
+            await AddPackToShoppingCart(packId)
+            toast({
+                title: `El pack fue agregado al carrito`,
+                status: 'success',
+                isClosable: true,
+                duration: 3000,
+              })
+        } catch (error){
+            toast({
+                title: `Ocurrió un error al agregar el pack al carrito`,
+                status: 'error',
+                isClosable: true,
+                duration: 3000,
+              })
+        } finally {
+            setLoading(false)
+        }
+        
     }
 
     return (
@@ -58,7 +77,7 @@ export const PackCard = (props: Props) => {
                     </Text>
                     <Text fontWeight="medium" color={useColorModeValue('gray.700', 'gray.400')}>
                         {pack.type == "specific" ?
-                            <Badge colorScheme='green'>Escpecífico</Badge>
+                            <Badge colorScheme='green'>Específico</Badge>
                             : <Badge colorScheme='purple'>Sorpresa</Badge>
                         }
                     </Text>
