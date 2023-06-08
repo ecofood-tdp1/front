@@ -86,25 +86,25 @@ const BuyerHome = () => {
                         </div>
                     </div>
                 </div>
-                <Flex mb="32px">
+                <Flex mb="32px" justify={"center"}>
                     <Flex direction="column" mr="16px">
-                        <Text mb="10px">Barrio:</Text>
+                        {/* <Text mb="10px">Barrio:</Text> */}
                         <Input
                             value={searchData.neighborhood}
                             name="neighborhood"
                             onChange={handleSearch}
-                            placeholder="Ingresa un barrio"
+                            placeholder="Ingresá un barrio"
                             size="md"
                             resize="none"
                         />
                     </Flex>
                     <Flex direction="column" ml="32px"> {/* Added ml (margin-left) */}
-                        <Text mb="10px">Categoria:</Text>
-                        <Select mb="10px" placeholder="Elegir una opción" name="type" onChange={handleSearch} >
+                        {/* <Text mb="10px">Categoria:</Text> */}
+                        <Select mb="10px" placeholder="Todas las categorías" name="type" onChange={handleSearch} >
                             <option value="restaurant" onChange={handleSearch}>🍴 Restaurantes</option>
                             <option value="supermarket" onChange={handleSearch}>🛒 Supermercados</option>
                             <option value="coffee" onChange={handleSearch}>☕ Cafés</option>
-                            <option value="grocery" onChange={handleSearch}>🥫 Verdulerías</option>
+                            <option value="grocery" onChange={handleSearch}>🥑 Verdulerías</option>
                             <option value="delicatessen" onChange={handleSearch}>🍲 Delicatessen</option>
                             <option value="bakery" onChange={handleSearch}>🥐 Panaderías</option>
                             <option value="others" onChange={handleSearch}>Otros</option>
