@@ -81,7 +81,7 @@ export default function ShopOrderHero(order: OrderProps) {
             <Box p={4}>
                 <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
                     <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
-                        Órden hecha por {orderWithUser.user.display_name} el {new Date(orderWithUser.order.created_at).toLocaleDateString()}
+                        Órden hecha por {orderWithUser.user.display_name} el {new Date(orderWithUser.order.created_at).toLocaleDateString('es-AR')}
                     </Heading>
                 </Stack>
 

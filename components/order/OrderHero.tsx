@@ -81,7 +81,7 @@ export default function OrderHero(order: OrderProps) {
             <Box p={4}>
                 <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
                     <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
-                        Mi pedido a {orderWithShop.shop.name} el {new Date(orderWithShop.order.created_at).toLocaleDateString()}
+                        Mi pedido a {orderWithShop.shop.name} el {new Date(orderWithShop.order.created_at).toLocaleDateString('es-AR')}
                     </Heading>
                 </Stack>
 

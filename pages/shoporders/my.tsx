@@ -67,7 +67,7 @@ const MyShopOrdersList = () => {
                                                 <span>{order.user.display_name}</span>
                                             </Flex>
                                         </Td>
-                                        <Td>{new Date(order.order.created_at).toLocaleDateString()}</Td>
+                                        <Td>{new Date(order.order.created_at).toLocaleDateString('es-AR')}</Td>
                                         <Td>
                                             <Flex align='left'>
                                                 {formatPrice(order.order.total.amount)}

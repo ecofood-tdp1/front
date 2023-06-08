@@ -69,7 +69,7 @@ const MyOrdersList = () => {
                                                 <span>{order.shop.name}</span>
                                             </Flex>
                                         </Td>
-                                        <Td>{new Date(order.order.created_at).toLocaleDateString()}</Td>
+                                        <Td>{new Date(order.order.created_at).toLocaleDateString('es-AR')}</Td>
                                         <Td>{order.shop.pick_up_from} a {order.shop.pick_up_to} hrs</Td>
                                         <Td>{order.shop.address} - {order.shop.neighborhood}</Td>
                                         <Td>
