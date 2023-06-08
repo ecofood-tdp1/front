@@ -25,7 +25,7 @@ export const CartItem = (props: CartItemProps) => {
       <Flex width="full" justify="space-between" display={{ base: 'none', md: 'flex' }}>
         <Box  />
         <Box  />
-        <PriceTag price={pack.price.amount} currency={"USD"} />
+        <PriceTag salePrice={pack.price.amount} price={pack.original_price.amount} currency={"ARS"} />
         <CloseButton aria-label={`Delete ${pack.name} from cart`} onClick={() => onClickDelete(pack)} />
       </Flex>
 
@@ -42,7 +42,7 @@ export const CartItem = (props: CartItemProps) => {
         </Link>
         <Box  />
         <Box  />
-        <PriceTag price={pack.price.amount} currency={"USD"} />
+        <PriceTag salePrice={pack.price.amount} price={pack.original_price.amount} currency={"ARS"} />
       </Flex>
     </Flex>
   )

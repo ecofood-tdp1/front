@@ -39,6 +39,9 @@ export const ShopCard: React.FC<ShopCardProps> = ({ shop }) => {
         <Image
           alt="Shop image"
           src={shop.imageURL}
+          sizes="(min-width: 60em) 24vw,
+                    (min-width: 28em) 45vw,
+                    100vw"
           fill
           className={cn(
             'object-cover duration-700 ease-in-out group-hover:opacity-75	',
@@ -57,9 +60,7 @@ export const ShopCard: React.FC<ShopCardProps> = ({ shop }) => {
           <Text fontWeight="medium" color={useColorModeValue('gray.500', 'gray.400')}>
             {shop.neighborhood}
           </Text>
-          <Text fontWeight="medium" color={useColorModeValue('gray.700', 'gray.400')}>
-            <ShopTypeBadge shopType={shop.type} />
-          </Text>
+          <ShopTypeBadge shopType={shop.type} />
         </Stack>
         <HStack>
           <Rating defaultValue={getReviewStarsFor(shop._id)} size="sm" />

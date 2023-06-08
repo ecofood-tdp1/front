@@ -25,7 +25,7 @@ export const PaymentOrderPackItem = (props: PaymentOrderPackItemProps) => {
             <Flex width="full" justify="space-between" display={{ base: 'none', md: 'flex' }}>
                 <Box  />
                 <Box  />
-                <PriceTag price={pack.price.amount} currency={"USD"} />
+                <PriceTag salePrice={pack.price.amount} price={pack.original_price.amount} currency={"USD"} />
             </Flex>
 
             {/* Mobile */}
@@ -41,7 +41,7 @@ export const PaymentOrderPackItem = (props: PaymentOrderPackItemProps) => {
                 </Link>
                 <Box  />
                 <Box  />
-                <PriceTag price={pack.price.amount} currency={"USD"} />
+                <PriceTag salePrice={pack.price.amount} price={pack.original_price.amount} currency={"USD"} />
             </Flex>
         </Flex>
         <Divider borderColor={'#c3c3c3'}/>
