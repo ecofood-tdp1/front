@@ -5,9 +5,10 @@ import { GetOrder } from '../../repository/OrderRepository';
 
 export async function getStaticPaths() {
     const paths = await getAllOrderIDs();
+    console.log(paths);
     return {
         paths,
-        fallback: false
+        fallback: 'blocking'
     };
 }
 

@@ -6,7 +6,7 @@ export async function getStaticPaths() {
     const paths = await getAllShopIDs();
     return {
         paths,
-        fallback: false
+        fallback: 'blocking'
     };
 }
 
