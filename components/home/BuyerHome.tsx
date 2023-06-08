@@ -3,7 +3,7 @@ import Header from './Header'
 import { ShopCard } from './ShopCard'
 import React from 'react'
 import { GetShops } from '../../repository/ShopRepository';
-import { Flex, Select, Text, Textarea } from '@chakra-ui/react';
+import { Flex, Input, Select, Text, Textarea } from '@chakra-ui/react';
 // import img from '../../public/food2.jpg'
 import img from '../../public/bolsa.jpg'
 
@@ -89,18 +89,18 @@ const BuyerHome = () => {
                 <Flex mb="32px">
                     <Flex direction="column" mr="16px">
                         <Text mb="10px">Barrio:</Text>
-                        <Textarea
+                        <Input
                             value={searchData.neighborhood}
                             name="neighborhood"
                             onChange={handleSearch}
                             placeholder="Ingresa un barrio"
-                            size="sm"
+                            size="md"
                             resize="none"
                         />
                     </Flex>
                     <Flex direction="column" ml="32px"> {/* Added ml (margin-left) */}
-                        <Text mb="8px">Elegir por categoria:</Text>
-                        <Select mb="8px" placeholder="Elegir una opción" name="type" onChange={handleSearch} >
+                        <Text mb="10px">Categoria:</Text>
+                        <Select mb="10px" placeholder="Elegir una opción" name="type" onChange={handleSearch} >
                             <option value="restaurant" onChange={handleSearch}>🍴 Restaurantes</option>
                             <option value="supermarket" onChange={handleSearch}>🛒 Supermercados</option>
                             <option value="coffee" onChange={handleSearch}>☕ Cafés</option>
