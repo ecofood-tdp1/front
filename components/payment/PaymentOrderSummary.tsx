@@ -71,9 +71,9 @@ export const PaymentOrderSummary = (props: Props) => {
         </Stack>
         <PaymentOrderSummaryItem label="Subtotal" value={formatPrice(props.subtotal)} />
         <PaymentOrderSummaryItem label="Descuento">
-          <Link fontSize={"17px"} fontWeight={"bold"} color={mode('green.600', 'green.500')} href="#" >
+          <Text fontSize={"17px"} fontWeight={"bold"} color={mode('green.600', 'green.500')}  >
             {formatPrice(props.subtotal - props.total)} { props.subtotal == 0 ? "" : "("+Math.round(100 * (props.subtotal - props.total) / props.subtotal) + "%)"}
-          </Link>
+          </Text>
         </PaymentOrderSummaryItem>
         <Flex justify="space-between">
           <Text fontSize="lg" fontWeight="semibold">

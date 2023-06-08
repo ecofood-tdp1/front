@@ -48,9 +48,9 @@ export const CartOrderSummary = (props: Props) => {
       <Stack spacing="6">
         <OrderSummaryItem label="Subtotal" value={formatPrice(props.subtotal)} />
         <OrderSummaryItem label="Te ahorrás" >
-          <Link fontSize={"17px"} fontWeight={"bold"} color={mode('green.600', 'green.500')} href="#" >
-            {formatPrice(props.subtotal - props.total)} { props.subtotal == 0 ? "" : "("+Math.round(100 * (props.subtotal - props.total) / props.subtotal) + "%)"}
-          </Link>
+          <Text fontSize={"17px"} fontWeight={"bold"} color={mode('green.600', 'green.500')} >
+            {formatPrice(props.subtotal - props.total)} {props.subtotal == 0 ? "" : "(" + Math.round(100 * (props.subtotal - props.total) / props.subtotal) + "%)"}
+          </Text>
         </OrderSummaryItem>
         <Flex justify="space-between">
           <Text fontSize="lg" fontWeight="semibold">
