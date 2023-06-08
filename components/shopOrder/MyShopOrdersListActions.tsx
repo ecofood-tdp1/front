@@ -3,7 +3,7 @@ import {
     Button,
 } from '@chakra-ui/react'
 import { ViewIcon, CheckCircleIcon } from "@chakra-ui/icons";
-import Link from 'next/link';
+import { Link } from '@chakra-ui/react';
 import { UpdateOrderStatus } from '../../repository/OrderRepository';
 
 const MyShopOrdersListActions = ({ order }) => {
@@ -20,7 +20,7 @@ const MyShopOrdersListActions = ({ order }) => {
                     Marcar como entregado
                 </Button>
                 : ""}
-            <Link href={"/shoporders/" + order._id} passHref>
+            <Link href={"/shoporders/" + order._id}>
                 <Button leftIcon={<ViewIcon />} colorScheme='blue' variant='solid'>
                     Ver detalle
                 </Button>
