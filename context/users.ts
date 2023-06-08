@@ -5,7 +5,7 @@ const buyerDefault: User = {
 };
 
 const shopDefault: User = {
-    _id: '2',
+    _id: 'e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d',
     type: "shop",
     display_name: 'La Continental',
 };

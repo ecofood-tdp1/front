@@ -79,7 +79,7 @@ export async function PostOrder(shopId: string, packs: Pack[], amount: number): 
                 "currency": "ARS"
             },
             "packs": packs,
-            "created_at": moment().format('DD/MM/YYYY HH:MM:SS'),
+            "created_at": moment().format('DD/MM/YYYY HH:mm:ss'),
         })
     })
     if (!response.ok) {
