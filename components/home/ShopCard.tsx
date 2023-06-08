@@ -54,9 +54,14 @@ export const ShopCard: React.FC<ShopCardProps> = ({ shop }) => {
       </div>
       <Stack>
         <Stack spacing="1">
-          <Text mt={3} fontSize={"20px"} fontWeight="medium" color={useColorModeValue('gray.700', 'gray.400')}>
-            {shop.name}
-          </Text>
+          <HStack mt={3}>
+            <Text fontSize={"20px"} fontWeight="medium" color={useColorModeValue('gray.700', 'gray.400')}>
+              {shop.name}
+            </Text>
+            {shop._id == "e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d" && <Badge colorScheme={"green"}>PROMOCIONADO</Badge>}
+            {shop._id == "c09b73dc-9ca5-4559-8605-f22ee1742a17" && <Badge colorScheme={"green"}>PROMOCIONADO</Badge>}
+          </HStack>
+          
           <Text fontWeight="medium" color={useColorModeValue('gray.500', 'gray.400')}>
             {shop.neighborhood}
           </Text>
