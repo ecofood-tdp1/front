@@ -1,6 +1,56 @@
 # front
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Para testear mobile
+
+## Configuración inicial
+Asegurarse de tener instalado:
+
+En mac:
+* Xcode
+* cocoapods (se instala con ```sudo gem install cocoapods```)
+
+En android:
+* android studio
+* no sé si alguna otra cosa
+
+Luego instalar capacitor y crear la carpeta de build llamada "out":
+```
+npm install @capacitor/cli @capacitor/core @capacitor/ios @capacitor/android
+npm run static
+```
+
+Finalmente agregar las plataformas nativas (sólo la que uses)
+```
+npx cap add ios
+npx cap add android
+```
+
+## Para correr
+* Tener corriendo el server en el puerto 3000
+```
+npm run dev
+```
+
+* Obtener la IP local. En mac es:
+```
+ipconfig getifaddr en0
+```
+
+* En el archivo ```capacitor.config.ts``` reemplazar la IP en la url
+
+* Correr ```npx cap sync```
+
+* Abrir el proyecto de Xcode o en android studio:
+```
+npx cap open ios
+npx cap open android
+```
+* Levantar el simulador en Xcode o android y ver la app corriendo y actualizándose live...
+
+
+--------------
+
+## This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
