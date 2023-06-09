@@ -1,3 +1,5 @@
+export { type Pack, type Product, type Price }
+
 type Pack = {
     readonly _id: string,
     readonly shop_id: string,

@@ -1,3 +1,5 @@
+export { type User }
+
 type User = {
     readonly _id: string,
     readonly type: string,

@@ -13,6 +13,7 @@ import { formatPrice } from './PriceTag'
 import { useRouter } from 'next/router'
 import { PaymentOrderPackItem } from './PaymentOrderItem'
 import { CheckCircleIcon } from '@chakra-ui/icons'
+import { Pack } from '../../model/Pack'
 
 type PaymentOrderSummaryItemProps = {
   label: string

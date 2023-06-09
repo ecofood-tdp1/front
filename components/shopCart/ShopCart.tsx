@@ -12,6 +12,7 @@ import { CartItem } from './CartItem'
 import { CartOrderSummary } from './CartOrderSummary'
 import { GetPacksFromShoppingCart, RemovePackFromShoppingCart } from '../../repository/UserRepository'
 import { v4 as uuidv4 } from 'uuid';
+import { Pack } from '../../model/Pack'
 
 interface Props {
   packs: Pack[]

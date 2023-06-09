@@ -1,3 +1,5 @@
+export { type Shop }
+
 type Shop = {
     readonly _id: string,
     readonly name: string,

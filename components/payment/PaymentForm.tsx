@@ -21,6 +21,7 @@ import { PostOrder } from '../../repository/OrderRepository';
 import { useRouter } from 'next/router'
 import { RemovePackFromShoppingCart } from '../../repository/UserRepository';
 import { PaymentMethodRadio } from './PaymentMethodRadio';
+import { Pack } from '../../model/Pack';
 
   interface Props {
     packs: Pack[]

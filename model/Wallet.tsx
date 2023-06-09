@@ -1,3 +1,5 @@
+export { type Wallet, type Balance, type Transactions }
+
 type Wallet = {
     readonly balance: Balance,
     readonly transactions: Transactions[],

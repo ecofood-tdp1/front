@@ -1,3 +1,5 @@
+import { Order } from "../model/Order";
+import { Pack } from "../model/Pack";
 import { GetOrders } from "../repository/OrderRepository";
 
 export async function getAllOrderIDs() {

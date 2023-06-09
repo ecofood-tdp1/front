@@ -20,6 +20,7 @@ import {
 import { useState, useEffect } from 'react';
 import { GetUser } from '../../repository/UserRepository';
 import { getEarliestExpiryDate, getEarnedMoney } from '../../lib/orders';
+import { Order, OrderWithUser } from '../../model/Order';
 
 interface CardProps {
     heading: string;

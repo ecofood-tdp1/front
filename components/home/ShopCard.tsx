@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react'
 import { Rating } from '../Rating'
 import ShopTypeBadge from '../shop/ShopTypeBadge'
+import { Shop } from '../../model/Shop'
 
 function cn(...classes) {
   return classes.filter(Boolean).join(' ')

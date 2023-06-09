@@ -16,6 +16,7 @@ import { GetOrdersOfShop } from '../../repository/OrderRepository';
 import { GetUser } from '../../repository/UserRepository';
 import OrderStatusBadge from '../../components/order/OrderStatusBadge';
 import { formatPrice } from '../../components/shop/PriceTag';
+import { OrderWithUser } from '../../model/Order';
 
 const MyShopOrdersList = () => {
     const [orders, setOrders] = useState([]);
