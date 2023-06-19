@@ -1,3 +1,5 @@
+import { User } from "../model/User";
+
 const buyerDefault: User = {
     _id: '4016cb54-ff0e-46a6-ace5-69304d9720c7',
     type: "buyer",

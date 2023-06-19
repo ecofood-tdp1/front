@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { buyerDefault, shopDefault } from "./users";
+import { User } from "../model/User";
 
 interface UserDataContextType {
     user: User;

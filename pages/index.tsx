@@ -13,6 +13,7 @@ export default function Home({ }) {
   const { user } = useContext(UserDataContext);
   return (
     <>
+      {console.log(user)}
       {user.type == "buyer" ? <BuyerHome /> : <ShopHome />}
     </>);
 }
