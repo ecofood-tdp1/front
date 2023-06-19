@@ -5,8 +5,8 @@ const config: CapacitorConfig = {
   appName: 'Ecofood',
   webDir: 'out',
   server: {
-    androidScheme: 'https',
-    url: 'http://192.168.0.80:3000',
+    androidScheme: 'http',
+    url: 'http://10.0.2.2:3000',
     cleartext: true
   }
 };

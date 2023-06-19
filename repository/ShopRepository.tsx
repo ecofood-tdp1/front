@@ -1,5 +1,7 @@
+
 export async function GetShops(): Promise<Shop[]> {
-    const response = await fetch('http://localhost:2000/shops', {method:  'GET'})
+    console.log("SARASA", process.env.BACKEND_URL);
+    const response = await fetch(`${process.env.BACKEND_URL}/shops`, {method:  'GET'})
 
     if (!response.ok) {
       throw new Error(`Error! status: ${response.status}`);
@@ -10,7 +12,7 @@ export async function GetShops(): Promise<Shop[]> {
 }
 
 export async function GetShop(id: string): Promise<Shop> {
-  const response = await fetch('http://localhost:2000/shops/' + id, {method:  'GET'})
+  const response = await fetch(`${process.env.BACKEND_URL}/shops/${id}`, {method:  'GET'})
 
   if (!response.ok) {
     throw new Error(`Error! status: ${response.status}`);
@@ -21,7 +23,7 @@ export async function GetShop(id: string): Promise<Shop> {
 }
 
 export async function GetWalletOfShop(shopid: string): Promise<Wallet> {
-  const response = await fetch('http://localhost:2000/shops/' + shopid + '/wallet', { method: 'GET' })
+  const response = await fetch(`${process.env.BACKEND_URL}/shops/${shopid}/wallet`, { method: 'GET' })
 
   if (!response.ok) {
       throw new Error(`Error! status: ${response.status}`);

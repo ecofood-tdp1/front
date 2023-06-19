@@ -1,5 +1,5 @@
 export async function GetPack(id): Promise<Pack> {
-    const response = await fetch(`http://localhost:2000/packs/${id}`, {method:  'GET'})
+    const response = await fetch(`${process.env.BACKEND_URL}/packs/${id}`, {method:  'GET'})
 
     if (!response.ok) {
       throw new Error(`Error! status: ${response.status}`);
