@@ -3,14 +3,14 @@ import {
     Button,
 } from '@chakra-ui/react'
 import { ViewIcon, CheckCircleIcon } from "@chakra-ui/icons";
-import { Link } from '@chakra-ui/react';
 import { UpdateOrderStatus } from '../../repository/OrderRepository';
+import NextLink from 'next/link'
 
 const MyShopOrdersListActions = ({ order }) => {
 
     const handleMarkAsDelivered = async () => {
         await UpdateOrderStatus(order._id, "marked_as_delivered")
-        window.location.reload(); // Refresh the page
+        window.location.reload(); // TODO: esto hace que en mobile se cambie de usuario solo, a Messi
     }
 
     return (
@@ -20,11 +20,11 @@ const MyShopOrdersListActions = ({ order }) => {
                     Marcar como entregado
                 </Button>
                 : ""}
-            <Link href={"/shoporders/" + order._id}>
+            <NextLink href={"/shoporders/" + order._id}>
                 <Button leftIcon={<ViewIcon />} colorScheme='blue' variant='solid'>
                     Ver detalle
                 </Button>
-            </Link>
+            </NextLink>
         </Box>
     );
 }
