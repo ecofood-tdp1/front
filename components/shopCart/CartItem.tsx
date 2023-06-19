@@ -1,6 +1,7 @@
-import { CloseButton, Flex, Link, Select, SelectProps, useColorModeValue, Box } from '@chakra-ui/react'
+import { CloseButton, Flex, Link, Select, SelectProps, useColorModeValue, Box, Button } from '@chakra-ui/react'
 import { PriceTag } from './PriceTag'
 import { CartProductMeta } from './CartProductMeta'
+import { Pack } from '../../model/Pack'
 
 type CartItemProps = {
   pack: Pack
@@ -23,8 +24,8 @@ export const CartItem = (props: CartItemProps) => {
 
       {/* Desktop */}
       <Flex width="full" justify="space-between" display={{ base: 'none', md: 'flex' }}>
-        <Box  />
-        <Box  />
+        <Box />
+        <Box />
         <PriceTag salePrice={pack.price.amount} price={pack.original_price.amount} currency={"ARS"} />
         <CloseButton aria-label={`Delete ${pack.name} from cart`} onClick={() => onClickDelete(pack)} />
       </Flex>
@@ -37,11 +38,9 @@ export const CartItem = (props: CartItemProps) => {
         justify="space-between"
         display={{ base: 'flex', md: 'none' }}
       >
-        <Link fontSize="sm" textDecor="underline">
-          Delete
-        </Link>
-        <Box  />
-        <Box  />
+        <CloseButton aria-label={`Delete ${pack.name} from cart`} onClick={() => onClickDelete(pack)} />
+        <Box />
+        <Box />
         <PriceTag salePrice={pack.price.amount} price={pack.original_price.amount} currency={"ARS"} />
       </Flex>
     </Flex>
