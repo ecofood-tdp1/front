@@ -22,6 +22,7 @@ import { MdCheckCircle, MdDelete, MdEdit } from 'react-icons/md';
 import { useState } from 'react'
 import { AddPackToShoppingCart } from '../../repository/UserRepository';
 import { useToast } from '@chakra-ui/react'
+import { Pack, Product } from '../../model/Pack';
 
 interface Props {
     pack: Pack
