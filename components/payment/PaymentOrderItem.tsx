@@ -1,6 +1,7 @@
 import { CloseButton, Flex, Link, Select, SelectProps, useColorModeValue, Box, Divider, Stack } from '@chakra-ui/react'
 import { PriceTag } from '../shopCart/PriceTag'
 import { CartProductMeta } from '../shopCart/CartProductMeta'
+import { Pack } from '../../model/Pack'
 
 type PaymentOrderPackItemProps = {
   pack: Pack

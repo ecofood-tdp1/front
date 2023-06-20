@@ -20,6 +20,7 @@ import { PriceTag } from '../shop/PriceTag'
 import { getReviewCountFor, getReviewStarsFor } from '../../lib/helpers';
 import { MdCheckCircle } from 'react-icons/md';
 import { useState } from 'react'
+import { Pack, Product } from '../../model/Pack';
 
 interface Props {
     pack: Pack

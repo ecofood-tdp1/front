@@ -13,6 +13,7 @@ import {
 import { MdOutlineLocationOn, MdPhone, MdOutlineAccessTime } from 'react-icons/md';
 import ShopTypeBadge from './ShopTypeBadge';
 import { MdEdit, MdLibraryAdd } from 'react-icons/md';
+import { Shop } from '../../model/Shop';
 
 interface ShopProp {
     shop: Shop

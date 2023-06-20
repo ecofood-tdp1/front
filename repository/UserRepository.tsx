@@ -1,3 +1,5 @@
+import { Pack } from "../model/Pack";
+import { User } from "../model/User";
 import { GetPack } from "./PackRepository";
 
 export async function GetUser(userid: string): Promise<User> {
