@@ -1,4 +1,6 @@
 import moment from 'moment'
+import { Order } from '../model/Order';
+import { Pack } from '../model/Pack';
 
 export async function GetOrdersOfUser(userid: string): Promise<Order[]> {
     const response = await fetch(`${process.env.BACKEND_URL}/orders?user_id=${userid}`, { method: 'GET' })

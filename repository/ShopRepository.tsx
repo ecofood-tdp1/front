@@ -1,3 +1,6 @@
+import { Shop } from '../model/Shop';
+import { Wallet } from '../model/Wallet';
+
 
 export async function GetShops(): Promise<Shop[]> {
     console.log("SARASA", process.env.BACKEND_URL);
