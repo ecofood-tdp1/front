@@ -1,14 +1,14 @@
 import React from "react";
 import { Box, Flex, Image, chakra } from "@chakra-ui/react";
-import { OrderWithShop } from '../../model/Order';
+import { OrderWithUser } from '../../model/Order';
 import { formatPrice } from "../shop/PriceTag";
-import OrderStatusBadge from "./OrderStatusBadge";
-import MyOrdersViewDetail from "./MyOrdersViewDetail";
-import MyOrdersConfirm from "./MyOrdersConfirm";
 import { formatDate } from "../../lib/helpers";
+import OrderStatusBadge from "../order/OrderStatusBadge";
+import MyShopOrdersViewDetail from "./MyShopOrdersViewDetail";
+import MyShopOrdersConfirmedDelivered from "./MyShopOrdersConfirmDelivered";
 
 interface Props {
-    order: OrderWithShop
+    order: OrderWithUser
 }
 
 export default function OrderCard(props: Props) {
@@ -37,7 +37,8 @@ export default function OrderCard(props: Props) {
                             h={12}
                             rounded="full"
                             fit="cover"
-                            src={props.order.shop.imageURL}
+                            src={"/messi.jpg"} 
+                            // TODO: foto hardcodeada de usuario
                             alt="avatar"
                         />
                         <chakra.div
@@ -45,41 +46,14 @@ export default function OrderCard(props: Props) {
                             color="gray.700"
                             fontWeight="700"
                         >
-                            {props.order.shop.name}
+                            {props.order.user.display_name}
                         </chakra.div>
                     </Flex>
                     <Flex alignItems="center" justifyContent="center" mt={2}>
-                        <chakra.p color="gray.600" _dark={{ color: "gray.300" }}>
+                        <chakra.p color="gray.600" >
                             <OrderStatusBadge orderStatus={props.order.order.status} />
                         </chakra.p>
                     </Flex>
-
-                    <Flex alignItems="center" justifyContent="center" mt={2}>
-                        <chakra.p color="gray.600" _dark={{ color: "gray.300" }}>
-                            {props.order.order.status === "paid" ? (
-                                <>
-                                    Retirar de {props.order.shop.pick_up_from} a{" "}
-                                    {props.order.shop.pick_up_to} hrs
-
-                                </>
-                            ) : (
-                                ""
-                            )}
-                        </chakra.p>
-                    </Flex>
-                    <Flex alignItems="center" justifyContent="center" mt={2}>
-                        <chakra.p color="gray.600" _dark={{ color: "gray.300" }}>
-                            {props.order.order.status === "paid" ? (
-                                <>
-                                    {props.order.shop.address} - {props.order.shop.neighborhood}
-                                </>
-                            ) : (
-                                ""
-                            )}
-                        </chakra.p>
-                    </Flex>
-
-
                 </Box>
 
 
@@ -90,10 +64,10 @@ export default function OrderCard(props: Props) {
                     >
                         {formatPrice(props.order.order.total.amount)}
                     </Box>
-                    <MyOrdersViewDetail order={props.order.order} />
+                    <MyShopOrdersViewDetail order={props.order.order} />
                 </Flex>
                 <chakra.div mt={4} ml={12}>
-                    <MyOrdersConfirm order={props.order.order} />
+                    <MyShopOrdersConfirmedDelivered order={props.order.order} />
                 </chakra.div>
             </Box >
         </div>
