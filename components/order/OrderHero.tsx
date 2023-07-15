@@ -1,6 +1,5 @@
 import {
     Box,
-    Button,
     Container,
     Flex,
     Heading,
@@ -12,7 +11,6 @@ import {
 import { ReactElement } from 'react';
 import {
     FcOvertime,
-    FcAssistant,
     FcBullish,
     FcClock,
     FcShop
