@@ -21,6 +21,7 @@ import { useState, useEffect } from 'react';
 import { GetUser } from '../../repository/UserRepository';
 import { getEarliestExpiryDate, getEarnedMoney } from '../../lib/orders';
 import { Order, OrderWithUser } from '../../model/Order';
+import { formatDate, formatDateOrderDetail } from '../../lib/helpers';
 
 interface CardProps {
     heading: string;
@@ -76,17 +77,17 @@ export default function ShopOrderHero(order: OrderProps) {
         setOrderWithUser({ order: order.order, user: user_from_order });
     };
 
-
     return (
         orderWithUser ?
             <Box p={4}>
                 <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
                     <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
-                        Órden hecha por {orderWithUser.user.display_name} el {new Date(orderWithUser.order.created_at).toLocaleDateString('es-AR')}
+                        Órden hecha por {orderWithUser.user.display_name},
+                        {formatDateOrderDetail(orderWithUser.order.created_at)}
                     </Heading>
                 </Stack>
 
-                <Container maxW={'5xl'} mt={12}>
+                <Container maxW={'5xl'} mt={4}>
                     <Flex flexWrap="wrap" gridGap={6} justify="center">
                         <Card
                             heading={"Ganaste $" + getEarnedMoney(order.order).toString()}

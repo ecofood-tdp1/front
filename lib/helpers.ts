@@ -34,3 +34,14 @@ export const formatDate = (date) => {
         return date.toLocaleDateString("en-AR", { day: "numeric", month: "numeric", year: "2-digit" });
     }
 }
+
+export const formatDateOrderDetail = (rawDate) => {
+    let date = formatDate(new Date(rawDate))
+    if (date == "Hoy") {
+        return " hoy"
+    } else if (date == "ayer") {
+        return " ayer"
+    } else {
+        return " el " + date
+    }
+}

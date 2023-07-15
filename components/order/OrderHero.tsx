@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react';
 import { GetShop } from '../../repository/ShopRepository';
 import { getEarliestExpiryDate, getSavedMoney } from '../../lib/orders';
 import { Order, OrderWithShop } from '../../model/Order';
+import { formatDateOrderDetail } from '../../lib/helpers';
 
 interface CardProps {
     heading: string;
@@ -80,11 +81,12 @@ export default function OrderHero(order: OrderProps) {
             <Box p={4}>
                 <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
                     <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
-                        Mi pedido a {orderWithShop.shop.name} el {new Date(orderWithShop.order.created_at).toLocaleDateString('es-AR')}
+                        Mi pedido a {orderWithShop.shop.name},
+                        {formatDateOrderDetail(orderWithShop.order.created_at)}
                     </Heading>
                 </Stack>
 
-                <Container maxW={'5xl'} mt={12}>
+                <Container maxW={'5xl'} mt={4}>
                     <Flex flexWrap="wrap" gridGap={6} justify="center">
                         <Card
                             heading={"Ahorraste $" + getSavedMoney(order.order).toString()}
