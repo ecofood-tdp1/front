@@ -3,7 +3,7 @@ const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
     env: {
-        BACKEND_URL: "http://10.0.2.2:2000",
+        BACKEND_URL: "http://127.0.0.1:2000",
     },
     images: {
         unoptimized: true,

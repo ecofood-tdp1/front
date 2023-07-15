@@ -3,16 +3,15 @@ import Header from './Header'
 import { ShopCard } from './ShopCard'
 import React from 'react'
 import { GetShops } from '../../repository/ShopRepository';
-import { Flex, Input, Select, Text, Textarea } from '@chakra-ui/react';
-// import img from '../../public/food2.jpg'
+import { Flex, Input, Select } from '@chakra-ui/react';
 import img from '../../public/bolsa.jpg'
 import { Shop } from '../../model/Shop';
+import { IonSearchbar } from '@ionic/react';
 
 const BuyerHome = () => {
     let shopsRef = useRef<HTMLParagraphElement | null>(null);
     const [shops, setShops] = useState<Shop[]>([])
     const [filteredShops, setFilteredShops] = useState<Shop[]>([])
-    let [value, setValue] = React.useState('')
 
     const defaultShopData = {
         "name": "",
@@ -39,6 +38,7 @@ const BuyerHome = () => {
     }
 
     const handleSearch = (event) => {
+        console.log("busqueda", event.target)
         const { name, value } = event.target
         setSearchData(prev => ({ ...prev, [name]: value }))
         let result = shops
@@ -89,15 +89,20 @@ const BuyerHome = () => {
                 </div>
                 <Flex mb="32px" direction={{ base: "column", sm: "row" }} justify={{ base: "center", sm: "flex-start" }}>
                     <Flex direction="column" mr={{ base: "0", sm: "2px" }} mb={{ base: "10px", sm: "0" }}>
+                        <IonSearchbar
+                            animated={true}
+                            placeholder="Busca"
+                            onIonInput={handleSearch}
+                        />
                         {/* <Text mb="10px">Barrio:</Text> */}
-                        <Input
+                        {/* <Input
                             value={searchData.neighborhood}
                             name="neighborhood"
                             onChange={handleSearch}
                             placeholder="Ingresá un barrio"
                             size="md"
                             resize="none"
-                        />
+                        /> */}
                     </Flex>
                     <Flex direction="column" ml={{ base: "0", sm: "10px" }}> {/* Added ml (margin-left) */}
                         {/* <Text mb="10px">Categoria:</Text> */}

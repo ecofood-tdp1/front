@@ -1,4 +1,4 @@
-import NextLink from 'next/link'
+import { Link } from 'react-router-dom'
 import Image from 'next/image'
 import { useState } from 'react'
 import React from 'react'
@@ -8,7 +8,6 @@ import {
   Box,
   Button,
   HStack,
-  Link,
   Skeleton,
   Stack,
   StackProps,
@@ -35,7 +34,7 @@ export const ShopCard: React.FC<ShopCardProps> = ({ shop }) => {
   const [isLoading, setLoading] = useState(true)
 
   return (
-    <NextLink href={"/shops/" + shop._id} className="group">
+    <Link to={"/shops/" + shop._id} className="group">
       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
         <Image
           alt="Shop image"
@@ -78,6 +77,6 @@ export const ShopCard: React.FC<ShopCardProps> = ({ shop }) => {
       <Text mt={2} fontSize={"15px"} fontWeight="medium" color={useColorModeValue('gray.600', 'gray.400')}>
         Retirá desde las {shop.pick_up_from} hasta las {shop.pick_up_to}
       </Text>
-    </NextLink >
+    </Link>
   )
 }
