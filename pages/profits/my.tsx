@@ -7,6 +7,7 @@ import {
   useColorModeValue,
   StatLabel,
   StatNumber,
+  Heading,
 } from '@chakra-ui/react'
 import { useState, useEffect, ReactNode } from 'react';
 import { FiShoppingBag } from 'react-icons/fi';
@@ -84,13 +85,11 @@ const MyProfitsList = () => {
   return (
     <>
       <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
-        <chakra.h1
-          textAlign={'center'}
-          fontSize={'4xl'}
-          py={10}
-          fontWeight={'bold'}>
-          Mis ganancias.
-        </chakra.h1>
+        <Flex alignItems="center" justifyContent="center" mb={4}>
+          <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">
+            Mis ganancias
+          </Heading>
+        </Flex>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }}>
           <StatsCard
             title={'Cantidad de ordenes'}

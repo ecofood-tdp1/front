@@ -3,6 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import '../styles/globals.css';
 import Context from "../context/Context";
 import Head from 'next/head'
+import BottomNavBar from "../components/BottomNavBar";
 
 
 export default function MyApp({ Component, pageProps }) {
@@ -11,10 +12,11 @@ export default function MyApp({ Component, pageProps }) {
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
             </Head>
-            <ChakraProvider>
+            <ChakraProvider >
                 <Context>
-                    <NavBar />
+                    {/* <NavBar /> */}
                     <Component {...pageProps} />
+                    <BottomNavBar/>
                 </Context>
             </ChakraProvider>
         </div>

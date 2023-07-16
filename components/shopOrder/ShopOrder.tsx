@@ -7,12 +7,13 @@ export const ShopOrder = ({ orderData }) => {
     return (
         <>
             <ShopOrderHero order={orderData} />
-            <Divider mt={7} />
+            <Divider mt={2} />
             <Box
                 maxW="7xl"
                 mx="auto"
                 px={{ base: '4', md: '8', lg: '12' }}
                 py={{ base: '6', md: '8', lg: '12' }}
+                mb={4}
             >
 
                 <PackGrid>

@@ -1,25 +1,19 @@
 import {
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
-    Avatar,
+    Box,
     Flex,
+    Heading,
+    SimpleGrid,
+    Skeleton,
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
-import MyShopOrdersListActions from '../../components/shopOrder/MyShopOrdersListActions';
 import { GetOrdersOfShop } from '../../repository/OrderRepository';
 import { GetUser } from '../../repository/UserRepository';
-import OrderStatusBadge from '../../components/order/OrderStatusBadge';
-import { formatPrice } from '../../components/shop/PriceTag';
 import { OrderWithUser } from '../../model/Order';
+import ShopOrderCard from '../../components/shopOrder/ShopOrderCard';
 
 const MyShopOrdersList = () => {
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchMyShopOrders();
@@ -37,57 +31,45 @@ const MyShopOrdersList = () => {
             );
 
             setOrders(ordersWithUsers);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching orders:', error);
+            setLoading(false);
         }
     };
 
     return (
-        <TableContainer mt={5} fontSize={"17px"}>
-            <Table variant='simple' colorScheme={"blackAlpha"}>
-                <TableCaption>Mis órdenes</TableCaption>
-                <Thead>
-                    <Tr>
-                        <Th>Usuario</Th>
-                        <Th>Fecha</Th>
-                        <Th>Precio</Th>
-                        <Th>Estado</Th>
-                        <Th isNumeric>Acciones</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {
-                        orders
-                            .sort((a: OrderWithUser, b: OrderWithUser) => new Date(b.order.created_at).getTime() - new Date(a.order.created_at).getTime())
-                            .map((order: OrderWithUser) => {
-                                return (
-                                    <Tr key={order.order._id}>
-                                        <Td>
-                                            <Flex align='center'>
-
-                                                <span>{order.user.display_name}</span>
-                                            </Flex>
-                                        </Td>
-                                        <Td>{new Date(order.order.created_at).toLocaleDateString('es-AR')}</Td>
-                                        <Td>
-                                            <Flex align='left'>
-                                                {formatPrice(order.order.total.amount)}
-                                            </Flex>
-                                        </Td>
-                                        <Td>
-                                            <OrderStatusBadge orderStatus={order.order.status} />
-                                        </Td>
-                                        <Td isNumeric>
-                                            <MyShopOrdersListActions order={order.order} />
-                                        </Td>
-                                    </Tr>
-
-                                );
-                            })
-                    }
-                </Tbody>
-            </Table>
-        </TableContainer>
+        <>
+            <Box mt={4} mx="auto" maxW="800px">
+                <Flex alignItems="center" justifyContent="center" mb={4}>
+                    <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">
+                        Mis órdenes
+                    </Heading>
+                </Flex>
+                {loading ? ( 
+                    // Show Skeleton while loading
+                    <SimpleGrid mt={4} mb={8} ml={4} mr={4} columns={1} spacingX='40px' spacingY='20px'>
+                        <Skeleton height="150px" />
+                        <Skeleton height="150px" />
+                        <Skeleton height="150px" />
+                        <Skeleton height="150px" />
+                    </SimpleGrid>
+                ) : (
+                    // Show the actual data once loading is complete
+                    <SimpleGrid mt={4} mb={8} ml={4} mr={4} columns={1} spacingX='40px' spacingY='20px'>
+                        {
+                            orders
+                                .sort((a: OrderWithUser, b: OrderWithUser) => new Date(b.order.created_at).getTime() - new Date(a.order.created_at).getTime())
+                                .map((order: OrderWithUser) => {
+                                    return (
+                                        <ShopOrderCard key={order.order._id} order={order} />
+                                    );
+                                })
+                        }
+                    </SimpleGrid>
+                )}
+            </Box>
+        </>
     );
 }
 

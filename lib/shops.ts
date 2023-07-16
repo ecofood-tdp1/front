@@ -1,9 +1,9 @@
 import axios from "axios"
 
 
-const allShopsURL = "http://localhost:2000/shops"
-const getShopURL = (id) => `http://localhost:2000/shops/${id}`
-const getShopPacksURL = (id) => `http://localhost:2000/packs?shop_id=${id}`
+const allShopsURL = `${process.env.BACKEND_URL}/shops`
+const getShopURL = (id) => `${process.env.BACKEND_URL}/shops/${id}`
+const getShopPacksURL = (id) => `${process.env.BACKEND_URL}/packs?shop_id=${id}`
 
 export async function getAllShopIDs() {
     let shops = []

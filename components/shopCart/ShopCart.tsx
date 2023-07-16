@@ -39,9 +39,12 @@ export const ShopCart = (props: Props) => {
       spacing={{ base: '8', md: '16' }}
     >
       <Stack spacing={{ base: '8', md: '10' }} flex="2">
-        <Heading fontSize="2xl" fontWeight="extrabold">
-          Mi Carrito ({packs.length} items)
-        </Heading>
+
+        <Flex alignItems="center" justifyContent="center" mb={2}>
+          <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">
+            Mi carrito ({packs.length} items)
+          </Heading>
+        </Flex>
 
         <Stack spacing="6">
           {packs.map((pack) => (
