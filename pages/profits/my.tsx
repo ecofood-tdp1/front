@@ -1,7 +1,6 @@
 import {
   Flex,
   Box,
-  chakra,
   SimpleGrid,
   Stat,
   useColorModeValue,

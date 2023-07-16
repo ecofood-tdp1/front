@@ -3,14 +3,11 @@ import {
   Flex,
   Heading,
   IconButton,
-  Link,
   Stack,
   Text,
   useColorModeValue as mode,
 } from '@chakra-ui/react'
-import { FaArrowRight } from 'react-icons/fa'
 import { formatPrice } from './PriceTag'
-import { useRouter } from 'next/router'
 import { PaymentOrderPackItem } from './PaymentOrderItem'
 import { CheckCircleIcon } from '@chakra-ui/icons'
 import { Pack } from '../../model/Pack'

@@ -39,7 +39,7 @@ export const formatDateOrderDetail = (rawDate) => {
     let date = formatDate(new Date(rawDate))
     if (date == "Hoy") {
         return " hoy"
-    } else if (date == "ayer") {
+    } else if (date == "Ayer") {
         return " ayer"
     } else {
         return " el " + date

@@ -1,25 +1,19 @@
 import React from 'react';
 import {
-  Container,
   Image,
-  Center,
   Heading,
   Text,
-  VStack,
-  Skeleton,
-  Badge,
   Flex,
   Icon,
   chakra,
   Box,
-  Stack,
   HStack,
   useColorModeValue,
   Divider,
   Button
 } from '@chakra-ui/react';
-import { MdEmail, MdVerifiedUser, MdLocationOn, MdTimeToLeave, MdTimelapse } from 'react-icons/md';
-import { FaPhone, FaShopify, FaUser } from 'react-icons/fa';
+import { MdEmail, MdLocationOn, MdTimelapse } from 'react-icons/md';
+import { FaPhone } from 'react-icons/fa';
 import { AiFillShop } from 'react-icons/ai';
 import { Shop } from '../../model/Shop';
 import ShopTypeBadge from '../shop/ShopTypeBadge';
@@ -119,7 +113,7 @@ const ShopProfile = (props: Props) => {
               <Icon as={MdLocationOn} h={6} w={6} mr={2} />
 
               <chakra.h1 px={2} fontSize="sm">
-                {props.shop.address} - {props.shop.neighborhood} - Buenos Aires, AR
+                {props.shop.address}, {props.shop.neighborhood}, CABA, AR
               </chakra.h1>
             </Flex>
             <Flex

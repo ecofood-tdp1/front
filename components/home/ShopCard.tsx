@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { AspectRatio, Box, Button, CardBody, CardFooter, Heading, Image } from '@chakra-ui/react';
+import { Box, CardBody, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 import React from 'react';
 import { getReviewCountFor, getReviewStarsFor } from '../../lib/helpers';

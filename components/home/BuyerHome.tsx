@@ -4,7 +4,6 @@ import { ShopCard } from './ShopCard'
 import React from 'react'
 import { GetShops } from '../../repository/ShopRepository';
 import { Flex, Input, Select, Text, Textarea } from '@chakra-ui/react';
-// import img from '../../public/food2.jpg'
 import img from '../../public/bolsa.jpg'
 import { Shop } from '../../model/Shop';
 
