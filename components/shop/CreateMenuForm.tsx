@@ -59,9 +59,11 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
           spacing={{ base: '8', md: '16' }}
         >
           <Stack spacing={{ base: '8', md: '10' }} flex="2">
-            <Heading fontSize="2xl" fontWeight="extrabold">
-              Agregar pack
-            </Heading>
+            <Flex alignItems="center" justifyContent="center" mb={4}>
+              <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">
+                Agregar pack
+              </Heading>
+            </Flex>
     
             <Stack spacing="12">
               <FormControl id="name" isRequired>
