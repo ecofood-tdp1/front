@@ -3,6 +3,7 @@ import {
     Flex,
     Heading,
     SimpleGrid,
+    Skeleton,
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 import { GetOrdersOfShop } from '../../repository/OrderRepository';
@@ -12,6 +13,7 @@ import ShopOrderCard from '../../components/shopOrder/ShopOrderCard';
 
 const MyShopOrdersList = () => {
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchMyShopOrders();
@@ -29,8 +31,10 @@ const MyShopOrdersList = () => {
             );
 
             setOrders(ordersWithUsers);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching orders:', error);
+            setLoading(false);
         }
     };
 
@@ -42,17 +46,28 @@ const MyShopOrdersList = () => {
                         Mis órdenes
                     </Heading>
                 </Flex>
-                <SimpleGrid mt={4} mb={8} ml={4} mr={4} columns={1} spacingX='40px' spacingY='20px'>
-                    {
-                        orders
-                            .sort((a: OrderWithUser, b: OrderWithUser) => new Date(b.order.created_at).getTime() - new Date(a.order.created_at).getTime())
-                            .map((order: OrderWithUser) => {
-                                return (
-                                    <ShopOrderCard key={order.order._id} order={order} />
-                                );
-                            })
-                    }
-                </SimpleGrid>
+                {loading ? ( 
+                    // Show Skeleton while loading
+                    <SimpleGrid mt={4} mb={8} ml={4} mr={4} columns={1} spacingX='40px' spacingY='20px'>
+                        <Skeleton height="150px" />
+                        <Skeleton height="150px" />
+                        <Skeleton height="150px" />
+                        <Skeleton height="150px" />
+                    </SimpleGrid>
+                ) : (
+                    // Show the actual data once loading is complete
+                    <SimpleGrid mt={4} mb={8} ml={4} mr={4} columns={1} spacingX='40px' spacingY='20px'>
+                        {
+                            orders
+                                .sort((a: OrderWithUser, b: OrderWithUser) => new Date(b.order.created_at).getTime() - new Date(a.order.created_at).getTime())
+                                .map((order: OrderWithUser) => {
+                                    return (
+                                        <ShopOrderCard key={order.order._id} order={order} />
+                                    );
+                                })
+                        }
+                    </SimpleGrid>
+                )}
             </Box>
         </>
     );

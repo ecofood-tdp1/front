@@ -3,6 +3,7 @@ import {
     Flex,
     Heading,
     SimpleGrid,
+    Skeleton,
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 import { GetOrdersOfUser } from '../../repository/OrderRepository';
@@ -12,6 +13,7 @@ import OrderCard from '../../components/order/OrderCard';
 
 const MyOrdersList = () => {
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchMyOrders();
@@ -29,8 +31,10 @@ const MyOrdersList = () => {
             );
 
             setOrders(ordersWithShops);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching orders:', error);
+            setLoading(false);
         }
     };
 
@@ -42,17 +46,24 @@ const MyOrdersList = () => {
                         Mis pedidos
                     </Heading>
                 </Flex>
-                <SimpleGrid mt={4} mb={8} ml={4} mr={4} columns={1} spacingX='40px' spacingY='20px'>
-                    {
-                        orders
+                {loading ? ( 
+                    // Show Skeleton while loading
+                    <SimpleGrid mt={4} mb={8} ml={4} mr={4} columns={1} spacingX='40px' spacingY='20px'>
+                        <Skeleton height="150px" />
+                        <Skeleton height="150px" />
+                        <Skeleton height="150px" />
+                        <Skeleton height="150px" />
+                    </SimpleGrid>
+                ) : (
+                    // Show the actual data once loading is complete
+                    <SimpleGrid mt={4} mb={8} ml={4} mr={4} columns={1} spacingX='40px' spacingY='20px'>
+                        {orders
                             .sort((a: OrderWithShop, b: OrderWithShop) => new Date(b.order.created_at).getTime() - new Date(a.order.created_at).getTime())
                             .map((order: OrderWithShop) => {
-                                return (
-                                    <OrderCard key={order.order._id} order={order} />
-                                );
-                            })
-                    }
-                </SimpleGrid>
+                                return <OrderCard key={order.order._id} order={order} />;
+                            })}
+                    </SimpleGrid>
+                )}
             </Box>
         </>
     );
