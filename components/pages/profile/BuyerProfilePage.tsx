@@ -1,39 +1,30 @@
 import {
-    IonPage,
-    IonHeader,
-    IonItem,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonList,
-    IonToggle,
-    IonLabel,
-    IonSearchbar,
-  } from '@ionic/react';
-  
-  
-  const BuyerProfilePage = () => {
-  
-    return (
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Mi Perfil</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <IonList>
-            <IonItem>
-              <IonLabel>Enable Notifications</IonLabel>
-              <IonToggle
-              />
-            </IonItem>
-          </IonList>
-          <IonSearchbar placeholder="Busca" />
-        </IonContent>
-      </IonPage>
-    );
-  };
-  
-  export default BuyerProfilePage;
-  
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+} from '@ionic/react';
+import UserProfileView from '../../profile/UserProfileView';
+import { useContext } from 'react';
+import { UserDataContext } from '../../../context/Context';
+
+
+const BuyerProfilePage = () => {
+  const { user } = useContext(UserDataContext);
+
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Mi Perfil</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <UserProfileView id={user._id} />
+      </IonContent>
+    </IonPage>
+  );
+};
+
+export default BuyerProfilePage;

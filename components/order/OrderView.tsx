@@ -1,4 +1,5 @@
-import { GetPacksFromShoppingCart } from "../../repository/UserRepository";
+import { Order } from './Order';
+import { GetOrder } from '../../repository/OrderRepository';
 import { useCallback, useEffect, useState } from 'react';
 import {
     IonList,
@@ -10,17 +11,18 @@ import {
 } from '@ionic/react';
 
 
-const OrderView = () => {
+const OrderView = ({ orderId }) => {
     const [loaded, setLoaded] = useState(false)
     const [orderData, setOrderData] = useState({});
 
     const fetchData = useCallback(async () => {
         setLoaded(false)
-        await new Promise(r => setTimeout(r, 2000));
-        const data = await GetPacksFromShoppingCart();
+        console.log("OrderView fetching data", orderId);
+        await new Promise(r => setTimeout(r, 1000));
+        const data = await GetOrder(orderId);
         setOrderData(data)
         setLoaded(true)
-    }, []);
+    }, [orderId]);
 
     useEffect(() => {
         fetchData()
@@ -29,7 +31,7 @@ const OrderView = () => {
     return (
         <>
             {loaded && (
-                <h1>Hola</h1>
+                <Order orderData={orderData} />
             )}
             {!loaded && (
                 <IonList>

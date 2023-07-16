@@ -1,5 +1,5 @@
-import { Shop } from './Shop';
-import { getShopData } from '../../lib/shops';
+import { ShopOrder } from './ShopOrder';
+import { GetOrder } from '../../repository/OrderRepository';
 import { useCallback, useEffect, useState } from 'react';
 import {
     IonList,
@@ -11,18 +11,18 @@ import {
 } from '@ionic/react';
 
 
-const ShopView = ({ shopId }) => {
+const ShopOrderView = ({ orderId }) => {
     const [loaded, setLoaded] = useState(false)
-    const [shopData, setShopData] = useState({});
+    const [orderData, setOrderData] = useState({});
 
     const fetchData = useCallback(async () => {
         setLoaded(false)
-        console.log("ShopView fetching data", shopId);
+        console.log("ShopOrderView fetching data", orderId);
         await new Promise(r => setTimeout(r, 1000));
-        const data = await getShopData(shopId);
-        setShopData(data)
+        const data = await GetOrder(orderId);
+        setOrderData(data)
         setLoaded(true)
-    }, [shopId]);
+    }, [orderId]);
 
     useEffect(() => {
         fetchData()
@@ -31,7 +31,7 @@ const ShopView = ({ shopId }) => {
     return (
         <>
             {loaded && (
-                <Shop shopData={shopData} shopId={shopId} />
+                <ShopOrder orderData={orderData} />
             )}
             {!loaded && (
                 <IonList>
@@ -60,4 +60,4 @@ const ShopView = ({ shopId }) => {
     );
 }
 
-export default ShopView;
+export default ShopOrderView;

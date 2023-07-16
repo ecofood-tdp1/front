@@ -1,5 +1,3 @@
-import { Shop } from './Shop';
-import { getShopData } from '../../lib/shops';
 import { useCallback, useEffect, useState } from 'react';
 import {
     IonList,
@@ -9,20 +7,23 @@ import {
     IonItem,
     IonThumbnail,
 } from '@ionic/react';
+import { GetUser } from '../../repository/UserRepository';
+import UserProfile from './UserProfile';
+import { User } from '../../model/User';
 
 
-const ShopView = ({ shopId }) => {
+const UserProfileView = ({ id }) => {
     const [loaded, setLoaded] = useState(false)
-    const [shopData, setShopData] = useState({});
+    const [profileData, setProfileData] = useState<User>(null);
 
     const fetchData = useCallback(async () => {
         setLoaded(false)
-        console.log("ShopView fetching data", shopId);
+        console.log("UserProfileView fetching data", id);
         await new Promise(r => setTimeout(r, 1000));
-        const data = await getShopData(shopId);
-        setShopData(data)
+        const data = await GetUser(id);
+        setProfileData(data)
         setLoaded(true)
-    }, [shopId]);
+    }, [id]);
 
     useEffect(() => {
         fetchData()
@@ -31,7 +32,7 @@ const ShopView = ({ shopId }) => {
     return (
         <>
             {loaded && (
-                <Shop shopData={shopData} shopId={shopId} />
+                <UserProfile buyer={profileData} />
             )}
             {!loaded && (
                 <IonList>
@@ -60,4 +61,4 @@ const ShopView = ({ shopId }) => {
     );
 }
 
-export default ShopView;
+export default UserProfileView;

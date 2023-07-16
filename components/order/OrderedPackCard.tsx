@@ -1,10 +1,8 @@
 import {
     AspectRatio,
     Box,
-    Button,
     HStack,
     Image,
-    Link,
     Skeleton,
     Stack,
     StackProps,

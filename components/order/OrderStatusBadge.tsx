@@ -12,7 +12,7 @@ const OrderStatusBadge = ({ orderStatus }) => {
 
     switch (orderStatus) {
         case 'paid':
-            statusToShow = 'Ya pagado';
+            statusToShow = 'A retirar';
             color = 'orange'
             break;
         case 'marked_as_delivered':
@@ -20,7 +20,7 @@ const OrderStatusBadge = ({ orderStatus }) => {
             color = 'yellow'
             break;
         case 'delivered':
-            statusToShow = 'Confirmado retirado';
+            statusToShow = 'Retirado';
             color = 'green'
             break;
     }

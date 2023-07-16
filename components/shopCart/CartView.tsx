@@ -17,7 +17,7 @@ const CartView = () => {
 
     const fetchData = useCallback(async () => {
         setLoaded(false)
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 1000));
         const data = await GetPacksFromShoppingCart();
         setCartData(data)
         setLoaded(true)
