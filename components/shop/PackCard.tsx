@@ -19,19 +19,22 @@ import { Rating } from '../Rating'
 import { PriceTag } from './PriceTag'
 import { getReviewCountFor, getReviewStarsFor } from '../../lib/helpers';
 import { MdCheckCircle, MdDelete, MdEdit } from 'react-icons/md';
-import { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { AddPackToShoppingCart } from '../../repository/UserRepository';
 import { useToast } from '@chakra-ui/react'
 import { Pack, Product } from '../../model/Pack';
+import { AlertDeleteCard } from './AlertDeleteCard';
+import { GetShopPacks, RemovePack } from '../../repository/PackRepository';
 
 interface Props {
     pack: Pack
     rootProps?: StackProps,
     isTheOwner?: boolean
+    setPacks?: Dispatch<SetStateAction<Pack[]>>
 }
 
 export const PackCard = (props: Props) => {
-    const { pack, rootProps, isTheOwner } = props
+    const { pack, rootProps, isTheOwner, setPacks } = props
     const [isLoading, setLoading] = useState(false)
     const toast = useToast()
 
@@ -48,6 +51,31 @@ export const PackCard = (props: Props) => {
         } catch (error) {
             toast({
                 title: `Ocurrió un error al agregar el pack al carrito`,
+                status: 'error',
+                isClosable: true,
+                duration: 3000,
+            })
+        } finally {
+            setLoading(false)
+        }
+
+    }
+
+    async function RemovePackFromMenu(shopId: string, packId: string) {
+        setLoading(true)
+        try {
+            await RemovePack(packId)
+            var packs = await GetShopPacks(shopId)
+            setPacks(packs)
+            toast({
+                title: `El pack fue eliminado exitosamente`,
+                status: 'success',
+                isClosable: true,
+                duration: 3000,
+            })
+        } catch (error) {
+            toast({
+                title: `Ocurrió un error al eliminar el pack`,
                 status: 'error',
                 isClosable: true,
                 duration: 3000,
@@ -124,9 +152,13 @@ export const PackCard = (props: Props) => {
                         <Button leftIcon={<MdEdit />} width={24} colorScheme='gray' size='md'>
                             Editar
                         </Button>
-                        <Button leftIcon={<MdDelete />} width={24} colorScheme='gray' size='md'>
+                    <Button leftIcon={<MdDelete />} onClick={() => RemovePackFromMenu(pack.shop_id, pack._id)} 
+                        width={24} 
+                        colorScheme='red'
+                        isLoading={isLoading} 
+                        size='md'>
                             Eliminar
-                        </Button>
+                    </Button>
                     </Stack>
 
                     :
