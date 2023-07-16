@@ -19,42 +19,6 @@ const BottomNavbar = () => {
     { name: 'Mi menú', href: '/shops/' + user._id, current: router.pathname == '/shops/[id]', visible_to: 'shop', icon: <MdMenuBook /> },
     { name: 'Mis órdenes', href: '/shoporders/my', current: router.pathname == '/shoporders/my', visible_to: 'shop', icon: <FaBoxes /> },
     { name: 'Mis ganancias', href: '/profits/my', current: router.pathname == '/profits/my', visible_to: 'shop', icon: <FcBullish /> },
-    {
-      name: 'Mi perfil', href: '#', current: router.pathname == '#', visible_to: 'all', icon:
-        <Menu>
-          <MenuButton as={IconButton} aria-label="User Profile" icon={
-            <img
-              className="h-14 w-14 rounded-full"
-              src={user.type === 'buyer' ? "/messi.jpg" : "/la-continental.png"} // TODO: hardcoded images
-              alt=""
-            />
-          } color="green.600" variant="ghost" fontSize="24px" />
-          <MenuList
-            mb={4}
-            placement="top-start" // Set the menu to open upwards
-            bg="white"
-            borderWidth="1px"
-            borderColor="gray.200"
-            shadow="lg"
-          >
-            <MenuItem fontSize={18} key="menuitem1">
-              <NextLink
-                href="/"
-                onClick={switchUser}
-              >
-                [dev] Cambiar a modo {user.type == 'buyer' ? 'Negocio' : 'Comprador'}
-              </NextLink>
-            </MenuItem>
-            <MenuItem fontSize={18} key="menuitem2">
-              <NextLink
-                href="#"
-              >
-                Mi perfil
-              </NextLink>
-            </MenuItem>
-          </MenuList>
-        </Menu >
-    },
   ]
 
   return (
@@ -83,8 +47,42 @@ const BottomNavbar = () => {
             />
           </NextLink>
         ))}
+        <Menu>
+          <MenuButton as={IconButton} aria-label="User Profile" icon={
+            <img
+              className="h-14 w-14 rounded-full"
+              src={user.type === 'buyer' ? "/messi.jpg" : "/la-continental.png"} // TODO: hardcoded images
+              alt="User profile image"
+            />
+          } color="green.600" variant="ghost" fontSize="24px" />
+          <MenuList
+            mb={4}
+            placement="top-start" // Set the menu to open upwards
+            bg="white"
+            borderWidth="1px"
+            borderColor="gray.200"
+            shadow="lg"
+          >
+            <NextLink
+              key="asdasdasd"
+              href="/profiles/my"
+            >
+              <MenuItem fontSize={18} key="menuitem2">
+                Mi perfil
+              </MenuItem>
+            </NextLink>
+            <NextLink
+              href="/"
+              onClick={switchUser}
+            >
+              <MenuItem fontSize={18} key="menuitem1">
+                [dev] Cambiar a modo {user.type == 'buyer' ? 'Negocio' : 'Comprador'}
+              </MenuItem>
+            </NextLink>
+          </MenuList>
+        </Menu >
       </Flex>
-    </Box>
+    </Box >
   );
 };
 
