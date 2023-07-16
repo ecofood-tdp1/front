@@ -14,7 +14,9 @@ import {
   Box,
   Stack,
   HStack,
-  useColorModeValue
+  useColorModeValue,
+  Divider,
+  Button
 } from '@chakra-ui/react';
 import { MdEmail, MdVerifiedUser, MdLocationOn, MdTimeToLeave, MdTimelapse } from 'react-icons/md';
 import { FaPhone, FaShopify, FaUser } from 'react-icons/fa';
@@ -49,10 +51,11 @@ const ShopProfile = (props: Props) => {
           shadow="lg"
           rounded="lg"
           overflow="hidden"
+          mt={-8}
         >
           <Image
             w="full"
-            h={56}
+            h={48}
             fit="cover"
             objectPosition="center"
             src={props.shop.imageURL}
@@ -138,11 +141,35 @@ const ShopProfile = (props: Props) => {
               <Icon as={MdTimelapse} h={6} w={6} mr={2} />
 
               <chakra.h1 px={2} fontSize="sm">
-              Retiro de {props.shop.pick_up_from} a {props.shop.pick_up_to}
-            </chakra.h1>
+                Retiro de {props.shop.pick_up_from} a {props.shop.pick_up_to}
+              </chakra.h1>
             </Flex>
-            <Stack >
-            </Stack>
+            <Divider mt={2} />
+            <Flex
+              alignItems="center"
+              mt={2}
+              color="gray.700"
+              justifyContent={"center"}
+            >
+              <chakra.h1 fontWeight={"bold"} mr={2}>
+                Método de cobro
+              </chakra.h1>
+              <Button backgroundColor={"green.100"} >
+                Editar
+              </Button>
+            </Flex>
+            <Flex
+              alignItems="center"
+              mt={2}
+              color="gray.700"
+            >
+              <chakra.h1 w={12} mr={2} fontSize={"md"}>
+                CBU
+              </chakra.h1>
+              <chakra.h1 px={2} fontSize="md">
+                1676545084781341241249
+              </chakra.h1>
+            </Flex>
           </Box>
         </Box>
       </Flex>
