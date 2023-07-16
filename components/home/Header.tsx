@@ -30,14 +30,14 @@ export default function Header({ scrollHandler, description, description2, butto
               <span className="mt-2 block text-white"> {description2} </span>
             </h1>
 
-            <div className="mx-auto mt-10 max-w-xs flex justify-center">
+            {/* <div className="mx-auto mt-10 max-w-xs flex justify-center">
               <button
                 className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-extrabold text-orange-600 shadow-sm hover:bg-orange-100 sm:px-8"
                 onClick={scrollHandler}
               >
                 {buttonTitle}
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -76,18 +76,8 @@ const BuyerHome = () => {
     return (
         <>
             <Header image={img} description={"Comé rico y económico"} description2={"salvando el planeta"} buttonTitle={"Comprá"} scrollHandler={scrollHandler} />
-            <div ref={shopsRef} className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-12">
-                <div className="sm:py-15 mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8">
-                    <div className="text-center">
-                        <div
-                            className="mt-1 text-4xl font-bold uppercase text-gray-900 sm:text-5xl sm:tracking-tight lg:text-5xl"
-
-                        >
-                            Elegí un negocio
-                        </div>
-                    </div>
-                </div>
-                <Flex mb="32px" direction={{ base: "column", sm: "row" }} justify={{ base: "center", sm: "flex-start" }}>
+            <div ref={shopsRef} className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-24">
+                <Flex mt={4} mb="16px" direction={{ base: "column", sm: "row" }} justify={{ base: "center", sm: "flex-start" }}>
                     <Flex direction="column" mr={{ base: "0", sm: "2px" }} mb={{ base: "10px", sm: "0" }}>
                         {/* <Text mb="10px">Barrio:</Text> */}
                         <Input
@@ -101,7 +91,7 @@ const BuyerHome = () => {
                     </Flex>
                     <Flex direction="column" ml={{ base: "0", sm: "10px" }}> {/* Added ml (margin-left) */}
                         {/* <Text mb="10px">Categoria:</Text> */}
-                        <Select mb="10px" placeholder="Todas las categorías" name="type" onChange={handleSearch} >
+                        <Select mb="5px" placeholder="Todas las categorías" name="type" onChange={handleSearch} >
                             <option value="restaurant" onChange={handleSearch}>🍴 Restaurantes</option>
                             <option value="supermarket" onChange={handleSearch}>🛒 Supermercados</option>
                             <option value="coffee" onChange={handleSearch}>☕ Cafés</option>
@@ -112,7 +102,7 @@ const BuyerHome = () => {
                         </Select>
                     </Flex>
                 </Flex>
-                <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                <div className="grid grid-cols-1 gap-y-4 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                     {
                         filteredShops.map(shop =>
                             <ShopCard key={shop._id}
