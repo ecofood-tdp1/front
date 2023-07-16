@@ -37,26 +37,23 @@ const BottomNavbar = () => {
             borderColor="gray.200"
             shadow="lg"
           >
-            <NextLink
-              href="/"
-              onClick={switchUser}
-            >
-              <MenuItem fontSize={18}>[dev] Cambiar a modo {user.type == 'buyer' ? 'Negocio' : 'Comprador'}</MenuItem>
-            </NextLink>
-            <NextLink
-              href="#"
-            >
-              <MenuItem fontSize={18}>
+            <MenuItem fontSize={18} key="menuitem1">
+              <NextLink
+                href="/"
+                onClick={switchUser}
+              >
+                [dev] Cambiar a modo {user.type == 'buyer' ? 'Negocio' : 'Comprador'}
+              </NextLink>
+            </MenuItem>
+            <MenuItem fontSize={18} key="menuitem2">
+              <NextLink
+                href="#"
+              >
                 Mi perfil
-              </MenuItem>
-            </NextLink>
+              </NextLink>
+            </MenuItem>
           </MenuList>
-        </Menu>
-      // <img
-      //   className="h-14 w-14 rounded-full"
-      //   src={user.type == 'buyer' ? "/messi.jpg" : "/la-continental.png"} // TODO: hardcoded images
-      //   alt=""
-      // />
+        </Menu >
     },
   ]
 
@@ -75,7 +72,7 @@ const BottomNavbar = () => {
       <Flex justifyContent="space-around" alignItems="center">
         {navigation.map((item) => (
           (user.type == item.visible_to || item.visible_to == "all") &&
-          <NextLink href={item.href}>
+          <NextLink href={item.href} key={item.name}>
             <IconButton
               icon={item.icon}
               aria-label={item.name}
