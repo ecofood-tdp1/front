@@ -3,7 +3,7 @@ import { Order } from '../model/Order';
 import { Pack } from '../model/Pack';
 
 export async function GetOrdersOfUser(userid: string): Promise<Order[]> {
-    const response = await fetch('http://localhost:2000/orders?user_id=' + userid, { method: 'GET' })
+    const response = await fetch(`${process.env.BACKEND_URL}/orders?user_id=${userid}`, { method: 'GET' })
 
     if (!response.ok) {
         throw new Error(`Error! status: ${response.status}`);
@@ -14,7 +14,7 @@ export async function GetOrdersOfUser(userid: string): Promise<Order[]> {
 }
 
 export async function GetOrdersOfShop(shopid: string): Promise<Order[]> {
-    const response = await fetch('http://localhost:2000/orders?shop_id=' + shopid, { method: 'GET' })
+    const response = await fetch(`${process.env.BACKEND_URL}/orders?shop_id=${shopid}`, { method: 'GET' })
 
     if (!response.ok) {
         throw new Error(`Error! status: ${response.status}`);
@@ -25,7 +25,7 @@ export async function GetOrdersOfShop(shopid: string): Promise<Order[]> {
 }
 
 export async function GetOrders(): Promise<Order[]> {
-    const response = await fetch('http://localhost:2000/orders', { method: 'GET' })
+    const response = await fetch(`${process.env.BACKEND_URL}/orders`, { method: 'GET' })
 
     if (!response.ok) {
         throw new Error(`Error! status: ${response.status}`);
@@ -36,7 +36,7 @@ export async function GetOrders(): Promise<Order[]> {
 }
 
 export async function GetOrder(id: string): Promise<Order> {
-    const response = await fetch('http://localhost:2000/orders/' + id, { method: 'GET' })
+    const response = await fetch(`${process.env.BACKEND_URL}/orders/${id}`, { method: 'GET' })
 
     if (!response.ok) {
         throw new Error(`Error! status: ${response.status}`);
@@ -47,7 +47,7 @@ export async function GetOrder(id: string): Promise<Order> {
 }
 
 export async function UpdateOrderStatus(id: string, target_status: string): Promise<Order> {
-    const response = await fetch('http://localhost:2000/orders/' + id, {
+    const response = await fetch(`${process.env.BACKEND_URL}/orders/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ export async function PostOrder(shopId: string, packs: Pack[], amount: number): 
     
     const requestHeaders: HeadersInit = new Headers();
     requestHeaders.set('Content-Type', "application/json");
-    const response = await fetch('http://localhost:2000/orders', 
+    const response = await fetch(`${process.env.BACKEND_URL}/orders`, 
     { method: 'POST',
       headers: requestHeaders,
       body: JSON.stringify({

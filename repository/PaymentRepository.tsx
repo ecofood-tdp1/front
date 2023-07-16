@@ -15,7 +15,7 @@ export async function PostPayment(creditCard: string, cardHolder: string, expira
             "currency": "ARS"
         }
     })
-    const response = await fetch(`http://localhost:2000/payments`, 
+    const response = await fetch(`${process.env.BACKEND_URL}/payments`, 
         {method:  'POST',
         headers: requestHeaders,
         body: body
