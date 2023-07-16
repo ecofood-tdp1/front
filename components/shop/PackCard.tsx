@@ -23,7 +23,6 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 import { AddPackToShoppingCart } from '../../repository/UserRepository';
 import { useToast } from '@chakra-ui/react'
 import { Pack, Product } from '../../model/Pack';
-import { AlertDeleteCard } from './AlertDeleteCard';
 import { GetShopPacks, RemovePack } from '../../repository/PackRepository';
 
 interface Props {
