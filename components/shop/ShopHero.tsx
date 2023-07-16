@@ -14,6 +14,7 @@ import { MdOutlineLocationOn, MdPhone, MdOutlineAccessTime } from 'react-icons/m
 import ShopTypeBadge from './ShopTypeBadge';
 import { MdEdit, MdLibraryAdd } from 'react-icons/md';
 import { Shop } from '../../model/Shop';
+import { useRouter } from 'next/router';
 
 interface ShopProp {
     shop: Shop
@@ -21,6 +22,7 @@ interface ShopProp {
 }
 
 const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
+    const router = useRouter();
     return (
         <Stack minH={'50vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
@@ -69,7 +71,7 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
                             <Button leftIcon={<MdEdit />} width={36} colorScheme='green' size='md'>
                                 Editar Perfil
                             </Button>
-                            <Button leftIcon={<MdLibraryAdd />} width={36} colorScheme='green' size='md'>
+                            <Button leftIcon={<MdLibraryAdd />} onClick={() => router.push('/shops/createmenu')} width={36} colorScheme='green' size='md'>
                                 Agregar Pack
                             </Button>
                         </Stack>
