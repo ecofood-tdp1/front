@@ -7,6 +7,7 @@ import { Flex, Grid, Input, Select, Text, Textarea } from '@chakra-ui/react';
 import img from '../../public/bolsa.jpg'
 import { Shop } from '../../model/Shop';
 import { CategoryCard } from './CategoryCard';
+import ShopCardSkeleton from './ShopCardSkeleton';
 
 const defaultShopData = {
     "name": "",
@@ -28,6 +29,7 @@ const BuyerHome = () => {
     const [filteredShops, setFilteredShops] = useState<Shop[]>([])
     const [selectedCategoryFilter, setSelectedCategoryFilter] = useState(null)
     const [searchData, setSearchData] = useState(defaultShopData);
+    const [loaded, setLoaded] = useState(false)
 
     const scrollHandler = async () => {
         // @ts-ignore
@@ -80,10 +82,12 @@ const BuyerHome = () => {
     }
 
     const refreshShops = async () => {
+        setLoaded(false)
         let allNewShop = await GetShops();
         setShops(allNewShop)
         setFilteredShops(allNewShop);
         setSearchData(defaultShopData);
+        setLoaded(true)
     }
 
     useEffect(() => {
@@ -99,7 +103,6 @@ const BuyerHome = () => {
             <div ref={shopsRef} className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-24">
                 <Flex mt={4} mb="16px" direction={{ base: "column", sm: "row" }} justify={{ base: "center", sm: "flex-start" }}>
                     <Flex direction="column" mr={{ base: "0", sm: "2px" }} mb={{ base: "10px", sm: "0" }}>
-                        {/* <Text mb="10px">Barrio:</Text> */}
                         <Input
                             value={searchData.neighborhood}
                             name="neighborhood"
@@ -109,17 +112,6 @@ const BuyerHome = () => {
                             resize="none"
                         />
                     </Flex>
-                    {/* <Flex direction="column" ml={{ base: "0", sm: "10px" }}>
-                        <Select mb="5px" placeholder="Todas las categorías" name="type" onChange={handleSearch} >
-                            <option value="restaurant" onChange={handleSearch}>🍴 Restaurantes</option>
-                            <option value="supermarket" onChange={handleSearch}>🛒 Supermercados</option>
-                            <option value="coffee" onChange={handleSearch}>☕ Cafés</option>
-                            <option value="grocery" onChange={handleSearch}>🥑 Verdulerías</option>
-                            <option value="delicatessen" onChange={handleSearch}>🍲 Rotiserías</option>
-                            <option value="bakery" onChange={handleSearch}>🥐 Panaderías</option>
-                            <option value="others" onChange={handleSearch}>Otros</option>
-                        </Select>
-                    </Flex> */}
                     <Grid templateColumns='repeat(4, 2fr)' gap={2}>
                         {types.map(type =>
                             <CategoryCard type={type} selected={type === selectedCategoryFilter} onClick={handleCategoryFilter} />
@@ -128,11 +120,11 @@ const BuyerHome = () => {
                 </Flex>
                 <div className="grid grid-cols-1 gap-y-4 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                     {
-                        filteredShops.map(shop =>
+                        loaded ? filteredShops.map(shop =>
                             <ShopCard key={shop._id}
                                 shop={shop}
                             />
-                        )
+                        ) : <ShopCardSkeleton />
                     }
                 </div>
             </div >
