@@ -65,6 +65,17 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
       }
     }
 
+    const changeTypeOnFocusToDate = (event) => {
+      event.target.type="date"
+      event.target.focus()
+    }
+
+    const changeTypeOnBlurToText = (event) => {
+      if (dateTime == "") {
+        event.target.type="text"
+      }
+    }
+
     return <Box
         maxW={{ base: '3xl', lg: '7xl' }}
         mx="auto"
@@ -147,9 +158,11 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
               <Box>
                 <FormControl id="name" isRequired>
                     <FormLabel>Consumir antes de</FormLabel>
-                    <Input type="datetime-local"
-                        placeholder="0"
+                    <Input type="text"
+                        placeholder="DD/MM/AAAA"
                         onInput={(e) => inputDateTime(e)}
+                        onFocus={(e)=> changeTypeOnFocusToDate(e)}
+                        onBlur={(e) => changeTypeOnBlurToText(e)}
                         _placeholder={{ color: 'gray.500' }}
                     />
                 </FormControl>
