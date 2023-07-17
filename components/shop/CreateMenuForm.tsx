@@ -1,3 +1,4 @@
+import { CalendarIcon } from '@chakra-ui/icons';
 import {
     Flex,
     Box,
@@ -22,6 +23,7 @@ import {
     Spacer,
     Textarea,
     SimpleGrid,
+    InputLeftElement,
   } from '@chakra-ui/react';
   import { useState } from 'react';
 import { HiEye, HiEyeOff } from 'react-icons/hi'
@@ -32,6 +34,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
     const [stock, setStock] = useState(0)
     const [type, setType] = useState("specific")
     const [dateTime, setDateTime] = useState("")
+    const [price, setPrice] = useState(0)
 
     const inputName = (event) => {
       maxLengthCheck(event, 50)
@@ -74,6 +77,11 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
       if (dateTime == "") {
         event.target.type="text"
       }
+    }
+
+    const inputPrice = (event) => {
+      allowOnlyNumber(event)
+      setPrice(Number(event.target.value))
     }
 
     return <Box
@@ -146,8 +154,8 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                 </RadioGroup>
               </Box>
               <Box>
-                <FormControl id="name" isRequired>
-                    <FormLabel>Stock disponible</FormLabel>
+                <FormControl id="stock" isRequired>
+                    <FormLabel>Cantidad de unidades disponibles</FormLabel>
                     <Input type="number" 
                         placeholder="0"
                         onInput={(e) => inputStock(e)}
@@ -156,15 +164,41 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                 </FormControl>
               </Box>
               <Box>
-                <FormControl id="name" isRequired>
+                <FormControl id="datetime" isRequired>
                     <FormLabel>Consumir antes de</FormLabel>
-                    <Input type="text"
+                    <InputGroup>
+                      <InputLeftElement
+                        pointerEvents='none'
+                        color='gray.500'
+                        fontSize='1.2em'>
+                          <CalendarIcon/>
+                      </InputLeftElement>
+                      <Input type="text"
                         placeholder="DD/MM/AAAA"
                         onInput={(e) => inputDateTime(e)}
                         onFocus={(e)=> changeTypeOnFocusToDate(e)}
                         onBlur={(e) => changeTypeOnBlurToText(e)}
                         _placeholder={{ color: 'gray.500' }}
                     />
+                    </InputGroup>
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="price" isRequired>
+                    <FormLabel>Precio</FormLabel>
+                    <InputGroup>
+                    <InputLeftElement
+                      pointerEvents='none'
+                      color='gray.500'
+                      fontSize='1.2em'
+                      children='$'
+                    />
+                    <Input type="text"
+                        placeholder="0.00"
+                        onInput={(e) => inputPrice(e)}
+                        _placeholder={{ color: 'gray.500' }}
+                    />
+                    </InputGroup>
                 </FormControl>
               </Box>
               <Box height='80px'></Box>
