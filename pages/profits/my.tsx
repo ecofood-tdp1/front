@@ -128,7 +128,7 @@ const MyProfitsList = () => {
 
   return (
     <>
-      <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+      <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} mb={28}>
         <Flex alignItems="center" justifyContent="center" mb={4}>
           <Stack>
             <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">

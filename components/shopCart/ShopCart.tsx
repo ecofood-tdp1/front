@@ -32,6 +32,7 @@ export const ShopCart = (props: Props) => {
     mx="auto"
     px={{ base: '4', md: '8', lg: '12' }}
     py={{ base: '6', md: '8', lg: '12' }}
+    mb={20}
   >
     <Stack
       direction={{ base: 'column', lg: 'row' }}

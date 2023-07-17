@@ -43,7 +43,7 @@ const MyShopOrdersList = () => {
 
     return (
         <>
-            <Box mt={4} mx="auto" maxW="800px">
+            <Box mt={4} mb={24} mx="auto" maxW="800px">
                 <Flex alignItems="center" justifyContent="center" mb={4}>
                     <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">
                         Mis órdenes

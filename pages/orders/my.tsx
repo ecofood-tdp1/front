@@ -40,7 +40,7 @@ const MyOrdersList = () => {
 
     return (
         <>
-            <Box mt={4} mx="auto" maxW="800px">
+            <Box mb={24} mt={4} mx="auto" maxW="800px">
                 <Flex alignItems="center" justifyContent="center" mb={4}>
                     <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">
                         Mis pedidos
