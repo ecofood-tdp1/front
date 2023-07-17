@@ -41,10 +41,8 @@ const WithdrawFunds = (props: Props) => {
                 onClose={onClose}
             >
                 <ModalOverlay />
-                <ModalContent
-                    ml={8}
-                    mr={8}
-                >
+                <ModalContent ml={8} mr={8} top="15%" left="0%" >
+
                     <ModalHeader>Retirar fondos</ModalHeader>
                     <ModalCloseButton />
                     <form onSubmit={handleSubmit}>
