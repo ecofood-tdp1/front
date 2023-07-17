@@ -162,16 +162,6 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                 </RadioGroup>
               </Box>
               <Box>
-                <FormControl id="stock" isRequired>
-                    <FormLabel>Cantidad de unidades disponibles</FormLabel>
-                    <Input type="number" 
-                        placeholder="0"
-                        onInput={(e) => inputStock(e)}
-                        _placeholder={{ color: 'gray.500' }}
-                    />
-                </FormControl>
-              </Box>
-              <Box>
                 <FormControl id="datetime" isRequired>
                     <FormLabel>Consumir antes de</FormLabel>
                     <InputGroup>
@@ -189,6 +179,16 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                         _placeholder={{ color: 'gray.500' }}
                     />
                     </InputGroup>
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="stock" isRequired>
+                    <FormLabel>Cantidad de packs disponibles</FormLabel>
+                    <Input type="number" 
+                        placeholder="0"
+                        onInput={(e) => inputStock(e)}
+                        _placeholder={{ color: 'gray.500' }}
+                    />
                 </FormControl>
               </Box>
               <Box>
