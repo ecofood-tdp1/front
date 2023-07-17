@@ -5,11 +5,12 @@ import {
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import { UpdateOrderStatus } from '../../repository/OrderRepository';
 
-const MyShopOrdersConfirmedDelivered = ({ order }) => {
+const MyShopOrdersConfirmedDelivered = ({ order, fetchMyShopOrders }) => {
 
     const handleMarkAsDelivered = async () => {
         await UpdateOrderStatus(order._id, "marked_as_delivered")
-        window.location.reload(); // TODO: esto hace que en mobile se cambie de usuario solo, a Messi
+        fetchMyShopOrders()
+        //window.location.reload(); // TODO: esto hace que en mobile se cambie de usuario solo, a Messi
     }
 
     return (

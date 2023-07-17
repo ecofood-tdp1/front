@@ -65,7 +65,7 @@ const MyShopOrdersList = () => {
                                 .sort((a: OrderWithUser, b: OrderWithUser) => new Date(b.order.created_at).getTime() - new Date(a.order.created_at).getTime())
                                 .map((order: OrderWithUser) => {
                                     return (
-                                        <ShopOrderCard key={order.order._id} order={order} />
+                                        <ShopOrderCard key={order.order._id} order={order} fetchMyShopOrders={fetchMyShopOrders}/>
                                     );
                                 })
                         }

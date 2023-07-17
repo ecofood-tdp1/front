@@ -60,7 +60,7 @@ const MyOrdersList = () => {
                         {orders
                             .sort((a: OrderWithShop, b: OrderWithShop) => new Date(b.order.created_at).getTime() - new Date(a.order.created_at).getTime())
                             .map((order: OrderWithShop) => {
-                                return <OrderCard key={order.order._id} order={order} />;
+                                return <OrderCard key={order.order._id} order={order} fetchMyOrders={fetchMyOrders}/>;
                             })}
                     </SimpleGrid>
                 )}
