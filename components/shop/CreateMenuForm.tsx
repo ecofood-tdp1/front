@@ -141,6 +141,8 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                     </Text>
                   </Radio>
                   <Spacer />
+                  <Box width='10'></Box>
+                  <Spacer />
                   <Radio value='surprise' spacing="4">
                     <Heading fontSize="md" fontWeight="semibold">                        
                       <Badge fontSize="md" colorScheme='purple'>Sorpresa</Badge>
