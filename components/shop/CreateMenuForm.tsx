@@ -28,16 +28,33 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
   export const CreateMenuForm = () => {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
+    const [stock, setStock] = useState(0)
     const [type, setType] = useState("specific")
+    const [dateTime, setDateTime] = useState("")
 
     const inputName = (event) => {
       maxLengthCheck(event, 50)
       setName(event.target.value)
     }
 
+    const inputStock = (event) => {
+      allowOnlyNumber(event)
+      setStock(Number(event.target.value))
+    }
+
+    const allowOnlyNumber = (event) => {
+      if (isNaN(+event.target.value)) {
+        event.target.value = event.target.value.slice(0, event.target.value.length-1)
+      }
+    }
+
     const inputDescription = (event) => {
       maxLengthCheck(event, 100)
       setDescription(event.target.value)
+    }
+
+    const inputDateTime = (event) => {
+      setDateTime(event.target.value)
     }
 
 
@@ -69,7 +86,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
               <FormControl id="name" isRequired>
                   <FormLabel>Nombre del pack</FormLabel>
                   <Input type="text" 
-                      placeholder="Nombre :)"
+                      placeholder="Elegí un nombre atractivo..."
                       onInput={(e) => inputName(e)}
                       _placeholder={{ color: 'gray.500' }}
                   />
@@ -78,10 +95,10 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                   <FormLabel>Descripción</FormLabel>
                   <Textarea
                       size='md'
+                      placeholder="Redactá una descripción atrapante..."
                       onInput={(e) => inputDescription(e)}   
                       _placeholder={{ color: 'gray.500' }}
                   />
-                  <FormHelperText>Escribí una breve descripición de tu pack</FormHelperText>
               </FormControl>
               <RadioGroup  onChange={setType} value={type}>
               <FormControl id="type">
@@ -109,6 +126,22 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
                 <Spacer />
               </Flex>
               </RadioGroup>
+              <FormControl id="name" isRequired>
+                  <FormLabel>Stock disponible</FormLabel>
+                  <Input type="number" 
+                      placeholder="0"
+                      onInput={(e) => inputStock(e)}
+                      _placeholder={{ color: 'gray.500' }}
+                  />
+              </FormControl>
+              <FormControl id="name" isRequired>
+                  <FormLabel>Consumir antes de</FormLabel>
+                  <Input type="datetime-local"
+                      placeholder="0"
+                      onInput={(e) => inputDateTime(e)}
+                      _placeholder={{ color: 'gray.500' }}
+                  />
+              </FormControl>
             </Stack>
           </Stack>
         </Stack>
