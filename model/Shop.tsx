@@ -11,4 +11,6 @@ type Shop = {
     readonly address: string,
     readonly imageURL: string,
     readonly neighborhood: string
+    readonly latitude: number,
+    readonly longitude: number,
 }

@@ -45,6 +45,8 @@ export async function getAllShopIDs() {
 export async function getShopData(id) {
     try {
         const responseShop = await axios.get(getShopURL(id));
+        console.log('responseShop')
+        console.log(responseShop.data)
 
         const responsePacks = await axios.get(getShopPacksURL(id));
 
