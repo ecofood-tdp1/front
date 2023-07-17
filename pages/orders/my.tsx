@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 import { GetOrdersOfUser } from '../../repository/OrderRepository';
-import { GetShop } from '../../repository/ShopRepository';
+import { GetShop, GetShops } from '../../repository/ShopRepository';
 import { OrderWithShop } from '../../model/Order';
 import OrderCard from '../../components/order/OrderCard';
 
@@ -21,19 +21,19 @@ const MyOrdersList = () => {
 
     const fetchMyOrders = async () => {
         try {
-            const orders = await GetOrdersOfUser("4016cb54-ff0e-46a6-ace5-69304d9720c7"); // TODO: user hardcoded
+            let [orders, shops] = await Promise.all([
+                GetOrdersOfUser("4016cb54-ff0e-46a6-ace5-69304d9720c7"), // TODO: user hardcoded
+                GetShops(),
+            ]);
 
-            const ordersWithShops = await Promise.all(
-                orders.map(async (vanilla_order) => {
-                    const shop_from_order = await GetShop(vanilla_order.shop_id);
-                    return { order: vanilla_order, shop: shop_from_order };
-                })
-            );
+            const ordersWithShops = orders.map(order => {
+                return {'order': order, 'shop': shops.find(shop => order.shop_id === shop._id)}
+            })
 
             setOrders(ordersWithShops);
-            setLoading(false);
         } catch (error) {
             console.error('Error fetching orders:', error);
+        } finally {
             setLoading(false);
         }
     };

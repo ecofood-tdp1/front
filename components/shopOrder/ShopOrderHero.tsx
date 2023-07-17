@@ -1,6 +1,5 @@
 import {
     Box,
-    Button,
     Container,
     Flex,
     Heading,
@@ -12,10 +11,7 @@ import {
 import { ReactElement } from 'react';
 import {
     FcOvertime,
-    FcAssistant,
     FcBullish,
-    FcClock,
-    FcShop
 } from 'react-icons/fc';
 import { useState, useEffect } from 'react';
 import { GetUser } from '../../repository/UserRepository';

@@ -3,27 +3,30 @@ import Header from './Header'
 import { ShopCard } from './ShopCard'
 import React from 'react'
 import { GetShops } from '../../repository/ShopRepository';
-import { Flex, Input, Select, Text, Textarea } from '@chakra-ui/react';
-// import img from '../../public/food2.jpg'
+import { Flex, Grid, Input, Select, Text, Textarea } from '@chakra-ui/react';
 import img from '../../public/bolsa.jpg'
 import { Shop } from '../../model/Shop';
+import { CategoryCard } from './CategoryCard';
+
+const defaultShopData = {
+    "name": "",
+    "type": "",
+    "pick_up_from": {},
+    "pick_up_to": {},
+    "description": "",
+    "phone": "",
+    "neighborhood": ""
+}
+
+const types = ["restaurant", "bakery", "coffee", "supermarket",
+    "grocery", "delicatessen", "others"]
+
 
 const BuyerHome = () => {
     let shopsRef = useRef<HTMLParagraphElement | null>(null);
     const [shops, setShops] = useState<Shop[]>([])
     const [filteredShops, setFilteredShops] = useState<Shop[]>([])
-    let [value, setValue] = React.useState('')
-
-    const defaultShopData = {
-        "name": "",
-        "type": "",
-        "pick_up_from": {},
-        "pick_up_to": {},
-        "description": "",
-        "phone": "",
-        "neighborhood": ""
-    }
-
+    const [selectedCategoryFilter, setSelectedCategoryFilter] = useState(null)
     const [searchData, setSearchData] = useState(defaultShopData);
 
     const scrollHandler = async () => {
@@ -59,6 +62,23 @@ const BuyerHome = () => {
         setFilteredShops(result);
     }
 
+    const handleCategoryFilter = (category) => {
+        let result = shops
+
+        if (category === selectedCategoryFilter) {
+            setSelectedCategoryFilter(null)
+            setFilteredShops(shops)
+            return
+        }
+
+        if (types.includes(category)) {
+            result = result.filter(p => p.type.toLowerCase().includes(category.toLowerCase()))
+            setSelectedCategoryFilter(category)
+        }
+
+        setFilteredShops(result);
+    }
+
     const refreshShops = async () => {
         let allNewShop = await GetShops();
         setShops(allNewShop)
@@ -89,8 +109,7 @@ const BuyerHome = () => {
                             resize="none"
                         />
                     </Flex>
-                    <Flex direction="column" ml={{ base: "0", sm: "10px" }}> {/* Added ml (margin-left) */}
-                        {/* <Text mb="10px">Categoria:</Text> */}
+                    {/* <Flex direction="column" ml={{ base: "0", sm: "10px" }}>
                         <Select mb="5px" placeholder="Todas las categorías" name="type" onChange={handleSearch} >
                             <option value="restaurant" onChange={handleSearch}>🍴 Restaurantes</option>
                             <option value="supermarket" onChange={handleSearch}>🛒 Supermercados</option>
@@ -100,7 +119,12 @@ const BuyerHome = () => {
                             <option value="bakery" onChange={handleSearch}>🥐 Panaderías</option>
                             <option value="others" onChange={handleSearch}>Otros</option>
                         </Select>
-                    </Flex>
+                    </Flex> */}
+                    <Grid templateColumns='repeat(4, 2fr)' gap={2}>
+                        {types.map(type =>
+                            <CategoryCard type={type} selected={type === selectedCategoryFilter} onClick={handleCategoryFilter} />
+                        )}
+                    </Grid>
                 </Flex>
                 <div className="grid grid-cols-1 gap-y-4 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                     {

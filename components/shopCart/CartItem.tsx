@@ -1,4 +1,4 @@
-import { CloseButton, Flex, Link, Select, SelectProps, useColorModeValue, Box, Button } from '@chakra-ui/react'
+import { CloseButton, Flex, Box } from '@chakra-ui/react'
 import { PriceTag } from './PriceTag'
 import { CartProductMeta } from './CartProductMeta'
 import { Pack } from '../../model/Pack'

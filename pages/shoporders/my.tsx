@@ -21,19 +21,22 @@ const MyShopOrdersList = () => {
 
     const fetchMyShopOrders = async () => {
         try {
-            const orders = await GetOrdersOfShop("e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d"); // TODO: shop hardcoded
+            let [orders, user] = await Promise.all([
+                GetOrdersOfShop("e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d"), // TODO: shop hardcoded
+                GetUser("4016cb54-ff0e-46a6-ace5-69304d9720c7"), // TODO: user hardcoded
+            ]);
 
-            const ordersWithUsers = await Promise.all(
-                orders.map(async (vanilla_order) => {
-                    const user_from_order = await GetUser(vanilla_order.user_id);
-                    return { order: vanilla_order, user: user_from_order };
-                })
-            );
+            const ordersWithUsers = orders.map(order => {
+                return {
+                    'order': order,
+                    'user': user,
+                }
+            });
 
             setOrders(ordersWithUsers);
-            setLoading(false);
         } catch (error) {
             console.error('Error fetching orders:', error);
+        } finally {
             setLoading(false);
         }
     };

@@ -1,20 +1,14 @@
 import React from 'react';
 import {
-  Container,
   Image,
-  Center,
   Heading,
-  Text,
-  VStack,
-  Skeleton,
-  Badge,
   Flex,
   Icon,
   chakra,
   Box
 } from '@chakra-ui/react';
 import { User } from '../../model/User';
-import { MdEmail, MdVerifiedUser, MdLocationOn } from 'react-icons/md';
+import { MdEmail, MdLocationOn } from 'react-icons/md';
 import { FaPhone, FaUser } from 'react-icons/fa';
 
 interface Props {

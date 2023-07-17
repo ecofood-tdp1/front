@@ -1,13 +1,13 @@
 import {
   Flex,
   Box,
-  chakra,
   SimpleGrid,
   Stat,
   useColorModeValue,
   StatLabel,
   StatNumber,
   Heading,
+  Stack,
 } from '@chakra-ui/react'
 import { useState, useEffect, ReactNode } from 'react';
 import { FiShoppingBag } from 'react-icons/fi';
@@ -15,19 +15,30 @@ import { FiDollarSign } from 'react-icons/fi';
 import { GetOrdersOfShop } from '../../repository/OrderRepository';
 import { GetWalletOfShop } from '../../repository/ShopRepository';
 import { formatPrice } from '../../components/shop/PriceTag';
+import WithdrawFunds from '../../components/WithdrawFunds';
+import { Wallet } from '../../model/Wallet';
 
 const MyProfitsList = () => {
   const [numberOrders, setNumberOrders] = useState("");
   const [ordersIncome, setOrdersIncome] = useState("");
+  const [wallet, setWallet] = useState<Wallet>(null);
+
+  useEffect(() => {
+    fetchWallet();
+  }, []);
 
   useEffect(() => {
     fetchMyShopOrders();
-  }, []);
+  }, [wallet]);
+
+  const fetchWallet = async () => {
+    const wallet = await GetWalletOfShop("e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d"); // TODO: shop hardcoded
+    setWallet(wallet)
+  }
 
   const fetchMyShopOrders = async () => {
     try {
       const orders = await GetOrdersOfShop("e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d"); // TODO: shop hardcoded
-      const wallet = await GetWalletOfShop("e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d"); // TODO: shop hardcoded
 
       const ordersIds = await Promise.all(
         orders.map(async (order) => {
@@ -86,9 +97,12 @@ const MyProfitsList = () => {
     <>
       <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
         <Flex alignItems="center" justifyContent="center" mb={4}>
-          <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">
-            Mis ganancias
-          </Heading>
+          <Stack>
+            <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">
+              Mis ganancias
+            </Heading>
+            <WithdrawFunds wallet={wallet} fetchWallet={fetchWallet}/>
+          </Stack>
         </Flex>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }}>
           <StatsCard
@@ -102,7 +116,8 @@ const MyProfitsList = () => {
             icon={<FiDollarSign size={'3em'} />}
           />
         </SimpleGrid>
-      </Box></>
+      </Box>
+    </>
   );
 }
 
