@@ -17,11 +17,16 @@ import { GetWalletOfShop } from '../../repository/ShopRepository';
 import { formatPrice } from '../../components/shop/PriceTag';
 import WithdrawFunds from '../../components/WithdrawFunds';
 import { Wallet } from '../../model/Wallet';
+import { ChakraProvider } from "@chakra-ui/react";
+import ProfitGraph from "../../components/profit/ProfitGraph";
 
 const MyProfitsList = () => {
   const [numberOrders, setNumberOrders] = useState("");
-  const [ordersIncome, setOrdersIncome] = useState("");
+  const [walletBalance, setWalletBalance] = useState("");
+  const [shopIncome, setShopIncome] = useState("");
   const [wallet, setWallet] = useState<Wallet>(null);
+
+  const profitsMonthBefore = 37850
 
   useEffect(() => {
     fetchWallet();
@@ -46,14 +51,15 @@ const MyProfitsList = () => {
         })
       );
 
-      const ordersIncome = wallet.balance.amount
+      const walletBalance = wallet.balance.amount
+      const shopTransactions = wallet.transactions.filter(transaction => transaction.operation === "deposit");
+      const shopIncome = shopTransactions.reduce((sum, transaction) => sum + transaction.amount, 0);
 
-      console.log(orders)
-      console.log(wallet.balance.amount)
       setNumberOrders(ordersIds.length.toString());
-      setOrdersIncome(ordersIncome.toString())
+      setWalletBalance(walletBalance.toString());
+      setShopIncome(shopIncome.toString());
     } catch (error) {
-      console.error('Error fetching orders:', error);
+      console.error('Error fetching:', error);
     }
   };
 
@@ -92,6 +98,33 @@ const MyProfitsList = () => {
     );
   }
 
+  interface GraphCardProps {
+    title: string;
+    shopIncome: number;
+  }
+  function GraphCard(props: GraphCardProps) {
+    const { title, shopIncome } = props;
+    return (
+      <Stat
+        px={{ base: 2, md: 4 }}
+        py={'5'}
+        shadow={'xl'}
+        border={'1px solid'}
+        borderColor={useColorModeValue('gray.800', 'gray.500')}
+        rounded={'lg'}>
+        <Flex justifyContent={'space-between'}>
+          <Box pl={{ base: 2, md: 4 }}>
+            <StatLabel fontWeight={'medium'} isTruncated>
+              {title}
+            </StatLabel>
+            <ChakraProvider>
+              <ProfitGraph shopIncome={shopIncome} profitsMonthBefore={profitsMonthBefore}/>
+            </ChakraProvider>
+          </Box>
+        </Flex>
+      </Stat>
+      );
+  }
 
   return (
     <>
@@ -104,17 +137,23 @@ const MyProfitsList = () => {
             <WithdrawFunds wallet={wallet} fetchWallet={fetchWallet}/>
           </Stack>
         </Flex>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }}>
+        <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 4, lg: 8 }}>
+          <StatsCard
+            title={'Saldo'}
+            stat={formatPrice(parseInt(walletBalance))}
+            icon={<FiDollarSign size={'3em'} />}
+          />
           <StatsCard
             title={'Cantidad de ordenes'}
             stat={numberOrders}
             icon={<FiShoppingBag size={'3em'} />}
           />
           <StatsCard
-            title={'Ingreso'}
-            stat={formatPrice(parseInt(ordersIncome))}
+            title={'Ganancias mensuales'}
+            stat={formatPrice(parseInt(shopIncome) - profitsMonthBefore)}
             icon={<FiDollarSign size={'3em'} />}
           />
+          <GraphCard title={'Ganancias acumuladas'} shopIncome={parseInt(shopIncome)} />
         </SimpleGrid>
       </Box>
     </>
