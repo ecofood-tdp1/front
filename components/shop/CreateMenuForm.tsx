@@ -29,6 +29,12 @@ import { ProductForm } from './ProductForm';
 import { CreatePack } from '../../repository/PackRepository';
 import { shopDefault } from '../../context/users';
 
+  type PackInput = {
+    name: string
+    quantity: number
+    id: number
+  }
+
   export const CreateMenuForm = () => {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -38,8 +44,9 @@ import { shopDefault } from '../../context/users';
     const [price, setPrice] = useState(0)
     const [originalPrice, setOriginalPrice] = useState(0)
     const [picture, setPicture] = useState("")
-    const [createPacks, setCreatePacks] = useState(new Array<PackForRequest>())
+    const [createPacks, setCreatePacks] = useState(new Array<PackInput>())
     const [isLoading, setIsLoading] = useState(false)
+    const [packId, setPackId] = useState(0)
     const toast = useToast()
 
     const inputPicture = () => {
@@ -104,7 +111,7 @@ import { shopDefault } from '../../context/users';
         addPack()
       }
       return <Stack>
-                {createPacks.map((pack, i) => {return <ProductForm key={Math.random()} packCreate={pack} index={i} removeProduct={removeProduct} inputProductName={inputProductName} inputProductQuantity={inputProductQuantity}/>})}
+                {createPacks.map((pack, i) => {return <ProductForm key={pack.id} packCreate={pack} index={i} removeProduct={removeProduct} inputProductName={inputProductName} inputProductQuantity={inputProductQuantity}/>})}
       </Stack> 
     }
 
@@ -141,10 +148,12 @@ import { shopDefault } from '../../context/users';
 
     const addPack = () => {
 
-      var  emptyPack: PackForRequest = {
+      var  emptyPack: PackInput = {
         name: '',
-        quantity: 0
+        quantity: 0,
+        id: packId
       }
+      setPackId(packId + 1)
       setCreatePacks([...createPacks, emptyPack])
     }
 
@@ -171,7 +180,7 @@ import { shopDefault } from '../../context/users';
       try {
         await CreatePack(request)
         toast({
-                title: `El pack fue agregado al carrito`,
+                title: `El pack fue creado`,
                 status: 'success',
                 isClosable: true,
                 duration: 3000,
@@ -179,7 +188,7 @@ import { shopDefault } from '../../context/users';
         await delay(2000)
       } catch (error) {
           toast({
-                title: `Ocurrió un error al agregar el pack al carrito`,
+                title: `Ocurrió un error al crear el pack`,
                 status: 'error',
                 isClosable: true,
                 duration: 3000,
