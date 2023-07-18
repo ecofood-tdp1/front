@@ -38,7 +38,6 @@ export const ProductForm = (props: ProductFormProps) => {
         <FormLabel>Nombre </FormLabel>
         <Input type="text" 
             placeholder="Nombre del producto"
-            defaultValue={packCreate.name}
             onInput={(e) => inputName(e)}
             _placeholder={{ color: 'gray.500' }}
         />
@@ -48,7 +47,6 @@ export const ProductForm = (props: ProductFormProps) => {
       <FormLabel>Cant. </FormLabel>
       <Input type="number"
           placeholder="0"
-          defaultValue={packCreate.quantity}
           onInput={(e) => inputQuantity(e)}
           _placeholder={{ color: 'gray.500' }}
       />

@@ -34,7 +34,6 @@ import { ProductForm } from './ProductForm';
     const [dateTime, setDateTime] = useState("")
     const [price, setPrice] = useState(0)
     const [originalPrice, setOriginalPrice] = useState(0)
-    const [deleteFlag, setDeleteFlag] = useState(false)
     const [createPacks, setCreatePacks] = useState(new Array<PackCreateRequest>())
 
     const inputName = (event) => {
@@ -91,7 +90,7 @@ import { ProductForm } from './ProductForm';
     }
 
     const DisplayProductForms = () => {
-      if (createPacks.length === 0 && !deleteFlag) {
+      if (createPacks.length === 0) {
         addPack()
       }
       return <Stack>
@@ -102,7 +101,6 @@ import { ProductForm } from './ProductForm';
     const removeProduct = (index: number) => {
       const newCreatePacks  = removeAt(createPacks, index);
       setCreatePacks(newCreatePacks)
-      setDeleteFlag(true)
     }
 
     const inputProductName = (index: number, name: string) => {
