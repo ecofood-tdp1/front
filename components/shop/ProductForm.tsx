@@ -1,8 +1,16 @@
-import { FormControl, FormLabel, HStack, Input } from "@chakra-ui/react"
+import { DeleteIcon } from "@chakra-ui/icons"
+import { Box, Button, Flex, FormControl, FormLabel, HStack, Hide, Input, Spacer, Stack, VisuallyHidden } from "@chakra-ui/react"
 import { useState } from "react"
 
 
-export const ProductForm = () => {
+interface ProductFormProps {
+    index: number
+    removeProduct: (number: number) => void
+  }
+  
+
+export const ProductForm = (props: ProductFormProps) => {
+    const { index, removeProduct } = props
     const [name, setName] = useState("")
     const [quantity, setQuantity] = useState(0)
 
@@ -23,7 +31,7 @@ export const ProductForm = () => {
     }
 
     return <HStack >
-        <FormControl id="producto_nombre">
+        <FormControl id="producto_nombre" width="50">
         <FormLabel>Nombre </FormLabel>
         <Input type="text" 
             placeholder="Nombre del producto"
@@ -39,7 +47,17 @@ export const ProductForm = () => {
           onInput={(e) => inputQuantity(e)}
           _placeholder={{ color: 'gray.500' }}
       />
-  </FormControl>
+    </FormControl>
+    <Stack width="20">
+        <Box height="6"/>
+        <Button
+            onClick={() => removeProduct(index)}
+            colorScheme='gray'
+            width="15">
+            <DeleteIcon />
+        </Button>  
+    </Stack>
+  
   </HStack>
 
 }

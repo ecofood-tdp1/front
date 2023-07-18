@@ -90,12 +90,21 @@ import { ProductForm } from './ProductForm';
     }
 
     const DisplayProductForms = () => {
-      if (createPacks.length == 0) {
+      if (createPacks.length === 0) {
         addPack()
       }
       return <Stack>
-                {createPacks.map((pack, i) => {return <ProductForm />})}
+                {createPacks.map((pack, i) => {return <ProductForm index={i} removeProduct={removeProduct} />})}
       </Stack> 
+    }
+
+    const removeProduct = (index: number) => {
+      const newCreatePacks  = removeAt(createPacks, index);
+      setCreatePacks(newCreatePacks)
+    }
+
+    function removeAt(arr, i) {
+      return [...arr.slice(0, i), ...arr.slice(i+1)];
     }
 
     const addPack = () => {
