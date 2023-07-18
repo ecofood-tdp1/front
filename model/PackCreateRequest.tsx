@@ -21,5 +21,5 @@ type CreatePackRequest = {
     best_before: string,
     price: PriceForRequest,
     original_price: PriceForRequest,
-    imageUrl: string
+    imageURL: string
 }

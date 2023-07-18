@@ -23,11 +23,12 @@ import {
     HStack,
     useToast,
   } from '@chakra-ui/react';
-  import { CreatePackRequest, PackForRequest } from '../../model/PackCreateRequest';
+  import { CreatePackRequest } from '../../model/PackCreateRequest';
   import { useState } from 'react';
 import { ProductForm } from './ProductForm';
 import { CreatePack } from '../../repository/PackRepository';
 import { shopDefault } from '../../context/users';
+import moment from 'moment';
 
   type PackInput = {
     name: string
@@ -121,18 +122,20 @@ import { shopDefault } from '../../context/users';
     }
 
     const inputProductName = (index: number, name: string) => {
-      var newPack: PackForRequest = {
+      var newPack: PackInput = {
         name: name,
-        quantity: createPacks[index].quantity
+        quantity: createPacks[index].quantity,
+        id: createPacks[index].id
       }
       var createPacksNew = replaceAt(createPacks, newPack, index)
       setCreatePacks(createPacksNew)
     }
 
     const inputProductQuantity = (index: number, quantity: number) => {
-      var newPack: PackForRequest = {
+      var newPack: PackInput = {
         name: createPacks[index].name,
-        quantity: quantity
+        quantity: Number(quantity),
+        id: createPacks[index].id
       }
       var createPacksNew = replaceAt(createPacks, newPack, index)
       setCreatePacks(createPacksNew)
@@ -164,9 +167,13 @@ import { shopDefault } from '../../context/users';
         type: type,
         name: name,
         description: description,
-        products: createPacks,
+        products: createPacks.map(p => {
+          return {
+            name: p.name,
+            quantity: p.quantity
+          }}),
         stock: stock,
-        best_before: dateTime,
+        best_before: moment(dateTime).format('DD/MM/YYYY'),
         price: {
           amount: price,
           currency: 'ARS'
@@ -175,7 +182,7 @@ import { shopDefault } from '../../context/users';
           amount: originalPrice,
           currency: 'ARS'
         },
-        imageUrl: picture
+        imageURL: picture
       }
       try {
         await CreatePack(request)
