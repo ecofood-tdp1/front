@@ -34,6 +34,7 @@ import { ProductForm } from './ProductForm';
     const [dateTime, setDateTime] = useState("")
     const [price, setPrice] = useState(0)
     const [originalPrice, setOriginalPrice] = useState(0)
+    const [deleteFlag, setDeleteFlag] = useState(false)
     const [createPacks, setCreatePacks] = useState(new Array<PackCreateRequest>())
 
     const inputName = (event) => {
@@ -90,17 +91,40 @@ import { ProductForm } from './ProductForm';
     }
 
     const DisplayProductForms = () => {
-      if (createPacks.length === 0) {
+      if (createPacks.length === 0 && !deleteFlag) {
         addPack()
       }
       return <Stack>
-                {createPacks.map((pack, i) => {return <ProductForm index={i} removeProduct={removeProduct} />})}
+                {createPacks.map((pack, i) => {return <ProductForm key={Math.random()} packCreate={pack} index={i} removeProduct={removeProduct} inputProductName={inputProductName} inputProductQuantity={inputProductQuantity}/>})}
       </Stack> 
     }
 
     const removeProduct = (index: number) => {
       const newCreatePacks  = removeAt(createPacks, index);
       setCreatePacks(newCreatePacks)
+      setDeleteFlag(true)
+    }
+
+    const inputProductName = (index: number, name: string) => {
+      var newPack: PackCreateRequest = {
+        name: name,
+        quantity: createPacks[index].quantity
+      }
+      var createPacksNew = replaceAt(createPacks, newPack, index)
+      setCreatePacks(createPacksNew)
+    }
+
+    const inputProductQuantity = (index: number, quantity: number) => {
+      var newPack: PackCreateRequest = {
+        name: createPacks[index].name,
+        quantity: quantity
+      }
+      var createPacksNew = replaceAt(createPacks, newPack, index)
+      setCreatePacks(createPacksNew)
+    }
+
+    function replaceAt(arr, element, i) {
+      return [...arr.slice(0, i), element, ...arr.slice(i+1)];
     }
 
     function removeAt(arr, i) {

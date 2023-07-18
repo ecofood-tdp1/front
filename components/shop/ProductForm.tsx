@@ -1,26 +1,29 @@
 import { DeleteIcon } from "@chakra-ui/icons"
 import { Box, Button, Flex, FormControl, FormLabel, HStack, Hide, Input, Spacer, Stack, VisuallyHidden } from "@chakra-ui/react"
 import { useState } from "react"
+import { PackCreateRequest } from "../../model/PackCreateRequest"
 
 
 interface ProductFormProps {
+    key: number
     index: number
+    packCreate: PackCreateRequest
     removeProduct: (number: number) => void
+    inputProductName: (number: number, name: string) => void
+    inputProductQuantity: (number: number, quantity: number) => void
   }
   
 
 export const ProductForm = (props: ProductFormProps) => {
-    const { index, removeProduct } = props
-    const [name, setName] = useState("")
-    const [quantity, setQuantity] = useState(0)
+    const { key, index, packCreate, removeProduct, inputProductName, inputProductQuantity } = props
 
     const inputName = (event) => {
         maxLengthCheck(event, 50)
-        setName(event.target.value)
+        inputProductName(index, event.target.value)
     }
   
     const inputQuantity = (event) => {
-        setQuantity(event.target.value)
+        inputProductQuantity(index, event.target.value)
     }
 
 
@@ -30,11 +33,12 @@ export const ProductForm = (props: ProductFormProps) => {
         }
     }
 
-    return <HStack >
+    return <HStack key={key}>
         <FormControl id="producto_nombre" width="50">
         <FormLabel>Nombre </FormLabel>
         <Input type="text" 
             placeholder="Nombre del producto"
+            defaultValue={packCreate.name}
             onInput={(e) => inputName(e)}
             _placeholder={{ color: 'gray.500' }}
         />
@@ -44,6 +48,7 @@ export const ProductForm = (props: ProductFormProps) => {
       <FormLabel>Cant. </FormLabel>
       <Input type="number"
           placeholder="0"
+          defaultValue={packCreate.quantity}
           onInput={(e) => inputQuantity(e)}
           _placeholder={{ color: 'gray.500' }}
       />
