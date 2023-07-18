@@ -34,7 +34,12 @@ import { ProductForm } from './ProductForm';
     const [dateTime, setDateTime] = useState("")
     const [price, setPrice] = useState(0)
     const [originalPrice, setOriginalPrice] = useState(0)
+    const [picture, setPicture] = useState("")
     const [createPacks, setCreatePacks] = useState(new Array<PackCreateRequest>())
+
+    const inputPicture = () => {
+      setPicture("https://imag.bonviveur.com/ensalada-cesar-casera.jpg")
+    }
 
     const inputName = (event) => {
       maxLengthCheck(event, 50)
@@ -288,6 +293,17 @@ import { ProductForm } from './ProductForm';
                     </InputGroup>
                     <FormHelperText fontSize="sm" color={useColorModeValue('gray.500', 'gray.400')}>
                       Contales a tus clientes cuál era el precio original de tu producto. Así saben cuánto ahorran a la par que cuidan el planeta :)
+                    </FormHelperText>
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="picture" isRequired>
+                    <FormLabel>Foto</FormLabel>
+                    <Input type="file"
+                      onInput={inputPicture}
+                    />
+                    <FormHelperText fontSize="sm" color={useColorModeValue('gray.500', 'gray.400')}>
+                      Subí una foto llamativa...
                     </FormHelperText>
                 </FormControl>
               </Box>
