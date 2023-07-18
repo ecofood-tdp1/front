@@ -1,4 +1,4 @@
-import { CalendarIcon } from '@chakra-ui/icons';
+import { AddIcon, CalendarIcon } from '@chakra-ui/icons';
 import {
     Flex,
     Box,
@@ -19,8 +19,12 @@ import {
     Textarea,
     SimpleGrid,
     InputLeftElement,
+    Button,
+    HStack,
   } from '@chakra-ui/react';
+  import { PackCreateRequest } from '../../model/PackCreateRequest';
   import { useState } from 'react';
+import { ProductForm } from './ProductForm';
 
   export const CreateMenuForm = () => {
     const [name, setName] = useState("")
@@ -30,6 +34,7 @@ import {
     const [dateTime, setDateTime] = useState("")
     const [price, setPrice] = useState(0)
     const [originalPrice, setOriginalPrice] = useState(0)
+    const [createPacks, setCreatePacks] = useState(new Array<PackCreateRequest>())
 
     const inputName = (event) => {
       maxLengthCheck(event, 50)
@@ -82,6 +87,24 @@ import {
     const inputOriginalPrice = (event) => {
       allowOnlyNumber(event)
       setOriginalPrice(Number(event.target.value))
+    }
+
+    const DisplayProductForms = () => {
+      if (createPacks.length == 0) {
+        addPack()
+      }
+      return <Stack>
+                {createPacks.map((pack, i) => {return <ProductForm />})}
+      </Stack> 
+    }
+
+    const addPack = () => {
+
+      var  emptyPack: PackCreateRequest = {
+        name: '',
+        quantity: 0
+      }
+      setCreatePacks([...createPacks, emptyPack])
     }
 
     return <Box
@@ -154,6 +177,19 @@ import {
                   <Spacer />
                 </Flex>
                 </RadioGroup>
+              </Box>
+              <Box>
+                <FormControl id="productos">
+                  <FormLabel>Agregá los productos</FormLabel>
+                  {DisplayProductForms()}
+                  <Box height='5'></Box>
+                  <Button
+                    onClick={addPack}
+                    colorScheme="blue"
+                    width="full">
+                    <AddIcon />
+                  </Button>
+                </FormControl>
               </Box>
               <Box>
                 <FormControl id="datetime" isRequired>
