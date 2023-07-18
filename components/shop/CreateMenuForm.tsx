@@ -188,8 +188,9 @@ import { useRouter } from 'next/router'
       }
       try {
         await CreatePack(request)
+        setIsLoading(false)
         toast({
-                title: `El pack fue creado`,
+                title: `El pack fue creado exitosamente`,
                 status: 'success',
                 isClosable: true,
                 duration: 3000,
