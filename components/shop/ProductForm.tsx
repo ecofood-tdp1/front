@@ -1,13 +1,13 @@
 import { DeleteIcon } from "@chakra-ui/icons"
 import { Box, Button, Flex, FormControl, FormLabel, HStack, Hide, Input, Spacer, Stack, VisuallyHidden } from "@chakra-ui/react"
 import { useState } from "react"
-import { PackCreateRequest } from "../../model/PackCreateRequest"
+import { PackForRequest } from "../../model/PackCreateRequest"
 
 
 interface ProductFormProps {
     key: number
     index: number
-    packCreate: PackCreateRequest
+    packCreate: PackForRequest
     removeProduct: (number: number) => void
     inputProductName: (number: number, name: string) => void
     inputProductQuantity: (number: number, quantity: number) => void

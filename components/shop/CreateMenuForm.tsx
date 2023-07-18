@@ -21,10 +21,12 @@ import {
     InputLeftElement,
     Button,
     HStack,
+    useToast,
   } from '@chakra-ui/react';
-  import { PackCreateRequest } from '../../model/PackCreateRequest';
+  import { CreatePackRequest, PackForRequest } from '../../model/PackCreateRequest';
   import { useState } from 'react';
 import { ProductForm } from './ProductForm';
+import { CreatePack } from '../../repository/PackRepository';
 
   export const CreateMenuForm = () => {
     const [name, setName] = useState("")
@@ -35,7 +37,9 @@ import { ProductForm } from './ProductForm';
     const [price, setPrice] = useState(0)
     const [originalPrice, setOriginalPrice] = useState(0)
     const [picture, setPicture] = useState("")
-    const [createPacks, setCreatePacks] = useState(new Array<PackCreateRequest>())
+    const [createPacks, setCreatePacks] = useState(new Array<PackForRequest>())
+    const [isLoading, setIsLoading] = useState(false)
+    const toast = useToast()
 
     const inputPicture = () => {
       setPicture("https://imag.bonviveur.com/ensalada-cesar-casera.jpg")
@@ -109,7 +113,7 @@ import { ProductForm } from './ProductForm';
     }
 
     const inputProductName = (index: number, name: string) => {
-      var newPack: PackCreateRequest = {
+      var newPack: PackForRequest = {
         name: name,
         quantity: createPacks[index].quantity
       }
@@ -118,7 +122,7 @@ import { ProductForm } from './ProductForm';
     }
 
     const inputProductQuantity = (index: number, quantity: number) => {
-      var newPack: PackCreateRequest = {
+      var newPack: PackForRequest = {
         name: createPacks[index].name,
         quantity: quantity
       }
@@ -136,12 +140,58 @@ import { ProductForm } from './ProductForm';
 
     const addPack = () => {
 
-      var  emptyPack: PackCreateRequest = {
+      var  emptyPack: PackForRequest = {
         name: '',
         quantity: 0
       }
       setCreatePacks([...createPacks, emptyPack])
     }
+
+    const createPack = async () => {
+      setIsLoading(true)
+      var request: CreatePackRequest = {
+        shop_id: "123",
+        type: type,
+        name: name,
+        description: description,
+        products: createPacks,
+        stock: stock,
+        best_before: dateTime,
+        price: {
+          amount: price,
+          currency: 'ARS'
+        },
+        original_price: {
+          amount: originalPrice,
+          currency: 'ARS'
+        },
+        imageUrl: picture
+      }
+      try {
+        await CreatePack(request)
+        toast({
+                title: `El pack fue agregado al carrito`,
+                status: 'success',
+                isClosable: true,
+                duration: 3000,
+            })
+        await delay(2000)
+      } catch (error) {
+          toast({
+                title: `Ocurrió un error al agregar el pack al carrito`,
+                status: 'error',
+                isClosable: true,
+                duration: 3000,
+            })
+      } finally {
+        setIsLoading(false)
+      }
+      
+    }
+
+    const delay = ms => new Promise(
+      resolve => setTimeout(resolve, ms)
+    )
 
     return <Box
         maxW={{ base: '3xl', lg: '7xl' }}
@@ -307,7 +357,12 @@ import { ProductForm } from './ProductForm';
                     </FormHelperText>
                 </FormControl>
               </Box>
-              <Box height='80px'></Box>
+              <Box>
+                <Button colorScheme="green" width="full" onClick={createPack} fontSize="md" isLoading={isLoading} >
+                  Crear Pack
+                </Button>
+              </Box>
+              <Box height='40px'></Box>
             </SimpleGrid>
           </Stack>
         </Stack>
