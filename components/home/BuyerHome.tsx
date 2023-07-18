@@ -102,21 +102,21 @@ const BuyerHome = () => {
             <Header image={img} description={"Comé rico y económico"} description2={"salvando el planeta"} buttonTitle={"Comprá"} scrollHandler={scrollHandler} />
             <div ref={shopsRef} className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-24">
                 <Flex mt={4} mb="16px" direction={{ base: "column", sm: "row" }} justify={{ base: "center", sm: "flex-start" }}>
-                    <Flex direction="column" mr={{ base: "0", sm: "2px" }} mb={{ base: "10px", sm: "0" }}>
-                        <Input
-                            value={searchData.neighborhood}
-                            name="neighborhood"
-                            onChange={handleSearch}
-                            placeholder="Ingresá un barrio"
-                            size="md"
-                            resize="none"
-                        />
-                    </Flex>
-                    <Grid templateColumns='repeat(4, 2fr)' gap={2}>
+                    <Grid templateColumns='repeat(4, 2fr)' gap={2} mt={2}>
                         {types.map(type =>
                             <CategoryCard type={type} selected={type === selectedCategoryFilter} onClick={handleCategoryFilter} />
                         )}
                     </Grid>
+                    <Flex direction="column" mr={{ base: "0", sm: "2px" }} mt={6} mb={0}>
+                        <Input
+                            value={searchData.neighborhood}
+                            name="neighborhood"
+                            onChange={handleSearch}
+                            placeholder="Ingresá un barrio..."
+                            size="md"
+                            resize="none"
+                        />
+                    </Flex>
                 </Flex>
                 <div className="grid grid-cols-1 gap-y-4 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                     {
