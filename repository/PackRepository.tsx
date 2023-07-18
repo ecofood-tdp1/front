@@ -42,10 +42,10 @@ export async function CreatePack(pack: CreatePackRequest) : Promise<Pack> {
 export async function RemovePack(id): Promise<Pack> {
   const response = await fetch(`${process.env.BACKEND_URL}/packs/${id}`, {method:  'DELETE'})
 
+  console.log(response.status)
   if (response.status !== 204) {
      throw new Error(`Error! status: ${response.status}`);
   }
 
-  const result = (await response.json());
   return
 }

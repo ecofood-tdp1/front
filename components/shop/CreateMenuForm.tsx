@@ -29,6 +29,7 @@ import { ProductForm } from './ProductForm';
 import { CreatePack } from '../../repository/PackRepository';
 import { shopDefault } from '../../context/users';
 import moment from 'moment';
+import { useRouter } from 'next/router'
 
   type PackInput = {
     name: string
@@ -49,6 +50,7 @@ import moment from 'moment';
     const [isLoading, setIsLoading] = useState(false)
     const [packId, setPackId] = useState(0)
     const toast = useToast()
+    const router = useRouter()
 
     const inputPicture = () => {
       setPicture("https://imag.bonviveur.com/ensalada-cesar-casera.jpg")
@@ -193,6 +195,7 @@ import moment from 'moment';
                 duration: 3000,
             })
         await delay(2000)
+        router.push(`/shops/${shopDefault._id}`)
       } catch (error) {
           toast({
                 title: `Ocurrió un error al crear el pack`,
