@@ -5,11 +5,11 @@ import {
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import { UpdateOrderStatus } from '../../repository/OrderRepository';
 
-const MyOrdersConfirm = ({ order }) => {
+const MyOrdersConfirm = ({ order, fetchMyOrders }) => {
 
     const handleConfirmePickedUp = async () => {
         await UpdateOrderStatus(order._id, "delivered")
-        window.location.reload(); // Refresh the page
+        fetchMyOrders()
     }
 
     return (

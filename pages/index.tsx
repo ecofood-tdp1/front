@@ -9,6 +9,6 @@ export default function Home({ }) {
   return (
     <>
       {console.log(user)}
-      {user.type == "buyer" ? <BuyerHome /> : <ShopHome />}
+      {user.type == "buyer" ? <BuyerHome /> : null} {/* <ShopHome /> */}
     </>);
 }

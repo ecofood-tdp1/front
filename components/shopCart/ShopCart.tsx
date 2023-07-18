@@ -3,9 +3,9 @@ import {
   Flex,
   Heading,
   HStack,
-  Link,
   Stack,
   useColorModeValue as mode,
+  Link,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { CartItem } from './CartItem'
@@ -13,6 +13,7 @@ import { CartOrderSummary } from './CartOrderSummary'
 import { GetPacksFromShoppingCart, RemovePackFromShoppingCart } from '../../repository/UserRepository'
 import { v4 as uuidv4 } from 'uuid';
 import { Pack } from '../../model/Pack'
+import NextLink from 'next/link'
 
 interface Props {
   packs: Pack[]
@@ -32,6 +33,7 @@ export const ShopCart = (props: Props) => {
     mx="auto"
     px={{ base: '4', md: '8', lg: '12' }}
     py={{ base: '6', md: '8', lg: '12' }}
+    mb={20}
   >
     <Stack
       direction={{ base: 'column', lg: 'row' }}
@@ -59,7 +61,9 @@ export const ShopCart = (props: Props) => {
           total={packs.length == 0 ? 0 : packs.map(p => p.price.amount).reduce((x, y) => x + y)} />
         <HStack mt="6" fontWeight="semibold">
           <p>o</p>
-          <Link color={mode('blue.500', 'blue.200')} href={"/"} >Seguir buscando</Link>
+          <Link color="blue.500" textDecoration="underline">
+            <NextLink color={mode('blue.500', 'blue.200')} href={"/"} >Seguir buscando</NextLink>
+          </Link>
         </HStack>
       </Flex>
     </Stack>

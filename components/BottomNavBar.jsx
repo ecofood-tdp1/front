@@ -1,24 +1,26 @@
 import React from "react";
 import { Box, Flex, IconButton, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import { FaHome, FaSearch, FaUser, FaShoppingCart, FaBoxes } from "react-icons/fa";
+import { FaSearch, FaShoppingCart, FaBoxes } from "react-icons/fa";
 import { UserDataContext } from "../context/Context";
 import { useContext } from "react";
 import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import { MdMenuBook } from "react-icons/md";
-import { FcBullish } from "react-icons/fc";
+import logoEcofood from '../public/ecofood_sin_fondo.png'
+import Image from "next/image";
+import { FaChartLine } from "react-icons/fa";
 
 const BottomNavbar = () => {
   const { user, switchUser } = useContext(UserDataContext);
   const router = useRouter();
 
   const navigation = [
-    { name: 'Home', href: '/', current: router.pathname == '/', visible_to: 'all', icon: <FaSearch /> },
-    { name: 'Carrito', href: '/shopcart', current: router.pathname == '/shopcart', visible_to: 'buyer', icon: <FaShoppingCart /> },
-    { name: 'Mis Pedidos', href: '/orders/my', current: router.pathname == '/orders/my', visible_to: 'buyer', icon: <FaBoxes /> },
+    { name: 'Home', href: '/', current: router.pathname == '/' || router.pathname.includes('/shops'), visible_to: 'buyer', icon: <FaSearch /> },
+    { name: 'Carrito', href: '/shopcart', current: ['/shopcart', '/payment'].includes(router.pathname), visible_to: 'buyer', icon: <FaShoppingCart /> },
+    { name: 'Mis Pedidos', href: '/orders/my', current: router.pathname.includes('/orders'), visible_to: 'buyer', icon: <FaBoxes /> },
     { name: 'Mi menú', href: '/shops/' + user._id, current: router.pathname == '/shops/[id]', visible_to: 'shop', icon: <MdMenuBook /> },
-    { name: 'Mis órdenes', href: '/shoporders/my', current: router.pathname == '/shoporders/my', visible_to: 'shop', icon: <FaBoxes /> },
-    { name: 'Mis ganancias', href: '/profits/my', current: router.pathname == '/profits/my', visible_to: 'shop', icon: <FcBullish /> },
+    { name: 'Mis órdenes', href: '/shoporders/my', current: router.pathname.includes('/shoporders'), visible_to: 'shop', icon: <FaBoxes /> },
+    { name: 'Mis ganancias', href: '/profits/my', current: router.pathname == '/profits/my', visible_to: 'shop', icon: <FaChartLine /> },
   ]
 
   return (
@@ -34,13 +36,18 @@ const BottomNavbar = () => {
       zIndex="10"
     >
       <Flex justifyContent="space-around" alignItems="center">
+        <Image
+          className="block h-10 w-auto"
+          src={logoEcofood}
+          alt="Ecofood"
+        />
         {navigation.map((item) => (
           (user.type == item.visible_to || item.visible_to == "all") &&
           <NextLink href={item.href} key={item.name}>
             <IconButton
               icon={item.icon}
               aria-label={item.name}
-              color="green.600"
+              color={item.current ? "gray.900" : "gray.500"}
               variant="ghost"
               fontSize="24px"
               key={item.name}
@@ -64,7 +71,7 @@ const BottomNavbar = () => {
             shadow="lg"
           >
             <NextLink
-              key="asdasdasd"
+              key="profiles10"
               href="/profiles/my"
             >
               <MenuItem fontSize={18} key="menuitem2">
@@ -72,7 +79,7 @@ const BottomNavbar = () => {
               </MenuItem>
             </NextLink>
             <NextLink
-              href="/"
+              href={user.type == 'buyer' ? '/shops/e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d' : '/'} // TODO: shop hardcoded
               onClick={switchUser}
             >
               <MenuItem fontSize={18} key="menuitem1">

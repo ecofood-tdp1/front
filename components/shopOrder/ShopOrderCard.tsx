@@ -9,6 +9,7 @@ import MyShopOrdersConfirmedDelivered from "./MyShopOrdersConfirmDelivered";
 
 interface Props {
     order: OrderWithUser
+    fetchMyShopOrders: Function
 }
 
 export default function OrderCard(props: Props) {
@@ -67,7 +68,7 @@ export default function OrderCard(props: Props) {
                     <MyShopOrdersViewDetail order={props.order.order} />
                 </Flex>
                 <chakra.div mt={4} ml={12}>
-                    <MyShopOrdersConfirmedDelivered order={props.order.order} />
+                    <MyShopOrdersConfirmedDelivered order={props.order.order} fetchMyShopOrders={props.fetchMyShopOrders}/>
                 </chakra.div>
             </Box >
         </div>
