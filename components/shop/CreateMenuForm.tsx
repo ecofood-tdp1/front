@@ -27,6 +27,7 @@ import {
   import { useState } from 'react';
 import { ProductForm } from './ProductForm';
 import { CreatePack } from '../../repository/PackRepository';
+import { shopDefault } from '../../context/users';
 
   export const CreateMenuForm = () => {
     const [name, setName] = useState("")
@@ -150,7 +151,7 @@ import { CreatePack } from '../../repository/PackRepository';
     const createPack = async () => {
       setIsLoading(true)
       var request: CreatePackRequest = {
-        shop_id: "123",
+        shop_id: shopDefault._id,
         type: type,
         name: name,
         description: description,
