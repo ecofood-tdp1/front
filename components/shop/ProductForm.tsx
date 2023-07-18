@@ -6,6 +6,7 @@ import { PackForRequest } from "../../model/PackCreateRequest"
 
 interface ProductFormProps {
     key: number
+    isEdit: boolean
     index: number
     packCreate: PackForRequest
     removeProduct: (number: number) => void
@@ -15,7 +16,7 @@ interface ProductFormProps {
   
 
 export const ProductForm = (props: ProductFormProps) => {
-    const { key, index, packCreate, removeProduct, inputProductName, inputProductQuantity } = props
+    const { key, isEdit, index, packCreate, removeProduct, inputProductName, inputProductQuantity } = props
 
     const inputName = (event) => {
         maxLengthCheck(event, 50)
@@ -37,6 +38,7 @@ export const ProductForm = (props: ProductFormProps) => {
         <FormControl id="producto_nombre" width="50">
         <FormLabel>Nombre </FormLabel>
         <Input type="text" 
+            defaultValue={isEdit ? packCreate.name : ""}
             placeholder="Nombre del producto"
             onInput={(e) => inputName(e)}
             _placeholder={{ color: 'gray.500' }}
@@ -46,6 +48,7 @@ export const ProductForm = (props: ProductFormProps) => {
     <FormControl id="producto_quantity" width="20">
       <FormLabel>Cant. </FormLabel>
       <Input type="number"
+          defaultValue={isEdit ? packCreate.quantity : ""}
           placeholder="0"
           onInput={(e) => inputQuantity(e)}
           _placeholder={{ color: 'gray.500' }}

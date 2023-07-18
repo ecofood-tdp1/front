@@ -23,6 +23,7 @@ import { AddPackToShoppingCart } from '../../repository/UserRepository';
 import { useToast } from '@chakra-ui/react'
 import { Pack, Product } from '../../model/Pack';
 import { GetShopPacks, RemovePack } from '../../repository/PackRepository';
+import { useRouter } from 'next/router';
 
 interface Props {
     pack: Pack
@@ -35,6 +36,7 @@ export const PackCard = (props: Props) => {
     const { pack, rootProps, isTheOwner, setPacks } = props
     const [isLoading, setLoading] = useState(false)
     const toast = useToast()
+    const router = useRouter()
 
     async function AddToCart(packId: string) {
         setLoading(true)
@@ -147,7 +149,7 @@ export const PackCard = (props: Props) => {
             <Stack align="center">
                 {isTheOwner ?
                     <Stack direction={{ base: 'column', md: 'row' }}>
-                        <Button leftIcon={<MdEdit />} width={24} colorScheme='gray' size='md'>
+                        <Button leftIcon={<MdEdit />} onClick={() => router.push(`/shops/menu/${pack._id}`)}width={24} colorScheme='gray' size='md'>
                             Editar
                         </Button>
                     <Button leftIcon={<MdDelete />} onClick={() => RemovePackFromMenu(pack.shop_id, pack._id)} 

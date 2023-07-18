@@ -1,4 +1,4 @@
-export { type PackForRequest, type PriceForRequest, type CreatePackRequest }
+export { type PackForRequest, type PriceForRequest, type CreatePackRequest, type UpdatePackRequest }
 
 type PackForRequest = {
     name: string,
@@ -13,6 +13,18 @@ type PriceForRequest = {
 
 type CreatePackRequest = {
     shop_id: string,
+    type: string,
+    name: string,
+    description: string,
+    products: PackForRequest[],
+    stock: number,
+    best_before: string,
+    price: PriceForRequest,
+    original_price: PriceForRequest,
+    imageURL: string
+}
+
+type UpdatePackRequest = {
     type: string,
     name: string,
     description: string,

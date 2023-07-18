@@ -23,13 +23,14 @@ import {
     HStack,
     useToast,
   } from '@chakra-ui/react';
-  import { CreatePackRequest } from '../../model/PackCreateRequest';
+  import { UpdatePackRequest } from '../../model/PackCreateRequest';
   import { useState } from 'react';
 import { ProductForm } from './ProductForm';
-import { CreatePack } from '../../repository/PackRepository';
+import { UpdatePack } from '../../repository/PackRepository';
 import { shopDefault } from '../../context/users';
 import moment from 'moment';
 import { useRouter } from 'next/router'
+import { Pack } from '../../model/Pack';
 
   type PackInput = {
     name: string
@@ -37,18 +38,24 @@ import { useRouter } from 'next/router'
     id: number
   }
 
-  export const CreateMenuForm = () => {
-    const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
-    const [stock, setStock] = useState(0)
-    const [type, setType] = useState("specific")
-    const [dateTime, setDateTime] = useState("")
-    const [price, setPrice] = useState(0)
-    const [originalPrice, setOriginalPrice] = useState(0)
-    const [picture, setPicture] = useState("")
-    const [createPacks, setCreatePacks] = useState(new Array<PackInput>())
+  type EditMenuProps = {
+    pack: Pack,
+    paramPackId: string
+  }
+
+  export const EditMenuForm = (props: EditMenuProps) => {
+    const { pack, paramPackId } = props
+    const [name, setName] = useState(pack.name)
+    const [description, setDescription] = useState(pack.description)
+    const [stock, setStock] = useState(pack.stock)
+    const [type, setType] = useState(pack.type)
+    const [dateTime, setDateTime] = useState(pack.best_before)
+    const [price, setPrice] = useState(pack.price.amount)
+    const [originalPrice, setOriginalPrice] = useState(pack.original_price.amount)
+    const [picture, setPicture] = useState(pack.imageURL)
+    const [createPacks, setCreatePacks] = useState(pack.products.map((p, i)  => {return {name: p.name, quantity: p.quantity, id: i}}))
     const [isLoading, setIsLoading] = useState(false)
-    const [packId, setPackId] = useState(0)
+    const [packId, setPackId] = useState(pack.products.length)
     const toast = useToast()
     const router = useRouter()
 
@@ -114,7 +121,7 @@ import { useRouter } from 'next/router'
         addPack()
       }
       return <Stack>
-                {createPacks.map((pack, i) => {return <ProductForm isEdit={false} key={pack.id} packCreate={pack} index={i} removeProduct={removeProduct} inputProductName={inputProductName} inputProductQuantity={inputProductQuantity}/>})}
+                {createPacks.map((pack, i) => {return <ProductForm isEdit={true} key={pack.id} packCreate={pack} index={i} removeProduct={removeProduct} inputProductName={inputProductName} inputProductQuantity={inputProductQuantity}/>})}
       </Stack> 
     }
 
@@ -162,10 +169,9 @@ import { useRouter } from 'next/router'
       setCreatePacks([...createPacks, emptyPack])
     }
 
-    const createPack = async () => {
+    const updatePack = async () => {
       setIsLoading(true)
-      var request: CreatePackRequest = {
-        shop_id: shopDefault._id,
+      var request: UpdatePackRequest = {
         type: type,
         name: name,
         description: description,
@@ -187,10 +193,10 @@ import { useRouter } from 'next/router'
         imageURL: picture
       }
       try {
-        await CreatePack(request)
+        await UpdatePack(paramPackId, request)
         setIsLoading(false)
         toast({
-                title: `El pack fue creado exitosamente`,
+                title: `El pack fue actualizado exitosamente`,
                 status: 'success',
                 isClosable: true,
                 duration: 3000,
@@ -199,7 +205,7 @@ import { useRouter } from 'next/router'
         router.push(`/shops/${shopDefault._id}`)
       } catch (error) {
           toast({
-                title: `Ocurrió un error al crear el pack`,
+                title: `Ocurrió un error al actualizar el pack`,
                 status: 'error',
                 isClosable: true,
                 duration: 3000,
@@ -230,7 +236,7 @@ import { useRouter } from 'next/router'
               <Box>
                 <Flex alignItems="center" justifyContent="center" mb={4}>
                   <Heading as="h1" fontSize="3xl" fontWeight="bold" color="green.600">
-                    Agregar pack
+                    Modificar pack
                   </Heading>
                 </Flex>
               </Box>
@@ -238,6 +244,7 @@ import { useRouter } from 'next/router'
                 <FormControl id="name" isRequired>
                     <FormLabel>Nombre del pack</FormLabel>
                     <Input type="text" 
+                        defaultValue={pack.name}
                         placeholder="Elegí un nombre atractivo..."
                         onInput={(e) => inputName(e)}
                         _placeholder={{ color: 'gray.500' }}
@@ -249,6 +256,7 @@ import { useRouter } from 'next/router'
                     <FormLabel>Descripción</FormLabel>
                     <Textarea
                         size='md'
+                        defaultValue={pack.description}
                         placeholder="Redactá una descripción atrapante..."
                         onInput={(e) => inputDescription(e)}   
                         _placeholder={{ color: 'gray.500' }}
@@ -256,7 +264,7 @@ import { useRouter } from 'next/router'
                 </FormControl>
               </Box>
               <Box>
-                <RadioGroup  onChange={setType} value={type}>
+                <RadioGroup  onChange={setType} value={type} defaultValue={pack.type}>
                 <FormControl id="type">
                     <FormLabel>Seleccioná el tipo de pack</FormLabel>
                 </FormControl>  
@@ -310,6 +318,7 @@ import { useRouter } from 'next/router'
                       </InputLeftElement>
                       <Input type="text"
                         placeholder="DD/MM/AAAA"
+                        defaultValue={pack.best_before}
                         onInput={(e) => inputDateTime(e)}
                         onFocus={(e)=> changeTypeOnFocusToDate(e)}
                         onBlur={(e) => changeTypeOnBlurToText(e)}
@@ -322,6 +331,7 @@ import { useRouter } from 'next/router'
                 <FormControl id="stock" isRequired>
                     <FormLabel>Cantidad de packs disponibles</FormLabel>
                     <Input type="number" 
+                        defaultValue={pack.stock}
                         placeholder="0"
                         onInput={(e) => inputStock(e)}
                         _placeholder={{ color: 'gray.500' }}
@@ -339,6 +349,7 @@ import { useRouter } from 'next/router'
                       children='$'
                     />
                     <Input type="text"
+                        defaultValue={pack.price.amount}
                         placeholder="0.00"
                         onInput={(e) => inputPrice(e)}
                         _placeholder={{ color: 'gray.500' }}
@@ -357,6 +368,7 @@ import { useRouter } from 'next/router'
                       children='$'
                     />
                     <Input type="text"
+                        defaultValue={pack.original_price.amount}
                         placeholder="0.00"
                         onInput={(e) => inputOriginalPrice(e)}
                         _placeholder={{ color: 'gray.500' }}
@@ -379,8 +391,8 @@ import { useRouter } from 'next/router'
                 </FormControl>
               </Box>
               <Box>
-                <Button colorScheme="green" width="full" onClick={createPack} fontSize="md" isLoading={isLoading} >
-                  Crear Pack
+                <Button colorScheme="green" width="full" onClick={updatePack} fontSize="md" isLoading={isLoading} >
+                  Guardar cambios
                 </Button>
               </Box>
               <Box height='40px'></Box>
