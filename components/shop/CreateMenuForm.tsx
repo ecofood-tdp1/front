@@ -88,17 +88,6 @@ import { useRouter } from 'next/router'
       }
     }
 
-    const changeTypeOnFocusToDate = (event) => {
-      event.target.type="date"
-      event.target.focus()
-    }
-
-    const changeTypeOnBlurToText = (event) => {
-      if (dateTime == "") {
-        event.target.type="text"
-      }
-    }
-
     const inputPrice = (event) => {
       allowOnlyNumber(event)
       setPrice(Number(event.target.value))
@@ -308,11 +297,8 @@ import { useRouter } from 'next/router'
                         fontSize='1.2em'>
                           <CalendarIcon/>
                       </InputLeftElement>
-                      <Input type="text"
-                        placeholder="DD/MM/AAAA"
+                      <Input type="date"
                         onInput={(e) => inputDateTime(e)}
-                        onFocus={(e)=> changeTypeOnFocusToDate(e)}
-                        onBlur={(e) => changeTypeOnBlurToText(e)}
                         _placeholder={{ color: 'gray.500' }}
                     />
                     </InputGroup>

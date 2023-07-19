@@ -95,17 +95,6 @@ import { Pack } from '../../model/Pack';
       }
     }
 
-    const changeTypeOnFocusToDate = (event) => {
-      event.target.type="date"
-      event.target.focus()
-    }
-
-    const changeTypeOnBlurToText = (event) => {
-      if (dateTime == "") {
-        event.target.type="text"
-      }
-    }
-
     const inputPrice = (event) => {
       allowOnlyNumber(event)
       setPrice(Number(event.target.value))
@@ -316,12 +305,9 @@ import { Pack } from '../../model/Pack';
                         fontSize='1.2em'>
                           <CalendarIcon/>
                       </InputLeftElement>
-                      <Input type="text"
-                        placeholder="DD/MM/AAAA"
+                      <Input type="date"
                         defaultValue={pack.best_before}
                         onInput={(e) => inputDateTime(e)}
-                        onFocus={(e)=> changeTypeOnFocusToDate(e)}
-                        onBlur={(e) => changeTypeOnBlurToText(e)}
                         _placeholder={{ color: 'gray.500' }}
                     />
                     </InputGroup>
