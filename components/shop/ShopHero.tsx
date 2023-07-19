@@ -12,24 +12,24 @@ import {
     Box,
     Badge,
 } from '@chakra-ui/react';
-import { MdOutlineLocationOn, MdPhone, MdOutlineAccessTime, MdMap, MdDirections} from 'react-icons/md';
+import { MdOutlineLocationOn, MdPhone, MdOutlineAccessTime, MdMap, MdDirections } from 'react-icons/md';
 import ShopTypeBadge from './ShopTypeBadge';
 import { MdEdit, MdLibraryAdd } from 'react-icons/md';
 import { Shop } from '../../model/Shop';
 import { useRouter } from 'next/router';
 
 const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)',
-      width                 : '70%',
-      height                : '70%'
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        width: '70%',
+        height: '70%'
     }
-  };
+};
 
 interface ShopProp {
     shop: Shop
@@ -59,6 +59,15 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
 
     return (
         <Stack minH={'50vh'} direction={{ base: 'column', md: 'row' }}>
+            <Flex flex={1}>
+                <Image
+                    alt={'Shop Image'}
+                    objectFit={'cover'}
+                    src={shop.imageURL}
+                    maxWidth="100%"
+                    maxHeight="100%"
+                />
+            </Flex>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
                 <Stack spacing={6} w={'full'} maxW={'lg'}>
                     <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
@@ -85,7 +94,7 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
                         <Icon mr={3} as={MdOutlineLocationOn} color='green.500' boxSize={8} />
                         {shop.address} - {shop.neighborhood}
                     </Text>
-                    
+
                     <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
                         <Icon mr={3} as={MdPhone} color='blue.500' boxSize={8} />
                         {shop.phone}
@@ -110,7 +119,7 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
                         <Button onClick={openRouteModal} colorScheme="teal" variant="link">Ver recorrido</Button>
                     </Text>
                     {isTheOwner &&
-                        <Stack  direction={{ base: 'column', md: 'row' }}>
+                        <Stack direction={{ base: 'column', md: 'row' }}>
                             <Button leftIcon={<MdEdit />} width={36} colorScheme='green' size='md'>
                                 Editar Perfil
                             </Button>
@@ -121,15 +130,6 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
                     }
                 </Stack>
             </Flex >
-            { <Flex flex={1}>
-                {/* <Image
-                    alt={'Shop Image'}
-                    objectFit={'cover'}
-                    src={shop.imageURL}
-                    maxWidth="500px"
-                    maxHeight="500px"
-                /> */}
-            </Flex> }
             <Modal
                 isOpen={locationModalIsOpen}
                 onRequestClose={closeLocationModal}
@@ -139,12 +139,11 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
                 <iframe
                     width="100%"
                     height="100%"
-                    style={{border:0}}
-                    src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDf4zkmP9y4UaqOtacaLX47ZLMaLA2z-rY&q=${
-                        shop.phone === '5500-1058' ? '-34.60374519344541, -58.38348000284974' 
-                        : shop.phone === '4444-3333' ? '-34.549011695774794, -58.46838599120574' 
-                        : 'default_latitude,default_longitude'
-                    }`}>
+                    style={{ border: 0 }}
+                    src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDf4zkmP9y4UaqOtacaLX47ZLMaLA2z-rY&q=${shop.phone === '5500-1058' ? '-34.60374519344541, -58.38348000284974'
+                        : shop.phone === '4444-3333' ? '-34.549011695774794, -58.46838599120574'
+                            : 'default_latitude,default_longitude'
+                        }`}>
                 </iframe>
 
                 <button onClick={closeLocationModal}>Cerrar</button>
@@ -157,17 +156,16 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
                 contentLabel="Route to shop"
             >
                 <iframe
-    width="100%"
-    height="100%"
-    style={{border:0}}
-    src={`https://www.google.com/maps/embed/v1/directions?key=AIzaSyDf4zkmP9y4UaqOtacaLX47ZLMaLA2z-rY&origin=-34.617626802666706, -58.368444762770395&destination=${
-        shop.phone === '5500-1058' 
-            ? '-34.60374519344541, -58.38348000284974'   // Si el número de teléfono es '5500-1058', usa esta ubicación
-            : shop.phone === '4444-3333' 
-                ? '-34.549011695774794, -58.46838599120574' // Si el número de teléfono es '4444-3333', usa esta ubicación
-                : 'default_latitude,default_longitude'     // Si no se cumple ninguna de las condiciones anteriores, usa la ubicación predeterminada
-    }`}>
-</iframe>
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    src={`https://www.google.com/maps/embed/v1/directions?key=AIzaSyDf4zkmP9y4UaqOtacaLX47ZLMaLA2z-rY&origin=-34.617626802666706, -58.368444762770395&destination=${shop.phone === '5500-1058'
+                        ? '-34.60374519344541, -58.38348000284974'   // Si el número de teléfono es '5500-1058', usa esta ubicación
+                        : shop.phone === '4444-3333'
+                            ? '-34.549011695774794, -58.46838599120574' // Si el número de teléfono es '4444-3333', usa esta ubicación
+                            : 'default_latitude,default_longitude'     // Si no se cumple ninguna de las condiciones anteriores, usa la ubicación predeterminada
+                        }`}>
+                </iframe>
 
                 <button onClick={closeRouteModal}>Cerrar</button>
             </Modal>
