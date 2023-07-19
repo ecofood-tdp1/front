@@ -1,40 +1,36 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import logoEcofood from '../../public/ecofood_sin_fondo.png'
-import Image from 'next/image'
-import { UserDataContext} from "../../context/Context";
-import { ShopDataContext} from "../../context/ShopContext";
-import { useContext, useState, useEffect } from "react";
-import { useRouter } from 'next/router'
-import NextLink from 'next/link'
+// import { Fragment, useContext } from 'react'
+// import { Disclosure, Menu, Transition } from '@headlessui/react'
+// import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+// import logoEcofood from '../../public/ecofood_sin_fondo.png'
+// import Image from 'next/image'
+// import { UserDataContext} from "../../context/Context";
+// import { ShopDataContext} from "../../context/ShopContext";
+// import { useRouter } from 'next/router'
+// import NextLink from 'next/link'
+// import { Bars3Icon, XMarkIcon } from '@radix-ui/react-icons'
+// import { useEffect, useState } from 'react'
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+
+
+
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(' ')
+// }
 
 // export default function NavBar() {
 //   const { user, switchUser } = useContext(UserDataContext);
-//   const { shop } = useContext(ShopDataContext);
-  
-//   const [shopImage, setShopImage] = useState(shop ? shop.imageURL : "/defaultShopImage.png");
-  
-//   useEffect(() => {
-//     if (user.type === 'buyer' && router.pathname.startsWith('/shops/')) {
-//       const shopId = router.pathname.split('/shops/')[1];
-//       axios.get(`/api/shops/${shopId}`)
-//         .then(response => {
-//           setShopImage(response.data.imageURL);
-//         })
-//         .catch(error => {
-//           console.error('Error obteniendo los datos de la tienda:', error);
-//         });
-//     } else {
-//       setShopImage("/defaultShopImage.png");
-//     }
-//   }, [router.pathname, user.type]);
-
 //   const router = useRouter();
+  // const [imageUrl, setImageUrl] = useState("/defaultShopImage.png");
+
+  // useEffect(() => {
+  //   if (router.asPath === "/shops/e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d") {
+  //     setImageUrl('https://media-cdn.tripadvisor.com/media/photo-s/12/0d/5f/80/entrada-de-la-continental.jpg');
+  //   } else if (router.asPath === "/shops/05af642c-4973-4db9-9e75-28dbac7c4c7b") {
+  //     setImageUrl('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/6da5c874261627.5c2909702b094.png'); // reemplaza esta URL con la real
+  //   } else {
+  //     setImageUrl("/defaultShopImage.png"); // imagen por defecto
+  //   }
+  // }, [router.asPath]);
 
 //   const navigation = [
 //     { name: 'Home', href: '/', current: router.pathname == '/', visible_to: 'all' },
@@ -74,17 +70,15 @@ function classNames(...classes) {
 //                     alt="Ecofood"
 //                   />
 //                 </div>
-//                 <div>
-//                     {user.type === 'buyer' && router.pathname.startsWith('/shops/') && 
-//                       <Image
-//                         className="hidden h-10 w-auto lg:block"
-//                         src={shopImage}
-//                         alt="Shop Image"
-//                         width={40}   
-//                         height={40} 
-//                       />
-//                     }
-//                   </div>
+//                 {user.type === 'buyer' && router.pathname.startsWith('/shops/') && 
+//                   <Image
+//                     className="hidden h-10 w-auto lg:block"
+//                     src={imageUrl}  // ruta a la imagen por defecto del usuario
+//                     alt="Shop Image"
+//                     width={40}   // define the width and height
+//                     height={40}  // of the user image
+//                   />
+//                 }
 //               </div>
 //               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 //                 {/* Profile name */}
@@ -164,12 +158,39 @@ function classNames(...classes) {
 //       )}
 //     </Disclosure>
 //   )
+
 // }
 
+// import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/outline"
+import logoEcofood from '../../public/ecofood_sin_fondo.png'
+import Image from 'next/image'
+import { UserDataContext } from "../../context/Context";
+import { useContext, useEffect, useState } from "react";
+import { useRouter } from 'next/router'
+import NextLink from 'next/link'
+// import {} from '@heroicons/react/24/outline'
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
 export default function NavBar() {
   const { user, switchUser } = useContext(UserDataContext);
   const router = useRouter();
+  const [imageUrl, setImageUrl] = useState("/defaultShopImage.png");
+
+  useEffect(() => {
+    if (router.asPath === "/shops/e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d") {
+      setImageUrl('https://media-cdn.tripadvisor.com/media/photo-s/12/0d/5f/80/entrada-de-la-continental.jpg');
+    } else if (router.asPath === "/shops/05af642c-4973-4db9-9e75-28dbac7c4c7b") {
+      setImageUrl('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/6da5c874261627.5c2909702b094.png'); // reemplaza esta URL con la real
+    } else {
+      setImageUrl("/defaultShopImage.png"); // imagen por defecto
+    }
+  }, [router.asPath]);
+
 
   const navigation = [
     { name: 'Home', href: '/', current: router.pathname == '/', visible_to: 'all' },
@@ -187,34 +208,42 @@ export default function NavBar() {
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                {/* <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                   ) : (
                     <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                   )}
-                </Disclosure.Button>
+                </Disclosure.Button> */}
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <Image
-                    className="block h-8 w-auto lg:hidden"
+              <div className="flex items-center justify-start">
+              <div className="flex items-center mr-4">                  
+              <Image
+                  
+                   className="h-8 w-auto"
                     src={logoEcofood}
                     alt="Ecofood"
                   />
-                  <Image
-                    className="hidden h-10 w-auto lg:block"
-                    src={logoEcofood}
-                    alt="Ecofood"
-                  />
+                 
                 </div>
                 
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="flex items-center justify-end sm:ml-6 sm:pr-0">  
+                          {user.type === 'buyer' && router.pathname.startsWith('/shops/') &&
+                                <Image
+                                    className="h-10 w-auto lg:block mr-2"
+                                    src={imageUrl}  // ruta a la imagen por defecto del usuario
+                                    alt="Shop Image"
+                                    width={20}   // define the width and height
+                                    height={20}  // of the user image
+                                />
+                            }
+                
+                
                 {/* Profile name */}
                 <span className="mr-2 text-gray-600 text-sm font-medium">{user.display_name}</span>
-                
+
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
@@ -298,3 +327,4 @@ export default function NavBar() {
     </Disclosure>
   )
 }
+

@@ -119,15 +119,14 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
                 </Stack>
             </Flex >
             { <Flex flex={1}>
-                <Image
+                {/* <Image
                     alt={'Shop Image'}
                     objectFit={'cover'}
                     src={shop.imageURL}
                     maxWidth="500px"
                     maxHeight="500px"
-                />
+                /> */}
             </Flex> }
-
             <Modal
                 isOpen={locationModalIsOpen}
                 onRequestClose={closeLocationModal}

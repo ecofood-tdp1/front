@@ -1,8 +1,7 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
-import { Shop as ShopData } from "../model/Shop"; // actualiza esta ruta para tu modelo de tienda
+import { useRouter } from 'next/router';
+import { Shop as ShopData } from "../model/Shop"; 
 
-
-// Asegúrate de reemplazar esto con un valor predeterminado más apropiado
 const defaultShop: ShopData = {
     _id: '',
     name: '',
@@ -35,7 +34,18 @@ interface ContextProps {
 }
 
 export function ShopContext({ children }: ContextProps) {
+    const router = useRouter();
+    const { id } = router.query;
     const [currentShop, setCurrentShop] = useState<ShopData>(defaultShop);
+
+    useEffect(() => {
+        // Si la ruta es la de una tienda, obtén los datos de la tienda
+        if (router.pathname.startsWith('/shops/') && id) {
+            fetch(`/api/shops/${id}`)  // actualiza esta ruta a tu API de tiendas
+                .then(response => response.json())
+                .then(shopData => setCurrentShop(shopData));
+        }
+    }, [router.pathname, id]);
 
     const value = {
         shop: currentShop,
