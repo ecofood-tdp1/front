@@ -5,7 +5,7 @@ import logoEcofood from '../../public/ecofood_sin_fondo.png'
 import Image from 'next/image'
 import { UserDataContext} from "../../context/Context";
 import { ShopDataContext} from "../../context/ShopContext";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 
@@ -15,8 +15,24 @@ function classNames(...classes) {
 
 // export default function NavBar() {
 //   const { user, switchUser } = useContext(UserDataContext);
-//   const { shop, setShop} = useContext(ShopDataContext);
-//   setShop(shopData);
+//   const { shop } = useContext(ShopDataContext);
+  
+//   const [shopImage, setShopImage] = useState(shop ? shop.imageURL : "/defaultShopImage.png");
+  
+//   useEffect(() => {
+//     if (user.type === 'buyer' && router.pathname.startsWith('/shops/')) {
+//       const shopId = router.pathname.split('/shops/')[1];
+//       axios.get(`/api/shops/${shopId}`)
+//         .then(response => {
+//           setShopImage(response.data.imageURL);
+//         })
+//         .catch(error => {
+//           console.error('Error obteniendo los datos de la tienda:', error);
+//         });
+//     } else {
+//       setShopImage("/defaultShopImage.png");
+//     }
+//   }, [router.pathname, user.type]);
 
 //   const router = useRouter();
 
@@ -58,15 +74,17 @@ function classNames(...classes) {
 //                     alt="Ecofood"
 //                   />
 //                 </div>
-//                 {user.type === 'buyer' && router.pathname.startsWith('/shops/') && 
-//                   <Image
-//                     className="hidden h-10 w-auto lg:block"
-//                     src={shop ? shop.imageURL : "/defaultShopImage.png"}  // ruta a la imagen por defecto del usuario
-//                     alt="Shop Image"
-//                     width={40}   // define the width and height
-//                     height={40}  // of the user image
-//                   />
-//                 }
+//                 <div>
+//                     {user.type === 'buyer' && router.pathname.startsWith('/shops/') && 
+//                       <Image
+//                         className="hidden h-10 w-auto lg:block"
+//                         src={shopImage}
+//                         alt="Shop Image"
+//                         width={40}   
+//                         height={40} 
+//                       />
+//                     }
+//                   </div>
 //               </div>
 //               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 //                 {/* Profile name */}
