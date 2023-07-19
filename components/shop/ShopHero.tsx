@@ -68,7 +68,7 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
                     maxHeight="100%"
                 />
             </Flex>
-            <Flex p={8} flex={1} align={'center'} justify={'center'}>
+            <Flex px={8} flex={1} align={'center'} justify={'center'}>
                 <Stack spacing={6} w={'full'} maxW={'lg'}>
                     <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
                         <Text
@@ -86,47 +86,68 @@ const ShopHero: React.FC<ShopProp> = ({ shop, isTheOwner }) => {
                             {shop.name}
                         </Text>
                     </Heading>
-                    <ShopTypeBadge shopType={shop.type} />
-                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-                        {shop.description}
-                    </Text>
-                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
-                        <Icon mr={3} as={MdOutlineLocationOn} color='green.500' boxSize={8} />
-                        {shop.address} - {shop.neighborhood}
-                    </Text>
 
-                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
-                        <Icon mr={3} as={MdPhone} color='blue.500' boxSize={8} />
-                        {shop.phone}
-                    </Text>
-                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
-                        <Icon mr={3} as={MdOutlineAccessTime} color='purple.500' boxSize={8} />
-                        Retirá tu comida desde las{' '}
-                        <Box as="span" fontWeight="bold">
-                            {shop.pick_up_from}
-                        </Box>{' '}
-                        a las{' '}
-                        <Box as="span" fontWeight="bold">
-                            {shop.pick_up_to}
-                        </Box>
-                    </Text>
-                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
-                        <Icon mr={3} as={MdMap} color='teal.500' boxSize={8} />
-                        <Button onClick={openLocationModal} colorScheme="teal" variant="link">Ver ubicacion</Button>
-                    </Text>
-                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
-                        <Icon mr={3} as={MdDirections} color='teal.500' boxSize={8} />
-                        <Button onClick={openRouteModal} colorScheme="teal" variant="link">Ver recorrido</Button>
-                    </Text>
+                    {!isTheOwner && <>
+                        <ShopTypeBadge shopType={shop.type} />
+                        <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
+                            {shop.description}
+                        </Text>
+                        <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
+                            <Icon mr={3} as={MdOutlineLocationOn} color='green.500' boxSize={8} />
+                            {shop.address} - {shop.neighborhood}
+                        </Text>
+
+                        <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
+                            <Icon mr={3} as={MdPhone} color='blue.500' boxSize={8} />
+                            {shop.phone}
+                        </Text>
+                        <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
+                            <Icon mr={3} as={MdOutlineAccessTime} color='purple.500' boxSize={8} />
+                            Retirá tu comida desde las{' '}
+                            <Box as="span" fontWeight="bold">
+                                {shop.pick_up_from}
+                            </Box>{' '}
+                            a las{' '}
+                            <Box as="span" fontWeight="bold">
+                                {shop.pick_up_to}
+                            </Box>
+                        </Text>
+                        <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
+                            <Icon mr={3} as={MdMap} color='teal.500' boxSize={8} />
+                            <Button onClick={openLocationModal} colorScheme="teal" variant="link">Ver ubicacion</Button>
+                        </Text>
+                        <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.700'}>
+                            <Icon mr={3} as={MdDirections} color='teal.500' boxSize={8} />
+                            <Button onClick={openRouteModal} colorScheme="teal" variant="link">Ver recorrido</Button>
+                        </Text>
+                    </>}
+
                     {isTheOwner &&
-                        <Stack direction={{ base: 'column', md: 'row' }}>
-                            <Button leftIcon={<MdEdit />} width={36} colorScheme='green' size='md'>
-                                Editar Perfil
-                            </Button>
+                        <Flex flex={1} align={'center'} justify={'center'}>
                             <Button leftIcon={<MdLibraryAdd />} onClick={() => router.push('/shops/createmenu')} width={36} colorScheme='green' size='md'>
                                 Agregar Pack
                             </Button>
-                        </Stack>
+                        </Flex>
+                    }
+                    {isTheOwner ?
+                        <Heading fontSize={{ base: '2xl', md: 'xl', lg: 'xl' }}>
+                            <Text
+                                as={'span'}
+                                position={'relative'}
+                                color={"green.600"}
+                            >
+                                Mis packs
+                            </Text>
+                        </Heading>
+                        :
+                        <Heading color={"green.600"} fontSize={{ base: '3xl', md: '3xl', lg: '3xl' }}>
+                            <Text
+                                as={'span'}
+                                position={'relative'}
+                            >
+                                Packs
+                            </Text>
+                        </Heading>
                     }
                 </Stack>
             </Flex >

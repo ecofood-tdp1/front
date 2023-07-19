@@ -20,7 +20,7 @@ export const Shop = ({ shopData, shopId }) => {
       mx="auto"
       px={{ base: '4', md: '8', lg: '12' }}
       py={{ base: '6', md: '8', lg: '12' }}
-      mb={20}
+      mb={2}
     >
 
       <PackGrid>
