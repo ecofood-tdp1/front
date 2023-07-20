@@ -51,6 +51,7 @@ const BuyerHome = () => {
         console.log(value)
 
         if (name === "neighborhood") {
+            setSelectedCategoryFilter(null)
             result = result.filter(s => s.neighborhood.toLowerCase().includes(value.toLowerCase()))
         }
 
