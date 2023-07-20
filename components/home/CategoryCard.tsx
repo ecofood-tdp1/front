@@ -66,6 +66,7 @@ export const CategoryCard: React.FC<ShopCardProps> = ({ type, selected, onClick 
                 borderWidth='1px'
                 backgroundColor={selected ? useColorModeValue('gray.300', 'gray.900') : 'transparent'} // useColorModeValue('gray.100', 'gray.700')
                 shadow={useColorModeValue('base', 'dark-lg')}
+                key={type}
                 onClick={() => onClick(type)}
             >
                 <Image
