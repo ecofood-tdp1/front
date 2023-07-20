@@ -23,7 +23,7 @@ export const Shop = ({ shopData, shopId }) => {
       mb={2}
     >
 
-      <PackGrid>
+      <PackGrid mb={16}>
         {packs.map((pack) => (
           <PackCard key={pack._id} pack={pack} isTheOwner={isTheOwner} setPacks={setPacks}/>
         ))}
